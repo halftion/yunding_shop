@@ -42,7 +42,7 @@ public class PlatformGoodsCategoryController {
      * @return 对应商品列表
      */
     @ResponseBody
-    @RequestMapping(value = "allGoods/sales/{categoryId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/allGoods/sales/{categoryId}",method = RequestMethod.GET)
     public RequestResult allGoodsSales(@PathVariable int categoryId){
         try{
             ServiceResult result=platformGoodsCategoryService.getAllGoods(categoryId);

@@ -20,6 +20,11 @@ public class ContentController {
     @Autowired
     private ContentServiceImpl contentService;
 
+    /**
+     * 根据板块ID获取文章信息
+     * @param typeId 板块ID
+     * @return 文章信息
+     */
     @RequestMapping(value = "/{typeId}" , method = RequestMethod.GET)
     public RequestResult getContentByTypeId( @PathVariable("typeId") Integer typeId){
         try{

@@ -28,6 +28,90 @@
 	"message" : "xxx错误"
 }
 
+2.通过平台分类id获取对应的所有商品：/api/platformCategory/allGoods/sales/{categoryId} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "goodsId": 2,
+            "shopId": 1,
+            "shopName": "篮球店铺",
+            "platformGoodsCateGoryId": 1,
+            "shopGoodsCateGoryId": 1,
+            "name": "超级蓝色篮球",
+            "stockNum": 100,
+            "price": 150,
+            "sales": 38,
+            "commentNum": 0,
+            "collectionNum": 0,
+            "state": 0,
+            "createdAt": 1533007295000,
+            "updatedAt": 1533007296000
+        },
+        {
+            "goodsId": 3,
+            "shopId": 1,
+            "shopName": "篮球店铺",
+            "platformGoodsCateGoryId": 1,
+            "shopGoodsCateGoryId": 1,
+            "name": "超级黄色篮球",
+            "stockNum": 100,
+            "price": 150,
+            "sales": 23,
+            "commentNum": 0,
+            "collectionNum": 0,
+            "state": 0,
+            "createdAt": 1533084458000,
+            "updatedAt": 1533084463000
+        }
+        ],
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": [],
+    "message": "操作成功！"
+}
+失败返回示例:
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+3.根据板块类型id获取文章信息：/api/content/{typeId} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "contentId": 1,
+            "pic": "",
+            "title1": "限时促销",
+            "title2": "女装",
+            "title3": "2018新款",
+            "type": 1
+        }
+    ],
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": [],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code":500,
+    "message" : "xxx错误"
+}
+
+4.
+
+
+店铺： 搜索 
 
 2.根据店铺id获取店铺分类栏：/api/shopCategory/list/{shopId} (GET)
 成功返回示例：
@@ -46,7 +130,7 @@
     "message": "操作成功！"
 }
 
-为空：
+为空返回示例：
 {
     "code": 200,
     "data": [],
@@ -55,23 +139,104 @@
 
 失败返回示例：
 {
-	"code" :500,
-	"message" : "xxx错误"
+    "code" :500,
+    "message" : "xxx错误"
 }
 
-3.根据板块类型id获取文章信息：
+
+固定页面：登陆 注册 导航栏搜索 购物车
+登陆页面：/api/user/login (POST)
+JSON传入：
+{
+    "loginName" : "999",
+    "password" : "990616"
+}
 成功返回示例：
 {
     "code": 200,
-    "data": [
-        {
-            "contentId": 1,
-            "pic": "",
-            "title1": "限时促销",
-            "title2": "女装",
-            "title3": "2018新款",
-            "type": 1
-        }
-    ],
+    "data": {
+        "userId": 16,
+        "gender": 0,
+        "xp": 0,
+        "state": 0,
+        "createdAt": 1533279758000,
+        "updatedAt": 1533279758000
+    },
     "message": "操作成功！"
 }
+失败返回案例：
+{
+    "code": 500,
+    "message": "用户名和密码不匹配"
+}
+
+退出登陆页面：/api/user/logout (GET)
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+
+
+
+
+商品详情：
+
+5.根据商品id查询商品：/api/goods/id/{id} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "goodsId": 2,
+        "shopId": 1,
+        "shopName": "篮球店铺",
+        "platformGoodsCateGoryId": 1,
+        "shopGoodsCateGoryId": 1,
+        "name": "超级蓝色篮球",
+        "stockNum": 100,
+        "price": 150,
+        "sales": 38,
+        "commentNum": 0,
+        "collectionNum": 0,
+        "state": 0,
+        "createdAt": 1533007295000,
+        "updatedAt": 1533007296000
+    },
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+订单：
+
+6.创建一个新订单：/api/order/create (POST)
+JSON传入：
+{
+    "goodsId":2,
+    "goodsName":"篮球",
+    "goodsNum":1,
+    "remark":"早点发货！",
+    "address":"火星",
+    "phoneNumber":"120",
+    "consigneeName":"郭怡馨"
+}
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "创建订单失败 "
+}
+
+7.查询
