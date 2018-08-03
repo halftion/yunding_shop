@@ -30,7 +30,7 @@ public class UserController {
     private VerificationCodeService verificationCodeService;
 
     /**
-     * 检测用户名是否被占用
+     * 检测登录名是否被占用
      * @param loginName 登录名
      */
     @RequestMapping(value = "/checkLoginName/{loginName}", method = RequestMethod.GET)
