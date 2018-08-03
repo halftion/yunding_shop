@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="yunding.shop.mapper.PlatformGoodsCategoryMapper">
+    <select id="selectAll"
+            resultType="yunding.shop.entity.PlatformGoodsCategory">
+        SELECT * FROM t_platform_goods_category
+    </select>
+</mapper>

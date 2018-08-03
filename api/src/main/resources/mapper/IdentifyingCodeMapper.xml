@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.IdentifyingCodeMapper">
+
+    <insert id="insert" parameterType="yunding.shop.entity.IdentifyingCode">
+        INSERT INTO t_identifying_code (login_name,code,created_at) VALUES (#{loginName},#{code},#{createdAt})
+    </insert>
+
+    <select id="selectByLoginName" parameterType="java.lang.String" resultType="yunding.shop.entity.IdentifyingCode">
+        SELECT * FROM t_identifying_code WHERE login_name = #{loginName} AND state = 0
+    </select>
+
+    <update id="drop" parameterType="java.lang.String">
+        UPDATE t_identifying_code SET state = -1 WHERE login_name = #{loginName}
+    </update>
+</mapper>

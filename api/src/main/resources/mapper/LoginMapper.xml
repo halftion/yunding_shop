@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.LoginMapper">
+
+    <insert id="insert" parameterType="yunding.shop.entity.Login">
+        INSERT INTO t_login (user_id,login_name,password,created_at,updated_at) VALUES (#{userId},#{loginName},#{password},#{createdAt},#{updatedAt})
+    </insert>
+
+    <select id="selectByLoginName" parameterType="java.lang.String" resultType="yunding.shop.entity.Login">
+        SELECT * FROM t_login WHERE login_name = #{loginName}
+    </select>
+
+</mapper>

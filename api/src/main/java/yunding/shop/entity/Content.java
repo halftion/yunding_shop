@@ -1,0 +1,84 @@
+package yunding.shop.entity;
+
+import javax.persistence.GeneratedValue;
+
+/**
+ * 首页文章
+ * @author 齐语冰
+ */
+
+public class Content {
+    /**
+     * 文章 id
+     */
+    @GeneratedValue(generator = "JDBC")
+    private Integer contentId;
+    /**
+     * 文章 标题1
+     */
+    private String title1;
+    /**
+     * 文章 标题2
+     */
+    private String title2;
+    /**
+     * 文章 标题3
+     */
+    private String title3;
+    /**
+     * 文章 图片地址
+     */
+    private String pic;
+    /**
+     * 文章 类型：0-轮播图，1-热卖商品，2-新品首发，3-精选好物
+     */
+    private Integer type;
+
+    public Integer getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(Integer contentId) {
+        this.contentId = contentId;
+    }
+
+    public String getTitle1() {
+        return title1;
+    }
+
+    public void setTitle1(String title1) {
+        this.title1 = title1;
+    }
+
+    public String getTitle2() {
+        return title2;
+    }
+
+    public void setTitle2(String title2) {
+        this.title2 = title2;
+    }
+
+    public String getTitle3() {
+        return title3;
+    }
+
+    public void setTitle3(String title3) {
+        this.title3 = title3;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+}

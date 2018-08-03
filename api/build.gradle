@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'yunding_shop'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    /*单元测试*/
+    compile group: 'junit', name: 'junit', version:'4.12'
+
+
+    /*1.日志*/
+    /*实现slf4j接口并整合*/
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.1'
+
+
+    /*2.数据库*/
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.46'
+    compile group: 'com.alibaba', name: 'druid', version:'1.1.10'
+    /*DAO: MyBatis*/
+    compile group: 'org.mybatis', name: 'mybatis', version:'3.4.5'
+    compile group: 'tk.mybatis', name: 'mapper', version:'4.0.3'
+    compile group: 'org.mybatis', name: 'mybatis-spring', version:'1.3.2'
+
+
+    /*3.Servlet web*/
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+    compile group: 'taglibs', name: 'standard', version:'1.1.2'
+    compile group: 'jstl', name: 'jstl', version:'1.2'
+    /*Jackson相关*/
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.8.7'
+
+
+    /*4.Spring*/
+    /*1)Spring核心*/
+    compile group: 'org.springframework', name: 'spring-core', version:'4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version:'4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version:'4.3.7.RELEASE'
+    /*2)Spring DAO层*/
+    compile group: 'org.springframework', name: 'spring-jdbc', version:'4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version:'4.3.7.RELEASE'
+    /*3)Spring web*/
+    compile group: 'org.springframework', name: 'spring-web', version:'4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'4.3.7.RELEASE'
+    /*)Spring test*/
+    compile group: 'org.springframework', name: 'spring-test', version:'4.3.7.RELEASE'
+    /*redis客户端:Jedis*/
+    compile group: 'redis.clients', name: 'jedis', version:'2.9.0'
+    compile group: 'com.dyuproject.protostuff', name: 'protostuff-core', version:'1.0.12'
+    compile group: 'com.dyuproject.protostuff', name: 'protostuff-runtime', version:'1.0.12'
+    /*Map工具类*/
+    compile group: 'commons-collections', name: 'commons-collections', version:'3.2'
+    compile group: 'net.coobird', name: 'thumbnailator', version:'0.4.8'
+    compile group: 'com.github.penggle', name: 'kaptcha', version:'2.3.2'
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version:'1.3.2'
+    /*wechat相关*/
+    compile group: 'net.sf.json-lib', name: 'json-lib', version:'2.4', classifier:'jdk15'
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version:'1.4.9'
+    compile group: 'org.dom4j', name: 'dom4j', version:'2.0.0'
+    /*二维码相关*/
+    compile group: 'com.google.zxing', name: 'javase', version:'3.3.0'
+    /*短信验证码相关*/
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '4.0.3'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.1.0'
+
+
+/*    *//*swagger相关*//*
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'
+    *//*Validation验证框架*//*
+    compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.0.Final'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.9.1'*/
+
+}

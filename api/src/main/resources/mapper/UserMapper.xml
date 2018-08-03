@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.UserMapper">
+
+    <select id="selectById" parameterType="java.lang.Integer"
+            resultType="yunding.shop.entity.User">
+        SELECT * FROM t_user_info WHERE user_id = #{id}
+    </select>
+
+    <update id="update"
+            useGeneratedKeys="true"
+            keyProperty="userId"
+            keyColumn="user_id"
+            parameterType="yunding.shop.entity.User">
+        UPDATE t_user_info SET nick_name = #{nickName}, gender = #{gender},
+        birthday = #{birthday}, phone_number = #{phoneNumber}, email = #{email}, updated_at = #{updatedAt} WHERE user_id = #{userId}
+    </update>
+
+    <insert id="insert"
+            useGeneratedKeys="true"
+            keyProperty="userId"
+            keyColumn="user_id"
+            parameterType="yunding.shop.entity.User">
+        INSERT t_user_info (created_at,updated_at) VALUES(#{createdAt},#{updatedAt})
+    </insert>
+
+</mapper>

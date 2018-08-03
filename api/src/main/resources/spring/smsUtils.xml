@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:shortMessging.properties" />
+
+    <bean id="smsUtils" class="yunding.shop.utils.SmsUtil">
+        <property name="product" value="${SMS.product}"/>
+        <property name="domain" value="${SMS.domain}"/>
+        <property name="accessKeyId" value="${SMS.accessKeyId}"/>
+        <property name="accessKeySecret" value="${SMS.accessKeySecret}"/>
+        <property name="signName" value="${SMS.signName}"/>
+        <property name="templateCode" value="${SMS.templateCode_register}"/>
+        <property name="outTime" value="${SMS.outTime}"/>
+    </bean>
+
+</beans>
