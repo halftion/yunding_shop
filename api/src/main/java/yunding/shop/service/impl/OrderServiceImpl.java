@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
 import yunding.shop.mapper.GoodsMapper;
@@ -12,6 +13,7 @@ import yunding.shop.mapper.OrderMapper;
 import yunding.shop.mapper.UserMapper;
 import yunding.shop.service.OrderService;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -32,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
             Integer goodsId = order.getGoodsId();
             Goods goods = (goodsMapper.selectByGoodsId(goodsId));
             order.setUnitPrice(goods.getPrice());
-            order.setTotalPrice(goods.getPrice() * order.getGoodsNum());
+            order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
             order.setShopId(goods.getShopId());
             order.setShopName(goods.getShopName());
             order.setCreatedAt(new Date());
@@ -56,7 +58,9 @@ public class OrderServiceImpl implements OrderService {
             Integer orderUser = newOrder.getUserId();
             Integer state = newOrder.getState();
             if(orderUser.equals(userId)){
-                if(state == 3 ){
+                if(state.equals(Constant.WAIT_COMMENT) ){
+                    order.setState(Constant.OVER_ORDER);
+                    orderMapper.commentOrder(order);
                     return ServiceResult.success();
                 }else {
                     return ServiceResult.failure("订单状态有误");

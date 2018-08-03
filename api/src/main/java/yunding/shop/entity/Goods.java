@@ -1,6 +1,7 @@
 package yunding.shop.entity;
 
 import javax.persistence.GeneratedValue;
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -41,7 +42,7 @@ public class Goods implements Comparator {
     /**
      * 商品 价格
      */
-    private Double price;
+    private BigDecimal price;
     /**
      * 商品 预览图片地址
      */
@@ -135,11 +136,11 @@ public class Goods implements Comparator {
         this.stockNum = stockNum;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

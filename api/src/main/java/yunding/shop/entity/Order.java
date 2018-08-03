@@ -1,6 +1,7 @@
 package yunding.shop.entity;
 
 import javax.persistence.GeneratedValue;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /** 订单
@@ -31,11 +32,11 @@ public class Order {
     /**
      * 订单 商品单价
      */
-    private Double unitPrice;
+    private BigDecimal unitPrice;
     /**
      * 订单 商品总价
      */
-    private Double totalPrice;
+    private BigDecimal totalPrice;
     /**
      * 订单 店铺id
      */
@@ -121,19 +122,19 @@ public class Order {
         this.goodsNum = goodsNum;
     }
 
-    public Double getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
