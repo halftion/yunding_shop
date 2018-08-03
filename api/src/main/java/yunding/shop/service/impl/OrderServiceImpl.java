@@ -40,7 +40,10 @@ public class OrderServiceImpl implements OrderService {
             order.setCreatedAt(new Date());
             order.setUpdatedAt(new Date());
             Integer i = orderMapper.createOrder(order);
-            if(i == 1){
+            Integer j = goodsMapper.updateStockAndSales(goodsId,
+                    (goods.getStockNum() - order.getGoodsNum()),
+                    (goods.getState() + order.getGoodsNum()));
+            if(i == 1 && j ==1){
                 return ServiceResult.success();
             }else {
                 return ServiceResult.failure();
@@ -97,5 +100,4 @@ public class OrderServiceImpl implements OrderService {
             return ServiceResult.failure("Service 错误 查询订单失败");
         }
     }
-
 }

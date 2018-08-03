@@ -52,4 +52,15 @@ public interface GoodsMapper {
      * @return 对应的商品列表
      */
     List<Goods> selectByShopIdAndGoodsName(@Param("shopId") Integer shopId, @Param("goodsName") String goodsName);
+
+    /**
+     * 创建订单时更改商品的库存和销量
+     * @param goodsId 商品Id
+     * @param stockNum 商品更改后库存
+     * @param sales 商品更改后销量
+     * @return
+     */
+    Integer updateStockAndSales ( @Param("goodsId") Integer goodsId  ,
+                                  @Param("stockNum") Integer stockNum ,
+                                  @Param("sales") Integer sales);
 }

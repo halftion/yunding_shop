@@ -27,4 +27,9 @@
     <select id="selectByShopIdAndGoodsName" resultType="yunding.shop.entity.Goods">
         SELECT * FROM t_goods WHERE shop_id = #{shopId} AND `name` LIKE #{goodsName}
     </select>
+    
+    <update id="updateStockAndSales">
+        UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales}
+        WHERE goods_id = #{goodsId}
+    </update>
 </mapper>
