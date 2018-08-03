@@ -1,7 +1,6 @@
 package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.IdentifyingCode;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.User;
 
