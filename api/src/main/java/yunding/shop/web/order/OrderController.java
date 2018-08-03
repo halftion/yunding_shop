@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
+import yunding.shop.entity.User;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.impl.OrderServiceImpl;
 
@@ -28,8 +29,7 @@ public class OrderController {
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
     public RequestResult createOrder(@RequestBody Order order , HttpServletRequest request){
         try {
-            Integer userId = 2;
-//            ((User)request.getSession().getAttribute("user")).getUserId();
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = orderService.createOrder(userId,order);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(null);
@@ -49,8 +49,7 @@ public class OrderController {
     @RequestMapping(value = "/comment" ,method = RequestMethod.PUT)
     public RequestResult commentOrder(@RequestBody Order order , HttpServletRequest request){
         try {
-            Integer userId = 2;
-//           ((User)request.getSession().getAttribute("user")).getUserId();
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = orderService.commentOrder(userId,order);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(null);
@@ -70,8 +69,7 @@ public class OrderController {
     @RequestMapping(value = "/user" , method = RequestMethod.GET)
     public RequestResult selectByUserId(HttpServletRequest request){
         try {
-            Integer userId = 2;
-//           ((User)request.getSession().getAttribute("user")).getUserId();
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = orderService.selectByUserId(userId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
@@ -92,8 +90,7 @@ public class OrderController {
     @RequestMapping(value = "/orderId/{orderId}" , method = RequestMethod.GET)
     public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId, HttpServletRequest request){
         try {
-            Integer userId = 2;
-//           ((User)request.getSession().getAttribute("user")).getUserId();
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = orderService.selectByOrderId(userId,orderId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
