@@ -103,14 +103,21 @@ public class UserController {
      * @param userId 用户id
      */
     @RequestMapping(value = "/info/{userId}", method = RequestMethod.GET)
-    public RequestResult searchById(@PathVariable("userId") Integer userId) {
+    public RequestResult searchById(@PathVariable("userId") Integer userId,
+                                    HttpServletRequest request) {
         try {
+            Integer Id = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = userService.searchById(userId);
-            if(serviceResult.isSuccess()) {
-                return RequestResult.success(serviceResult.getData());
-            } else {
-                return RequestResult.failure(serviceResult.getMessage());
+            if(Id.equals(userId)){
+                if(serviceResult.isSuccess()) {
+                    return RequestResult.success(serviceResult.getData());
+                } else {
+                    return RequestResult.failure(serviceResult.getMessage());
+                }
+            }else {
+                return RequestResult.failure("用户ID不匹配");
             }
+
         } catch (Exception e) {
             return RequestResult.failure("搜索失败");
         }
