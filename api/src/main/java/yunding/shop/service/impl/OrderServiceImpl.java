@@ -28,20 +28,23 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult createOrder(Integer userId, Order order) {
         try{
-            order.setUserId(userId);
-            Integer goodsId = order.getGoodsId();
-            Goods goods = (goodsMapper.selectByGoodsId(goodsId));
-            order.setUnitPrice(goods.getPrice());
-            order.setTotalPrice(goods.getPrice() * order.getGoodsNum());
-            order.setShopId(goods.getShopId());
-            order.setShopName(goods.getShopName());
-            order.setCreatedAt(new Date());
-            order.setUpdatedAt(new Date());
-            Integer i = orderMapper.createOrder(order);
-            if(i == 1){
-                return ServiceResult.success();
-            }else {
-                return ServiceResult.failure();
+            Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
+            Integer orderUser = newOrder.getUserId();
+            Integer state = newOrder.getState();
+            if(userId.equals(orderUser)) {
+                if (state == 3) {
+                    order.setState(4);
+                    orderMapper.commentOrder(order);
+                    return ServiceResult.success();
+                } else if (state < 3 && state >= 0) {
+                    return ServiceResult.failure("用户未收货，无法评价");
+                } else if (state == 4) {
+                    return ServiceResult.failure("您已评价");
+                } else {
+                    return ServiceResult.failure("订单状态有误");
+                }
+            } else {
+                return ServiceResult.failure("用户ID和订单不匹配");
             }
         }catch (Exception e){
             throw new RuntimeException("创建订单失败");
