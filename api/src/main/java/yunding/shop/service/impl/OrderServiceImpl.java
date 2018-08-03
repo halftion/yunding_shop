@@ -3,6 +3,7 @@ package yunding.shop.service.impl;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
@@ -24,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private GoodsMapper goodsMapper;
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult createOrder(Integer userId, Order order) {
         try{
             order.setUserId(userId);
@@ -42,11 +44,12 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure();
             }
         }catch (Exception e){
-            return ServiceResult.failure("Service 错误 创建订单失败 ");
+            throw new RuntimeException("创建订单失败");
         }
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult commentOrder(Integer userId, Order order) {
         try{
             Integer orderUser = orderMapper.selectUserIdByOrderId(order.getOrderId());

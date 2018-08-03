@@ -2,6 +2,7 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.IdentifyingCode;
 import yunding.shop.mapper.IdentifyingCodeMapper;
@@ -19,6 +20,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     IdentifyingCodeMapper identifyingCodeMapper;
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult sendAndSave(String phoneNumber) {
         try {
             //使该登录名的验证码都失效
@@ -30,11 +32,12 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             identifyingCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
             return ServiceResult.success();
         } catch (Exception e) {
-            return ServiceResult.failure("发送和保存验证码错误");
+            throw new RuntimeException("发送和保存验证码错误");
         }
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult verify(String loginName, String code) {
         try {
             //验证码失效时间
@@ -56,7 +59,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             }
         } catch (Exception e) {
             //服务层失败
-            return ServiceResult.failure("验证失败");
+            throw new RuntimeException("验证失败");
         }
     }
 }

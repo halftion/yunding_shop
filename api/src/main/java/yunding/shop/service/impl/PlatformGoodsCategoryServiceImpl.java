@@ -36,10 +36,10 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
     public ServiceResult getAllGoods(int categoryId) {
         try{
             List<Goods> goods=goodsMapper.selectByPlatformCategoryId(categoryId);
-            Collections.sort(goods, new Comparator<Goods>() {
+            goods.sort(new Comparator<Goods>() {
                 @Override
                 public int compare(Goods o1, Goods o2) {
-                    return o2.getSales()-o1.getSales();
+                    return o2.getSales() - o1.getSales();
                 }
             });
             return ServiceResult.success(goods);

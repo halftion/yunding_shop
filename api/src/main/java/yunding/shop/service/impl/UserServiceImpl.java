@@ -2,6 +2,7 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.User;
@@ -67,6 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult updateUserInfo(Integer userId, User user) {
         try {
             user.setUserId(userId);
@@ -74,11 +76,12 @@ public class UserServiceImpl implements UserService {
             userMapper.update(user);
             return ServiceResult.success(userMapper.selectById(user.getUserId()));
         } catch (Exception e) {
-            return ServiceResult.failure("更新用户信息失败");
+            throw new RuntimeException("更新用户信息失败");
         }
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult register(String loginName, String password) {
         try {
             Date now = new Date();
@@ -91,7 +94,7 @@ public class UserServiceImpl implements UserService {
             //注册成功返回用户信息
             return ServiceResult.success(userMapper.selectById(userId));
         } catch (Exception e) {
-            return ServiceResult.failure("注册失败1"+e.getMessage());
+            throw new RuntimeException("注册失败1"+e.getMessage());
         }
     }
 }
