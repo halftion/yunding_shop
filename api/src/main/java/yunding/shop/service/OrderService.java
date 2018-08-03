@@ -12,7 +12,6 @@ public interface OrderService {
      * 创建一个新订单
      * @param userId 用户ID
      * @param order 订单信息
-     * @return
      */
     ServiceResult createOrder(Integer userId, Order order);
 
@@ -20,7 +19,6 @@ public interface OrderService {
      * 评论订单
      * @param userId 用户Id
      * @param order 传入用户Id和订单评论
-     * @return
      */
     ServiceResult commentOrder(Integer userId, Order order);
 

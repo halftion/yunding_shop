@@ -20,6 +20,11 @@ public class OrderController {
     @Autowired
     private OrderServiceImpl orderService;
 
+    /**
+     * 创建一个新订单
+     * @param order 订单类
+     * @param request request对象
+     */
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
     public RequestResult createOrder(@RequestBody Order order , HttpServletRequest request){
         try {
@@ -36,6 +41,11 @@ public class OrderController {
         }
     }
 
+    /**
+     * 评论订单
+     * @param order 用户类（orderID和comment）
+     * @param request request对象
+     */
     @RequestMapping(value = "/comment" ,method = RequestMethod.PUT)
     public RequestResult commentOrder(@RequestBody Order order , HttpServletRequest request){
         try {
@@ -52,6 +62,11 @@ public class OrderController {
         }
     }
 
+    /**
+     * 根据用户ID查询用户的订单
+     * @param request request对象
+     * @return 用户的所有订单信息
+     */
     @RequestMapping(value = "/user" , method = RequestMethod.GET)
     public RequestResult selectByUserId(HttpServletRequest request){
         try {
@@ -68,6 +83,12 @@ public class OrderController {
         }
     }
 
+    /**
+     * 根据订单Id查询订单信息
+     * @param orderId 订单ID
+     * @param request request对象
+     * @return 订单详细信息
+     */
     @RequestMapping(value = "/orderId/{orderId}" , method = RequestMethod.GET)
     public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId, HttpServletRequest request){
         try {
