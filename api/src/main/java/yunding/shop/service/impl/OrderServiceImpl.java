@@ -3,7 +3,6 @@ package yunding.shop.service.impl;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
@@ -25,42 +24,41 @@ public class OrderServiceImpl implements OrderService {
     private GoodsMapper goodsMapper;
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
     public ServiceResult createOrder(Integer userId, Order order) {
         try{
-            Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
-            Integer orderUser = newOrder.getUserId();
-            Integer state = newOrder.getState();
-            if(userId.equals(orderUser)) {
-                if (state == 3) {
-                    order.setState(4);
-                    orderMapper.commentOrder(order);
-                    return ServiceResult.success();
-                } else if (state < 3 && state >= 0) {
-                    return ServiceResult.failure("用户未收货，无法评价");
-                } else if (state == 4) {
-                    return ServiceResult.failure("您已评价");
-                } else {
-                    return ServiceResult.failure("订单状态有误");
-                }
-            } else {
-                return ServiceResult.failure("用户ID和订单不匹配");
+            order.setUserId(userId);
+            Integer goodsId = order.getGoodsId();
+            Goods goods = (goodsMapper.selectByGoodsId(goodsId));
+            order.setUnitPrice(goods.getPrice());
+            order.setTotalPrice(goods.getPrice() * order.getGoodsNum());
+            order.setShopId(goods.getShopId());
+            order.setShopName(goods.getShopName());
+            order.setCreatedAt(new Date());
+            order.setUpdatedAt(new Date());
+            Integer i = orderMapper.createOrder(order);
+            if(i == 1){
+                return ServiceResult.success();
+            }else {
+                return ServiceResult.failure();
             }
         }catch (Exception e){
-            throw new RuntimeException("创建订单失败");
+            return ServiceResult.failure("Service 错误 创建订单失败 ");
         }
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
     public ServiceResult commentOrder(Integer userId, Order order) {
         try{
-            Integer orderUser = orderMapper.selectUserIdByOrderId(order.getOrderId());
-            if(userId.equals(orderUser)){
-                order.setState(4);
-                orderMapper.commentOrder(order);
-                return ServiceResult.success();
-            }else {
+            Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
+            Integer orderUser = newOrder.getUserId();
+            Integer state = newOrder.getState();
+            if(orderUser.equals(userId)){
+                if(state == 3 ){
+                    return ServiceResult.success();
+                }else {
+                    return ServiceResult.failure("订单状态有误");
+                }
+            }else{
                 return ServiceResult.failure("用户ID和订单不匹配");
             }
         }catch (Exception e){
@@ -76,6 +74,7 @@ public class OrderServiceImpl implements OrderService {
         }catch (Exception e){
             return ServiceResult.failure("Service 错误 查询订单失败");
         }
+
     }
 
     @Override
