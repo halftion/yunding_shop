@@ -28,7 +28,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             SmsUtil.sendMessaging(phoneNumber,verificationCode);
             //插入到数据库
             identifyingCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
-            return ServiceResult.success(true);
+            return ServiceResult.success();
         } catch (Exception e) {
             return ServiceResult.failure("发送和保存验证码错误");
         }
