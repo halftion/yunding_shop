@@ -78,7 +78,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java
     compile group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '3.3.4.ALL'
 
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
 
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
 
 
