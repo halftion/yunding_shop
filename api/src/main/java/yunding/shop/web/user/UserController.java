@@ -100,22 +100,16 @@ public class UserController {
 
     /**
      * 根据ID查询用户
-     * @param userId 用户id
      */
-    @RequestMapping(value = "/info/{userId}", method = RequestMethod.GET)
-    public RequestResult searchById(@PathVariable("userId") Integer userId,
-                                    HttpServletRequest request) {
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public RequestResult searchById(HttpServletRequest request) {
         try {
-            Integer Id = ((User)request.getSession().getAttribute("user")).getUserId();
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = userService.searchById(userId);
-            if(Id.equals(userId)){
                 if(serviceResult.isSuccess()) {
                     return RequestResult.success(serviceResult.getData());
                 } else {
                     return RequestResult.failure(serviceResult.getMessage());
-                }
-            }else {
-                return RequestResult.failure("用户ID不匹配");
             }
 
         } catch (Exception e) {
@@ -128,7 +122,7 @@ public class UserController {
      * @param user 用户类
      * @param request request对象
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public RequestResult updateUserInfo(@RequestBody User user,HttpServletRequest request){
         try {
             Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();

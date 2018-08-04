@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         try{
             return ServiceResult.success(userMapper.selectById(id));
         }catch (Exception e){
-            return ServiceResult.failure("搜索失败");
+            return ServiceResult.failure("获取个人信息失败");
         }
     }
 
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
             //注册成功返回用户信息
             return ServiceResult.success(userMapper.selectById(userId));
         } catch (Exception e) {
-            throw new RuntimeException("注册失败1"+e.getMessage());
+            throw new RuntimeException("注册失败");
         }
     }
 }
