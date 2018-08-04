@@ -10,7 +10,6 @@ import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.mapper.OrderMapper;
-import yunding.shop.mapper.UserMapper;
 import yunding.shop.service.OrderService;
 
 import java.math.BigDecimal;
@@ -63,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
             if(orderUser.equals(userId)){
                 if(state.equals(Constant.WAIT_COMMENT) ){
                     order.setState(Constant.OVER_ORDER);
-                    orderMapper.commentOrder(order);
+                    orderMapper.updateComment(order);
                     return ServiceResult.success();
                 }else {
                     return ServiceResult.failure("订单状态有误");
@@ -84,7 +83,6 @@ public class OrderServiceImpl implements OrderService {
         }catch (Exception e){
             return ServiceResult.failure("Service 错误 查询订单失败");
         }
-
     }
 
     @Override

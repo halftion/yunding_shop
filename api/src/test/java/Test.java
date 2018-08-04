@@ -6,10 +6,9 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        try {
-            SmsUtil.sendMessaging("18634312616","qwer");
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
+        Goods goods = new Goods();
+        Service service = new Service();
+        service.setId(goods);
+        System.out.println(goods.getId());
     }
 }

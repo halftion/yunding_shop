@@ -36,7 +36,7 @@ public interface OrderMapper {
      * @param order 传入订单ID和评论
      * @return 1为成功，否则失败
      */
-    Integer commentOrder(Order order);
+    Integer updateComment(Order order);
 
     /**
      * 根据用户ID查询所有订单

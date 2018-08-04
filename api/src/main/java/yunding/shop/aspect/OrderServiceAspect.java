@@ -7,9 +7,9 @@ import org.aspectj.lang.annotation.Before;
  * @author 齐语冰
  */
 @Aspect
-public class Test {
-    @Before("execution(* yunding.shop.service.UserService.checkLoginName(..))")
-    public void beforeCheckLogin(){
+public class OrderServiceAspect {
+    @Before("execution(* yunding.shop.service.UserService.)")
+    public void afterCreateOrder(){
         System.out.println("@@@@@@@@@@@@@@$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%");
     }
 }
