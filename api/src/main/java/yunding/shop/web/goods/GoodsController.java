@@ -22,7 +22,7 @@ public class GoodsController {
     @RequestMapping(value = "/id/{id}",method = RequestMethod.GET)
     public RequestResult list(@PathVariable Integer id){
         try {
-            ServiceResult serviceResult=goodsService.getById(id);
+            ServiceResult serviceResult=goodsService.selectById(id);
             if(serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             }else {
