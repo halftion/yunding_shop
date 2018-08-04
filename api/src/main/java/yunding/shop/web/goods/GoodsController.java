@@ -16,10 +16,11 @@ import yunding.shop.service.GoodsService;
 @RestController
 @RequestMapping("/api/goods")
 public class GoodsController {
+
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping(value = "/id/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public RequestResult list(@PathVariable Integer id){
         try {
             ServiceResult serviceResult=goodsService.selectById(id);

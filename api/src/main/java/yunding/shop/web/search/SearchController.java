@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.SearchService;
-import yunding.shop.service.impl.SearchServiceImpl;
 
 /**
  * 关键字查询
@@ -20,6 +19,7 @@ public class SearchController {
 
     @Autowired
     private SearchService searchService;
+
     /**
      * 用关键字查询 店铺和商品的方法
      * @param keyword 搜索文本

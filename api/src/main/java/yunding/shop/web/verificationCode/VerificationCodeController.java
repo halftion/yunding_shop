@@ -12,13 +12,14 @@ import yunding.shop.service.VerificationCodeService;
 @RestController
 @RequestMapping("/api/verificationCode")
 public class VerificationCodeController {
+
     @Autowired
     VerificationCodeService verificationCodeService;
+
     /**
      * 接收电话号发送验证码
      * @param phoneNumber 电话号
      */
-    @ResponseBody
     @RequestMapping(value = "/register/{phoneNumber}",method = RequestMethod.GET)
     public RequestResult register(@PathVariable String phoneNumber){
         try{

@@ -14,6 +14,7 @@ import yunding.shop.service.impl.PlatformGoodsCategoryServiceImpl;
 @RestController
 @RequestMapping("/api/platformCategory")
 public class PlatformGoodsCategoryController {
+
     @Autowired
     private PlatformGoodsCategoryServiceImpl platformGoodsCategoryService;
 
@@ -41,11 +42,10 @@ public class PlatformGoodsCategoryController {
      * @param categoryId 平台分类id
      * @return 对应商品列表
      */
-    @ResponseBody
     @RequestMapping(value = "/allGoods/sales/{categoryId}",method = RequestMethod.GET)
     public RequestResult allGoodsSales(@PathVariable int categoryId){
         try{
-            ServiceResult result=platformGoodsCategoryService.getAllGoods(categoryId);
+            ServiceResult result = platformGoodsCategoryService.getAllGoods(categoryId);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {

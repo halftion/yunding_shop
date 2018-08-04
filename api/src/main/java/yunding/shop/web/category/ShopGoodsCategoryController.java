@@ -2,10 +2,7 @@ package yunding.shop.web.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.ShopGoodsCategoryService;
@@ -13,7 +10,7 @@ import yunding.shop.service.ShopGoodsCategoryService;
 /**
  * @author huguobin
  */
-@Controller
+@RestController
 @RequestMapping("/api/shopCategory")
 public class ShopGoodsCategoryController {
 
@@ -26,10 +23,9 @@ public class ShopGoodsCategoryController {
      * @return 店铺分类列表
      */
     @RequestMapping(value = "/list/{shopId}",method = RequestMethod.GET)
-    @ResponseBody
     public RequestResult list(@PathVariable int shopId){
         try{
-            ServiceResult result =shopGoodsCategoryService.getCategoryList(shopId);
+            ServiceResult result = shopGoodsCategoryService.getCategoryList(shopId);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {
@@ -46,7 +42,6 @@ public class ShopGoodsCategoryController {
      * @param categoryId 店铺分类id
      * @return 对应商品列表
      */
-    @ResponseBody
     @RequestMapping(value = "/allGoods/sales/{shopId}/{categoryId}",method = RequestMethod.GET)
     public RequestResult allGoodsBySales(@PathVariable int shopId,@PathVariable int categoryId){
         try{

@@ -16,14 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author huguobin
  */
-@Controller
+@RestController
 @RequestMapping("apilay")
 public class AlipayController {
+
     @Autowired
     AlipayService alipayService;
+
     @Autowired
     OrderService orderService;
-    @ResponseBody
+
     @RequestMapping(value = "/purchase/{orderId}",method = RequestMethod.POST)
     public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
         try{
