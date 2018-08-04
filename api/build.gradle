@@ -84,13 +84,11 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
-
-
-/*    *//*swagger相关*//*
-    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'
-    *//*Validation验证框架*//*
-    compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+    /*swagger相关*/
+/*    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'*/
+    /*Validation验证框架*/
+/*    compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
     compile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.0.Final'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.9.1'*/
 
