@@ -42,17 +42,16 @@
         SELECT * FROM t_order WHERE order_id = #{orderId}
     </select>
 
-    <select id="selectUserIdByOrderId" parameterType="java.lang.Integer"
-            resultType="java.lang.Integer">
-        SELECT user_id FROM t_order WHERE order_id = #{orderId}
-    </select>
-
-    <update id="updateComment" parameterType="yunding.shop.entity.Order">
-        UPDATE t_order SET comment = #{comment}, state = #{state} WHERE order_id = #{orderId}
+    <update id="updateComment">
+        UPDATE t_order SET comment = #{comment} WHERE order_id = #{orderId}
     </update>
 
     <select id="selectByUserId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Order">
         SELECT * FROM t_order WHERE user_id = #{userId}
     </select>
+
+    <update id="updateState">
+        UPDATE t_order SET state = #{state} WHERE order_id = #{orderId}
+    </update>
 </mapper>

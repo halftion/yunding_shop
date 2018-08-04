@@ -32,7 +32,15 @@ public interface OrderService {
     /**
      * 根据订单Id查询订单信息
      * @param orderId 订单ID
+     * @param userId 用户ID
      * @return 订单详细信息
      */
     ServiceResult selectByOrderId(Integer userId,Integer orderId);
+
+    /**
+     * 根据订单Id删除订单
+     * @param userId 用户Id
+     * @param orderId 订单ID
+     */
+    ServiceResult deleteByOrderId(Integer userId,Integer orderId);
 }

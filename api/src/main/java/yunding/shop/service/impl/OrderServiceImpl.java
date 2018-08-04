@@ -19,23 +19,20 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private GoodsService goodsService;
+    private GoodsServiceImpl goodsService;
 
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult createOrder(Integer userId, Order order) {
         try{
             Boolean b = true;
-
             order.setUserId(userId);
-
             order.createAtNow();
             order.updateAtNow();
-
-            if(!goodsService.processOrder(order).isSuccess()){
+            if(!goodsService.processOrderCreate(order).isSuccess()){
                 b = false;
             }
-            if (orderMapper.insertOrder(order) != 1){
+            if ( b && orderMapper.insertOrder(order) != 1){
                 b = false;
             }
             if(b)
@@ -58,8 +55,7 @@ public class OrderServiceImpl implements OrderService {
             Integer state = newOrder.getState();
             if(orderUser.equals(userId)){
                 if(state.equals(Constant.WAIT_COMMENT) ){
-                    order.setState(Constant.OVER_ORDER);
-                    orderMapper.updateComment(order);
+                    orderMapper.updateComment(order.getOrderId(),order.getComment());
                     return ServiceResult.success();
                 }else {
                     return ServiceResult.failure("订单状态有误");
@@ -88,6 +84,34 @@ public class OrderServiceImpl implements OrderService {
             Order order = orderMapper.selectByOrderId(orderId);
             if(order.getUserId().equals(userId)){
                 return ServiceResult.success(order);
+            }else{
+                return  ServiceResult.failure("用户信息不匹配");
+            }
+        }catch (Exception e){
+            return ServiceResult.failure("Service 错误 查询订单失败");
+        }
+    }
+
+    @Override
+    public ServiceResult deleteByOrderId(Integer userId, Integer orderId) {
+        try{
+            boolean b = true;
+            Order order = orderMapper.selectByOrderId(orderId);
+            if (order.getUserId().equals(userId)) {
+                if( order.getState()>=Constant.WAIT_RECEIVE_GOOD &&
+                        order.getState() <=Constant.OVER_ORDER){
+                    if(!goodsService.processOrderDelete(order).isSuccess()){
+                        b = false;
+                    }
+                }
+                if(b && orderMapper.updateState(orderId,Constant.DELETE_ORDER )!= 1){
+                    b = false;
+                }
+                if(b){
+                    return ServiceResult.success();
+                }else {
+                    return ServiceResult.failure("删除订单失败");
+                }
             }else{
                 return  ServiceResult.failure("用户信息不匹配");
             }

@@ -1,5 +1,6 @@
 package yunding.shop.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.Order;
 
 import java.util.List;
@@ -25,18 +26,11 @@ public interface OrderMapper {
     Order selectByOrderId(Integer orderId);
 
     /**
-     * 根据订单ID查询用户ID
+     * 评价订单
      * @param orderId 订单ID
-     * @return 用户ID
+     * @param comment 评价
      */
-    Integer selectUserIdByOrderId(Integer orderId);
-
-    /**
-     * 评论 订单
-     * @param order 传入订单ID和评论
-     * @return 1为成功，否则失败
-     */
-    Integer updateComment(Order order);
+    Integer updateComment(@Param("orderId") Integer orderId , @Param("comment") String comment);
 
     /**
      * 根据用户ID查询所有订单
@@ -44,4 +38,11 @@ public interface OrderMapper {
      * @return 所有订单信息
      */
     List<Order> selectByUserId(Integer userId);
+
+    /**
+     * 修改订单状态
+     * @param orderId 订单ID
+     * @param state 订单状态
+     */
+    Integer updateState(@Param("orderId") Integer orderId ,@Param("state") Integer state);
 }

@@ -5,6 +5,7 @@ import yunding.shop.entity.Order;
 
 /**
  * @author ren
+ * @author guo
  */
 public interface GoodsService {
     /**
@@ -18,5 +19,11 @@ public interface GoodsService {
      * 为order添加商品信息
      * @param order 订单
      */
-    ServiceResult processOrder(Order order);
+    ServiceResult processOrderCreate(Order order);
+
+    /**
+     * 在删除订单时修改商品库存
+     * @param order 订单
+     */
+    ServiceResult processOrderDelete(Order order);
 }

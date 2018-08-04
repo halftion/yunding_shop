@@ -31,4 +31,8 @@ public class Constant {
      * 订单 结束
      */
     public static final Integer OVER_ORDER = 4;
+    /**
+     * 订单 删除
+     */
+    public static final Integer DELETE_ORDER = -1 ;
 }

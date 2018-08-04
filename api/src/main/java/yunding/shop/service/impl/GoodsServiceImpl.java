@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 /**
  * @author ren
+ * @author guo
  */
 @Service
 public class GoodsServiceImpl implements GoodsService{
@@ -28,7 +29,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public ServiceResult processOrder(Order order) {
+    public ServiceResult processOrderCreate(Order order) {
         Integer goodsId = order.getGoodsId();
         Goods goods = (goodsMapper.selectByGoodsId(goodsId));
         order.setUnitPrice(goods.getPrice());
@@ -36,13 +37,28 @@ public class GoodsServiceImpl implements GoodsService{
         order.setShopId(goods.getShopId());
         order.setShopName(goods.getShopName());
 
-        Integer j = goodsMapper.updateStockAndSales(goodsId,
+        Integer i = goodsMapper.updateStockAndSales(goodsId,
                 (goods.getStockNum() - order.getGoodsNum()),
-                (goods.getState() + order.getGoodsNum()));
-        if(j ==1){
+                (goods.getSales() + order.getGoodsNum()));
+        if(i ==1){
             return ServiceResult.success();
         }else {
-            return ServiceResult.failure("添加商品信息失败");
+            return ServiceResult.failure("修改商品信息失败");
+        }
+    }
+
+    @Override
+    public ServiceResult processOrderDelete(Order order) {
+        Integer goodsId = order.getGoodsId();
+        Goods goods = goodsMapper.selectByGoodsId(goodsId);
+
+        Integer i = goodsMapper.updateStockAndSales(goodsId,
+                (goods.getStockNum() + order.getGoodsNum()),
+                (goods.getSales() - order.getGoodsNum()));
+        if ( i == 1){
+            return ServiceResult.success();
+        }else {
+            return ServiceResult.failure("修改商品信息失败");
         }
     }
 }

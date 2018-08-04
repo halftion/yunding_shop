@@ -26,7 +26,7 @@ public class OrderController {
      * @param order 订单类
      * @param request request对象
      */
-    @RequestMapping(value = "/create" , method = RequestMethod.POST)
+    @RequestMapping(value = "" , method = RequestMethod.POST)
     public RequestResult createOrder(@RequestBody Order order , HttpServletRequest request){
         try {
             Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
@@ -87,11 +87,31 @@ public class OrderController {
      * @param request request对象
      * @return 订单详细信息
      */
-    @RequestMapping(value = "/orderId/{orderId}" , method = RequestMethod.GET)
-    public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId, HttpServletRequest request){
+    @RequestMapping(value = "/{orderId}" , method = RequestMethod.GET)
+    public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
         try {
             Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
             ServiceResult serviceResult = orderService.selectByOrderId(userId,orderId);
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("查询订单失败");
+        }
+    }
+
+    /**
+     * 根据订单ID删除订单
+     * @param orderId 订单ID
+     * @param request request对象
+     */
+    @RequestMapping(value = "/{orderId}" , method = RequestMethod.DELETE)
+    public RequestResult deleteOrder(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
+        try {
+            Integer userId = ((User)request.getSession().getAttribute("user")).getUserId();
+            ServiceResult serviceResult = orderService.deleteByOrderId(userId,orderId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
