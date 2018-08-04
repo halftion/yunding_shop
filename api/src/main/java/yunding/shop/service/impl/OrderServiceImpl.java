@@ -119,4 +119,20 @@ public class OrderServiceImpl implements OrderService {
             return ServiceResult.failure("Service 错误 查询订单失败");
         }
     }
+
+    @Override
+    public ServiceResult updateState(Integer orderId, Integer state) {
+        try{
+            if(orderMapper.updateState(orderId,state) == 1){
+                return ServiceResult.success();
+            }else
+            {
+                return ServiceResult.failure();
+            }
+        }catch (Exception e){
+            return ServiceResult.failure("Service 错误 查询订单失败");
+        }
+    }
+
+
 }

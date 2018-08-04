@@ -89,4 +89,15 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.failure("获取商品名称失败");
         }
     }
+
+    @Override
+    public ServiceResult selectByShopIdAndGoodsName(Integer shopId, String keyword) {
+        try {
+            JSONArray goodsList = JSONArray.fromObject(
+                    goodsMapper.selectByShopIdAndGoodsName(shopId,keyword));
+            return ServiceResult.success(goodsList);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商品失败");
+        }
+    }
 }

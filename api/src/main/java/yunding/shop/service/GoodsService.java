@@ -38,4 +38,11 @@ public interface GoodsService {
      * @param keyword 关键字
      */
     ServiceResult selectNameByGoodsName(String keyword);
+
+    /**
+     * 根据店铺id和商品名称查找对应商品
+     * @param shopId 店铺id
+     * @param keyword 商品名称
+     */
+    ServiceResult selectByShopIdAndGoodsName(Integer shopId, String keyword);
 }

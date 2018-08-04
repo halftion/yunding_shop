@@ -64,11 +64,11 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                List<String> hintList = goodsMapper.selectNameByGoodsName(newKeyword);
-                if(hintList.size() > HINT_SIZE){
-                    hintList = hintList.subList(0,5);
+                if(goodsService.selectNameByGoodsName(newKeyword).isSuccess()){
+                    return ServiceResult.success(goodsService.selectNameByGoodsName(newKeyword).getData());
+                }else {
+                    return ServiceResult.failure("获取商品名称错误");
                 }
-                return ServiceResult.success(hintList);
             }
         }catch (Exception e){
             return ServiceResult.failure("提示错误");
@@ -84,9 +84,11 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                JSONArray goodsList = JSONArray.fromObject(
-                        goodsMapper.selectByShopIdAndGoodsName(shopId,newKeyword));
-                return ServiceResult.success(goodsList);
+                if(goodsService.selectByShopIdAndGoodsName(shopId,newKeyword).isSuccess()){
+                    return ServiceResult.success(goodsService.selectByShopIdAndGoodsName(shopId,newKeyword).getData());
+                }else{
+                    return ServiceResult.failure("获取商品错误");
+                }
             }
         }catch (Exception e){
             return ServiceResult.failure("Service错误");

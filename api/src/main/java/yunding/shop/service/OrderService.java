@@ -1,5 +1,6 @@
 package yunding.shop.service;
 
+import org.apache.ibatis.annotations.Param;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
 
@@ -43,4 +44,11 @@ public interface OrderService {
      * @param orderId 订单ID
      */
     ServiceResult deleteByOrderId(Integer userId,Integer orderId);
+
+    /**
+     * 修改订单状态
+     * @param orderId 订单ID
+     * @param state 订单状态
+     */
+    ServiceResult updateState(@Param("orderId") Integer orderId , @Param("state") Integer state);
 }
