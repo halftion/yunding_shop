@@ -7,7 +7,6 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
 import yunding.shop.entity.User;
 import yunding.shop.service.OrderService;
-import yunding.shop.service.impl.OrderServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/order")
 public class OrderController {
     @Autowired
-    private OrderServiceImpl orderService;
+    private OrderService orderService;
 
     /**
      * 创建一个新订单

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.service.impl.SearchServiceImpl;
+import yunding.shop.service.SearchService;
 
 /**
  *在商品和店铺搜索时进行提示
@@ -18,7 +18,7 @@ import yunding.shop.service.impl.SearchServiceImpl;
 public class HintController {
 
     @Autowired
-    private SearchServiceImpl searchService;
+    private SearchService searchService;
 
     /**
      * 根据关键词给出列表五个提示
