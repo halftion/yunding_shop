@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Before;
  */
 @Aspect
 public class OrderServiceAspect {
-    @Before("execution(* yunding.shop.service.UserService.)")
+    @Before("execution(* yunding.shop.service.OrderService.createOrder(..))")
     public void afterCreateOrder(){
         System.out.println("@@@@@@@@@@@@@@$$$$$$$$$$$$$$$$%%%%%%%%%%%%%%%%");
     }
