@@ -36,7 +36,7 @@ dependencies {
 
 
     /*3.Servlet web*/
-    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+   providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
     compile group: 'taglibs', name: 'standard', version:'1.1.2'
     compile group: 'jstl', name: 'jstl', version:'1.2'
     /*Jackson相关*/
@@ -74,21 +74,11 @@ dependencies {
     /*短信验证码相关*/
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '4.0.3'
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.1.0'
+    /*支付宝相关*/
+    // https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java
+    compile group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '3.3.4.ALL'
 
-    /*切面相关*/
-    // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
-    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.13'
-    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
-    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.13'
 
-    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
-    compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.6'
-
-    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
-
-    // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
 
 
