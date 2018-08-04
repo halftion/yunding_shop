@@ -1,5 +1,6 @@
 package yunding.shop.service.impl;
 
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
@@ -9,6 +10,9 @@ import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import static yunding.shop.entity.Constant.HINT_SIZE;
 
 /**
  * @author ren
@@ -18,8 +22,9 @@ import java.math.BigDecimal;
 public class GoodsServiceImpl implements GoodsService{
     @Autowired
     private GoodsMapper goodsMapper;
+
     @Override
-    public ServiceResult getById(Integer id) {
+    public ServiceResult selectById(Integer id) {
         try {
           Goods goods= goodsMapper.selectByGoodsId(id);
           return ServiceResult.success(goods);
@@ -59,6 +64,29 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         }else {
             return ServiceResult.failure("修改商品信息失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectByName(String keyword) {
+        try {
+            JSONArray goodsList = JSONArray.fromObject(goodsMapper.selectByName(keyword));
+            return ServiceResult.success(goodsList);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商品失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectNameByGoodsName(String keyword) {
+        try {
+            List<String> hintList = goodsMapper.selectNameByGoodsName(keyword);
+            if(hintList.size() > HINT_SIZE){
+                hintList = hintList.subList(0,5);
+            }
+            return ServiceResult.success(hintList);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商品名称失败");
         }
     }
 }

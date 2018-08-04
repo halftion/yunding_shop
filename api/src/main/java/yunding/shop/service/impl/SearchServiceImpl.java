@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.mapper.ShopMapper;
+import yunding.shop.service.GoodsService;
 import yunding.shop.service.SearchService;
+import yunding.shop.service.ShopService;
 import yunding.shop.utils.Separator;
 import yunding.shop.utils.StringFilter;
 import java.util.List;
@@ -21,9 +23,9 @@ import static yunding.shop.entity.Constant.HINT_SIZE;
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
-    private ShopMapper shopMapper;
+    private ShopService shopService;
     @Autowired
-    private GoodsMapper goodsMapper;
+    private GoodsService goodsService;
 
     @Override
     public ServiceResult platformSearch(String keyword) {
@@ -34,14 +36,19 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                JSONArray shopList = JSONArray.fromObject(shopMapper.selectByName(newKeyword));
-                JSONArray goodsList = JSONArray.fromObject(goodsMapper.selectByName(newKeyword));
+                boolean b = true;
+                if(!shopService.selectByName(newKeyword).isSuccess() ||
+                        !goodsService.selectByName(newKeyword).isSuccess()){
+                    b =false;
+                }
                 JSONObject jsonObject = new JSONObject();
-
-                jsonObject.put("shop",shopList);
-                jsonObject.put("goods",goodsList);
-
-                return ServiceResult.success(jsonObject);
+                jsonObject.put("shop",shopService.selectByName(newKeyword).getData());
+                jsonObject.put("goods",goodsService.selectByName(newKeyword).getData());
+                if(b){
+                    return ServiceResult.success(jsonObject);
+                }else {
+                    return ServiceResult.failure("商品和店铺获取失败");
+                }
             }
         }catch (Exception e){
             return ServiceResult.failure("Service错误");

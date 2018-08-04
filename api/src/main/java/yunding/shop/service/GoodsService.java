@@ -13,7 +13,7 @@ public interface GoodsService {
      * @param id 商品id
      * @return ServiceResult
      */
-    ServiceResult getById(Integer id);
+    ServiceResult selectById(Integer id);
 
     /**
      * 为order添加商品信息
@@ -26,4 +26,16 @@ public interface GoodsService {
      * @param order 订单
      */
     ServiceResult processOrderDelete(Order order);
+
+    /**
+     * 根据商品关键词查询商品
+     * @param keyword 关键词
+     */
+    ServiceResult selectByName (String keyword);
+
+    /**
+     * 根据商品关键词查询商品名称
+     * @param keyword 关键字
+     */
+    ServiceResult selectNameByGoodsName(String keyword);
 }

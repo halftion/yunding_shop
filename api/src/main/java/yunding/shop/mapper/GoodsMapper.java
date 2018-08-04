@@ -39,8 +39,8 @@ public interface GoodsMapper {
     Goods selectByGoodsId(Integer id);
 
     /**
-     * 根据商品名称查询
-     * @param goodsName 商品名称
+     * 根据商品关键词查询商品名称
+     * @param goodsName 商品关键字
      * @return 商品名称列表
      */
     List<String> selectNameByGoodsName(String goodsName);

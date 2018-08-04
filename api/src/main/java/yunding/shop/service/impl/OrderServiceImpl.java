@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private GoodsServiceImpl goodsService;
+    private GoodsService goodsService;
 
     @Override
     @Transactional(rollbackFor=Exception.class)
