@@ -90,7 +90,7 @@ public class UserController {
      * @param userInfo 用户类
      * @param request request对象
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/info", method = RequestMethod.PUT)
     public RequestResult updateUserInfo(@RequestBody UserInfo userInfo, HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
