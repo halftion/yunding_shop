@@ -15,7 +15,7 @@ public interface OrderMapper {
      * @param order 传入order的信息
      * @return 1为成功，否则失败
      */
-    Integer createOrder(Order order);
+    Integer insertOrder(Order order);
 
     /**
      * 根据订单Id查询订单信息

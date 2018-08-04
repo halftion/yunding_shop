@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.OrderMapper">
 
-    <insert id="createOrder" parameterType="yunding.shop.entity.Order">
+    <insert id="insertOrder" parameterType="yunding.shop.entity.Order">
         INSERT INTO t_order (
         user_id,
         goods_id,

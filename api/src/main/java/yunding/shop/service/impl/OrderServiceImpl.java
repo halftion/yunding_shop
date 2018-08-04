@@ -6,14 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Constant;
-import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
-import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.mapper.OrderMapper;
+import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author guo
@@ -23,29 +19,30 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private GoodsMapper goodsMapper;
+    private GoodsService goodsService;
 
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult createOrder(Integer userId, Order order) {
         try{
+            Boolean b = true;
+
             order.setUserId(userId);
-            Integer goodsId = order.getGoodsId();
-            Goods goods = (goodsMapper.selectByGoodsId(goodsId));
-            order.setUnitPrice(goods.getPrice());
-            order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
-            order.setShopId(goods.getShopId());
-            order.setShopName(goods.getShopName());
-            order.setCreatedAt(new Date());
-            order.setUpdatedAt(new Date());
-            Integer i = orderMapper.createOrder(order);
-            Integer j = goodsMapper.updateStockAndSales(goodsId,
-                    (goods.getStockNum() - order.getGoodsNum()),
-                    (goods.getState() + order.getGoodsNum()));
-            if(i == 1 && j ==1){
+
+            order.createAtNow();
+            order.updateAtNow();
+
+            if(!goodsService.processOrder(order).isSuccess()){
+                b = false;
+            }
+            if (orderMapper.insertOrder(order) != 1){
+                b = false;
+            }
+            if(b)
+            {
                 return ServiceResult.success();
             }else {
-                return ServiceResult.failure();
+                return ServiceResult.failure("创建订单失败");
             }
         }catch (Exception e){
             throw  new RuntimeException("创建订单失败");

@@ -138,6 +138,15 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
+
+    public void updateAtNow(){
+        this.updatedAt = new Date();
+    }
+
+
     public Integer getShopId() {
         return shopId;
     }
