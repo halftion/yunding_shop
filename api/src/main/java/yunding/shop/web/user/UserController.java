@@ -57,7 +57,7 @@ public class UserController {
         try {
             ServiceResult serviceResult = userService.login(login);
             if (serviceResult.isSuccess()) {
-                                request.getSession().setAttribute("user",serviceResult.getData());
+                request.getSession().setAttribute("user",serviceResult.getData());
                 return RequestResult.success(serviceResult.getData());
             } else {
                 return RequestResult.failure(serviceResult.getMessage());

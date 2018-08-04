@@ -1,4 +1,5 @@
-首页：
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+首页
 
 1.获取平台分类栏：/api/platformCategory/list (GET)
 成功返回示例：
@@ -108,12 +109,12 @@
     "message" : "xxx错误"
 }
 
-4.
 
 
-店铺： 搜索 
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+店铺：
 
-2.根据店铺id获取店铺分类栏：/api/shopCategory/list/{shopId} (GET)
+4.根据店铺id获取店铺分类栏：/api/shopCategory/list/{shopId} (GET)
 成功返回示例：
 {
     "code": 200,
@@ -129,14 +130,68 @@
     ],
     "message": "操作成功！"
 }
-
 为空返回示例：
 {
     "code": 200,
     "data": [],
     "message": "操作成功！"
 }
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
 
+5.根据商品关键词获取店铺内对应商品：/api/search/shop/{shopId}/{keyword} (GET)
+成功返回示例：
+{
+	"code":200,
+	"data":[
+		{
+			"collectionNum":0,
+			"commentNum":0,
+			"createdAt":{
+				"date":31,
+				"day":2,
+				"hours":10,
+				"minutes":56,
+				"month":6,
+				"seconds":28,
+				"time":1533005788000,
+				"timezoneOffset":-480,
+				"year":118},
+			"goodsId":1,
+			"introduction":"",
+			"name":"超级白色限量版篮球",
+			"picture":"",
+			"platformGoodsCateGoryId":1,
+			"price":150.0,
+			"sales":15,
+			"shopGoodsCateGoryId":1,
+			"shopId":1,
+			"shopName":"篮球店铺",
+			"state":0,
+			"stockNum":100,
+			"updatedAt":{
+				"date":31,
+				"day":2,
+				"hours":10
+				"minutes":56,
+				"month":6,
+				"seconds":28,
+				"time":1533005788000,
+				"timezoneOffset":-480,
+				"year":118}
+			}
+		],
+	"message":"操作成功！"
+}
+为空返回示例：
+{
+	"code":200,
+	"data":[],
+	"message":"操作成功！"
+}
 失败返回示例：
 {
     "code" :500,
@@ -144,8 +199,11 @@
 }
 
 
-固定页面：登陆 注册 导航栏搜索 购物车
-登陆页面：/api/user/login (POST)
+
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+固定页面：登陆 注册
+
+6.登录：/api/user/login (POST)
 JSON传入：
 {
     "loginName" : "999",
@@ -164,25 +222,279 @@ JSON传入：
     },
     "message": "操作成功！"
 }
-失败返回案例：
+失败返回示例：
 {
     "code": 500,
     "message": "用户名和密码不匹配"
 }
 
-退出登陆页面：/api/user/logout (GET)
+7.根据session是否存在检测登录状态:/api/user/loginState (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "userId": 16,
+        "gender": 0,
+        "xp": 0,
+        "state": 0,
+        "createdAt": 1533279758000,
+        "updatedAt": 1533279758000
+    },
+    "message": "操作成功！"
+}
+失败返回示例一：
+{
+    "code": 500,
+    "message": "尚未登陆"
+}
+失败返回示例二：
+{
+    "code": 500,
+    "message": "检测登录失败"
+}
+
+8.退出登录：/api/user/logout (GET)
 成功返回示例：
 {
     "code": 200,
     "message": "操作成功！"
 }
 
+9.注册：/api/user/register (POST)
+JSON传入：
+{
+"loginName" : "12345",
+"code" : "QYBLX",
+"password" : "12345"
+}
+成功返回示例：
+{
+	"code": 200,
+	"data": {
+	"userId": 16,
+	"gender": 0,
+	"xp": 0,
+	"state": 0,
+	"createdAt": 1533279758000,
+	"updatedAt": 1533279758000
+},
+“message”: “操作成功！”
+}
+失败返回示例：
+{
+	"code" : 500,
+	"message" : "xxx错误" (验证码错误 / 注册失败)
+}
+
+10.检测用户名是否被占用：/api/user/checkLoginName/{loginName} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例一：
+{
+    "code": 500,
+    "message": "该登录名已被占用"
+}
+失败返回示例二：
+{
+    "code": 500,
+    "message": "检测用户名失败"
+}
+
+11.根据电话号发送验证码：/api/verificationCode/register/{phoneNumber} (POST)
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例:
+{
+    "code": 500,
+    "message": "获取验证码失败"
+}
+
+12.根据用户ID获取用户信息：/api/user/info (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "userId": 16,
+        "gender": 0,
+        "xp": 0,
+        "state": 0,
+        "createdAt": 1533279758000,
+        "updatedAt": 1533279758000
+    },
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "搜索失败"
+}
+
+13.根据用户类修改用户信息：/api/user/update (PUT)
+JSON传入：
+{
+	"nickName" : "qyb",
+	"gender" : 1,
+	"birthday" : 1533345671000,
+	"phoneNumber" : "123",
+	"email" : "123@163.com"
+}
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "userId": 16,
+        "nickName": "qyb",
+        "gender": 1,
+        "birthday": 1533312000000,
+        "phoneNumber": "123",
+        "email": "123@163.com",
+        "xp": 0,
+        "state": 0,
+        "createdAt": 1533279758000,
+        "updatedAt": 1533345773000
+    },
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx失败"
+}
 
 
 
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+固定页面：导航栏搜索 （购物车）
+14.根据商品关键词获取对应的店铺和商品：/api/search/platform/{keyword} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "shop": [
+            {
+                "collectionNum": 0,
+                "createdAt": {
+                    "date": 31,
+                    "day": 2,
+                    "hours": 2,
+                    "minutes": 40,
+                    "month": 6,
+                    "seconds": 12,
+                    "time": 1532976012000,
+                    "timezoneOffset": -480,
+                    "year": 118
+                },
+                "name": "篮球店铺",
+                "sales": 0,
+                "shopId": 1,
+                "state": 0,
+                "updatedAt": {
+                    "date": 31,
+                    "day": 2,
+                    "hours": 2,
+                    "minutes": 40,
+                    "month": 6,
+                    "seconds": 17,
+                    "time": 1532976017000,
+                    "timezoneOffset": -480,
+                    "year": 118
+                },
+                "userId": 3
+            }
+        ],
+        "goods": [
+ 			{
+                "collectionNum": 0,
+                "commentNum": 0,
+                "createdAt": {
+                    "date": 1,
+                    "day": 3,
+                    "hours": 8,
+                    "minutes": 48,
+                    "month": 7,
+                    "seconds": 18,
+                    "time": 1533084498000,
+                    "timezoneOffset": -480,
+                    "year": 118
+                },
+                "goodsId": 4,
+                "introduction": "",
+                "name": "超级绿色篮球",
+                "picture": "",
+                "platformGoodsCateGoryId": 1,
+                "price": 150,
+                "sales": 10,
+                "shopGoodsCateGoryId": 1,
+                "shopId": 1,
+                "shopName": "篮球店铺",
+                "state": 0,
+                "stockNum": 100,
+                "updatedAt": {
+                    "date": 1,
+                    "day": 3,
+                    "hours": 8,
+                    "minutes": 48,
+                    "month": 7,
+                    "seconds": 20,
+                    "time": 1533084500000,
+                    "timezoneOffset": -480,
+                    "year": 118
+                }
+            }
+        ]
+    },
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": {
+        "shop": [],
+        "goods": []
+    },
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+15.根据关键词获取对应提示（最多五个）：/api/hint/platform/{keyword} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        "超级白色限量版篮球",
+        "超级蓝色篮球",
+        "超级黄色篮球",
+        "超级绿色篮球"
+    ],
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": [],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 商品详情：
-
-5.根据商品id查询商品：/api/goods/id/{id} (GET)
+16.根据商品id查询商品：/api/goods/id/{id} (GET)
 成功返回示例：
 {
     "code": 200,
@@ -215,9 +527,12 @@ JSON传入：
     "message" : "xxx错误"
 }
 
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：
 
-6.创建一个新订单：/api/order/create (POST)
+17.创建一个新订单：/api/order/create (POST)
 JSON传入：
 {
     "goodsId":2,
@@ -239,4 +554,122 @@ JSON传入：
     "message": "创建订单失败 "
 }
 
-7.查询
+18.通过用户id获取对应的所有订单信息：/api/order/user (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "address": "火星",
+        "comment": "",
+        "consigneeName": "郭怡馨",
+        "createdAt": {
+            "date": 3,
+            "day": 5,
+            "hours": 18,
+            "minutes": 59,
+            "month": 7,
+            "seconds": 25,
+            "time": 1533293965000,
+            "timezoneOffset": -480,
+            "year": 118
+        },
+        "goodsId": 2,
+        "goodsName": "篮球",
+        "goodsNum": 1,
+        "orderId": 7,
+        "phoneNumber": "120",
+        "remark": "早点发货！",
+        "shopId": 1,
+        "shopName": "篮球店铺",
+        "state": 0,
+        "totalPrice": 150,
+        "unitPrice": 150,
+        "updatedAt": {
+            "date": 3,
+            "day": 5,
+            "hours": 18,
+            "minutes": 59,
+            "month": 7,
+            "seconds": 25,
+            "time": 1533293965000,
+            "timezoneOffset": -480,
+            "year": 118
+        },
+        "userId": 16
+        },
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": [],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+19.通过订单id获取对应的订单信息：/api/order/orderId/{orderId} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": {
+        "orderId": 8,
+        "userId": 16,
+        "goodsId": 2,
+        "goodsName": "篮球",
+        "goodsNum": 4,
+        "unitPrice": 150,
+        "totalPrice": 600,
+        "shopId": 1,
+        "shopName": "篮球店铺",
+        "remark": "早点发货！",
+        "address": "火星",
+        "phoneNumber": "120",
+        "consigneeName": "郭怡馨",
+        "comment": "五星好评！",
+        "state": 4,
+        "createdAt": 1533294000000,
+        "updatedAt": 1533294000000
+    },
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 500,
+    "message": "Service 错误 查询订单失败"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "查询订单失败"
+}
+
+20.评论订单：/api/order/comment (PUT)
+JSON传入：
+{
+	"orderId" : 8,
+	"comment" : "五星好评！"
+}
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例一：
+{
+    "code": 500,
+    "message": "用户ID和订单不匹配"
+}
+失败返回示例二：
+{
+    "code": 500,
+    "message": "订单状态有误"
+}
+失败返回示例三：
+{
+    "code": 500,
+    "message": "订单评论失败"
+}
