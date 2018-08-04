@@ -1,14 +1,18 @@
 package yunding.shop.service.impl;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yunding.shop.dto.JwtResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
-import yunding.shop.entity.User;
+import yunding.shop.entity.UserInfo;
 import yunding.shop.mapper.LoginMapper;
 import yunding.shop.mapper.UserMapper;
 import yunding.shop.service.UserService;
+import yunding.shop.utils.JwtUtil;
 
 import java.util.Date;
 
@@ -45,10 +49,19 @@ public class UserServiceImpl implements UserService {
     public ServiceResult login(Login login) {
         Login dbLogin = loginMapper.selectByLoginName(login.getLoginName());
         try {
+            //密码正确
+            if(null == dbLogin){
+                return ServiceResult.failure("用户名不存在");
+            }
+
             if (dbLogin.getPassword().equals(login.getPassword())) {
-                //密码正确,返回用户信息
-                return ServiceResult.success(
-                        userMapper.selectById(dbLogin.getUserId()));
+                UserInfo userInfo = userMapper.selectById(dbLogin.getUserId());
+                Claims claims = new DefaultClaims();
+                claims.setId(userInfo.getUserId().toString());
+                claims.put("userId", userInfo.getUserId());
+                JwtResult jwt = JwtUtil.createJwt(claims, 120 * 60);
+
+                return ServiceResult.success(jwt);
             } else {
                 //密码错误
                 return ServiceResult.failure("用户名和密码不匹配");
@@ -59,7 +72,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceResult searchById(Integer id) {
+    public ServiceResult getById(Integer id) {
         try{
             return ServiceResult.success(userMapper.selectById(id));
         }catch (Exception e){
@@ -69,12 +82,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult updateUserInfo(Integer userId, User user) {
+    public ServiceResult updateUserInfo(Integer userId, UserInfo userInfo) {
         try {
-            user.setUserId(userId);
-            user.setUpdatedAt(new Date());
-            userMapper.update(user);
-            return ServiceResult.success(userMapper.selectById(user.getUserId()));
+            userInfo.setUserId(userId);
+            userInfo.setUpdatedAt(new Date());
+            userMapper.update(userInfo);
+            return ServiceResult.success(userMapper.selectById(userInfo.getUserId()));
         } catch (Exception e) {
             throw new RuntimeException("更新用户信息失败");
         }
@@ -85,10 +98,10 @@ public class UserServiceImpl implements UserService {
     public ServiceResult register(String loginName, String password) {
         try {
             Date now = new Date();
-            User user = new User(now,now);
-            userMapper.insert(user);
+            UserInfo userInfo = new UserInfo(now,now);
+            userMapper.insert(userInfo);
             //返回自动递增主键
-            Integer userId = user.getUserId();
+            Integer userId = userInfo.getUserId();
             Login login = new Login(userId,loginName,password,now,now);
             loginMapper.insert(login);
             //注册成功返回用户信息

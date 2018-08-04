@@ -1,8 +1,7 @@
 package yunding.shop.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import yunding.shop.entity.Login;
-import yunding.shop.entity.User;
+import yunding.shop.entity.UserInfo;
 
 /**
  * 提供用户数据库方法
@@ -11,20 +10,20 @@ import yunding.shop.entity.User;
 public interface UserMapper {
     /**
      *根据用户ID获取用户信息
-     * @param id 用户id
+     * @param userId 用户id
      * @return 对应用户
      */
-    User selectById(@Param("id") Integer id );
+    UserInfo selectById(@Param("userId") Integer userId );
 
     /**
      * 更新用户信息
-     * @param user 用户类
+     * @param userInfo 用户类
      */
-    void update(User user);
+    void update(UserInfo userInfo);
 
     /**
      * 插入新用户
-     * @param user 用户类
+     * @param userInfo 用户类
      */
-    void insert(User user);
+    void insert(UserInfo userInfo);
 }

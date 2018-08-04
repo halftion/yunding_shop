@@ -4,15 +4,15 @@
 <mapper namespace="yunding.shop.mapper.UserMapper">
 
     <select id="selectById" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.User">
-        SELECT * FROM t_user_info WHERE user_id = #{id}
+            resultType="yunding.shop.entity.UserInfo">
+        SELECT * FROM t_user_info WHERE user_id = #{userId}
     </select>
 
     <update id="update"
             useGeneratedKeys="true"
             keyProperty="userId"
             keyColumn="user_id"
-            parameterType="yunding.shop.entity.User">
+            parameterType="yunding.shop.entity.UserInfo">
         UPDATE t_user_info SET nick_name = #{nickName}, gender = #{gender},
         birthday = #{birthday}, phone_number = #{phoneNumber}, email = #{email}, updated_at = #{updatedAt} WHERE user_id = #{userId}
     </update>
@@ -21,7 +21,7 @@
             useGeneratedKeys="true"
             keyProperty="userId"
             keyColumn="user_id"
-            parameterType="yunding.shop.entity.User">
+            parameterType="yunding.shop.entity.UserInfo">
         INSERT t_user_info (created_at,updated_at) VALUES(#{createdAt},#{updatedAt})
     </insert>
 

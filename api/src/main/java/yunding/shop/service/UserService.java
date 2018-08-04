@@ -2,7 +2,7 @@ package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
-import yunding.shop.entity.User;
+import yunding.shop.entity.UserInfo;
 
 /**
  * @author ren
@@ -28,15 +28,15 @@ public interface UserService {
      * @param id 用户id
      * @return 用户信息
      */
-    ServiceResult searchById(Integer id);
+    ServiceResult getById(Integer id);
 
     /**
      * 根据用户类修改用户个人信息
      * @param userId 用户id
-     * @param user 用户类
+     * @param userInfo 用户类
      * @return 更新后的用户信息
      */
-    ServiceResult updateUserInfo(Integer userId, User user);
+    ServiceResult updateUserInfo(Integer userId, UserInfo userInfo);
 
     /**
      * 注册用户

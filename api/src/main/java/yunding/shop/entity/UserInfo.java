@@ -8,7 +8,7 @@ import java.util.Date;
  * 用户
  * @author 齐语冰
  */
-public class User {
+public class UserInfo {
     /**
      * 用户 id
      */
@@ -56,10 +56,10 @@ public class User {
     private Date updatedAt;
 
 
-    public User() {
+    public UserInfo() {
     }
 
-    public User(Date createdAt, Date updatedAt) {
+    public UserInfo(Date createdAt, Date updatedAt) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -151,5 +151,22 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userId=" + userId +
+                ", nickName='" + nickName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", xp=" + xp +
+                ", state=" + state +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

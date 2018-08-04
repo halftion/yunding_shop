@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
-import yunding.shop.entity.User;
+import yunding.shop.entity.UserInfo;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
+import yunding.shop.utils.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,8 +27,8 @@ public class AlipayController {
     @RequestMapping(value = "/purchase/{orderId}",method = RequestMethod.POST)
     public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
         try{
-            User user= (User) request.getSession().getAttribute("user");
-            Order order=(Order) orderService.selectByOrderId(user.getUserId(),orderId).getData();
+            Integer userId = UserUtil.getCurrentUserId(request);
+            Order order=(Order) orderService.selectByOrderId(userId,orderId).getData();
             ServiceResult result=alipayService.purchase(order);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
