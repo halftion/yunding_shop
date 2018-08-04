@@ -33,8 +33,6 @@
 
     <context:component-scan base-package="yunding.shop.web"/>
 
-    <!--<import resource="smsUtils.xml"/>-->
-
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolverCommon" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -19,7 +19,7 @@ public class VerificationCodeController {
      * @param phoneNumber 电话号
      */
     @ResponseBody
-    @RequestMapping(value = "/register/{phoneNumber}",method = RequestMethod.POST)
+    @RequestMapping(value = "/register/{phoneNumber}",method = RequestMethod.GET)
     public RequestResult register(@PathVariable String phoneNumber){
         try{
             ServiceResult result = verificationCodeService.sendAndSave(phoneNumber);

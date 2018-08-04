@@ -161,7 +161,7 @@ public class SmsUtil {
      * @return 验证码
      */
     public static String randomVerificationCode(){
-        return UUID.randomUUID().toString().substring(0,6);
+        return UUID.randomUUID().toString().substring(0,6).toUpperCase();
     }
 
     public  String getProduct() {

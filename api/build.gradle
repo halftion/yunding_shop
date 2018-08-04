@@ -75,6 +75,13 @@ dependencies {
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '4.0.3'
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.1.0'
 
+    /*切面相关*/
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.13'
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.13'
+
+
 
 /*    *//*swagger相关*//*
     compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
