@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author huguobin
  */
 @RestController
-@RequestMapping("apilay")
+@RequestMapping("/api/aliPay")
 public class AlipayController {
 
     @Autowired

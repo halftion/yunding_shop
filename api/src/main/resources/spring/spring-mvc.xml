@@ -35,7 +35,8 @@
         <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
         <mvc:interceptor>
             <mvc:mapping path="/api/user/**"/>
-            <mvc:exclude-mapping path="/api/order/**"/>
+            <mvc:mapping path="/api/order/**"/>
+            <mvc:mapping path="/api/aliPay/**"/>
             <mvc:exclude-mapping path="/api/user/checkLoginName/**"/>
             <mvc:exclude-mapping path="/api/user/login/**"/>
             <mvc:exclude-mapping path="/api/user/register/**"/>
