@@ -200,4 +200,40 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Service 错误 查询订单失败");
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult updateState(Integer orderId, Integer state) {
+        try {
+            if (state >= 0 && orderMapper.selectByOrderId(orderId).getState() != (state - 1 )) {
+                return ServiceResult.failure("订单状态有误");
+            }
+            if (orderMapper.updateState(orderId, state) != 1) {
+                return ServiceResult.failure("订单状态修改失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("订单状态修改失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectByShopId(Integer userId, Integer shopId) {
+        try{
+            if (!shopService.selectUserIdByShopId(shopId).isSuccess()){
+                //获取商户Id失败
+                return ServiceResult.failure(shopService.selectUserIdByShopId(shopId).getMessage());
+            }
+            if(!shopService.selectUserIdByShopId(shopId).getData().equals(userId)){
+                return ServiceResult.failure("用户信息不匹配");
+            }
+            JSONArray orderList = JSONArray.fromObject(orderMapper.selectByUserId(userId));
+            return ServiceResult.success(orderList);
+        }catch (Exception e){
+            return ServiceResult.failure("订单查询失败");
+        }
+    }
+>>>>>>> bb61ede92190099df54ac5b6d525d281c6f42642
 }
