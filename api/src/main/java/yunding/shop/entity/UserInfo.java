@@ -1,6 +1,9 @@
 package yunding.shop.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -25,6 +28,8 @@ public class UserInfo {
     /**
      * 用户 性别：0-保密，1-男，2-女
      */
+    @NotEmpty
+    @Size(max = 3)
     private Integer gender;
     /**
      * 用户 生日

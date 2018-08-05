@@ -1,6 +1,8 @@
 package yunding.shop.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,10 +18,14 @@ public class Order {
     /**
      * 订单 用户id
      */
+    @NotEmpty
+    @Size(min = 1)
     private Integer userId;
     /**
      * 订单 商品id
      */
+    @NotEmpty
+    @Size(min = 1)
     private Integer goodsId;
     /**
      * 订单 商品名称
@@ -28,6 +34,8 @@ public class Order {
     /**
      * 订单 商品数量
      */
+    @NotEmpty
+    @Size(min = 1)
     private Integer goodsNum;
     /**
      * 订单 商品单价
@@ -52,14 +60,18 @@ public class Order {
     /**
      * 订单 收货地址
      */
+    @NotEmpty
     private String address;
     /**
      * 订单 收货电话
      */
+    @NotEmpty
+    @Size(min = 11, max = 11)
     private String phoneNumber;
     /**
      * 订单 收货人姓名
      */
+    @NotEmpty
     private String consigneeName;
     /**
      * 订单 商品评论

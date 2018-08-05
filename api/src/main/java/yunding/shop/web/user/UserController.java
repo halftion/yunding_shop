@@ -1,6 +1,8 @@
 package yunding.shop.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
@@ -10,7 +12,6 @@ import yunding.shop.entity.UserInfo;
 import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
 import yunding.shop.utils.UserUtil;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -49,10 +50,14 @@ public class UserController {
     /**
      * 登录
      * @param login 登录对象
-     * @param request request对象
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public RequestResult login(@RequestBody Login login, HttpServletRequest request) {
+    public RequestResult login(@Validated @RequestBody Login login, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return RequestResult.failure("登录失败");
+        }
+
         try {
             ServiceResult serviceResult = userService.login(login);
             if (serviceResult.isSuccess()) {
@@ -91,7 +96,13 @@ public class UserController {
      * @param request request对象
      */
     @RequestMapping(value = "/info", method = RequestMethod.PUT)
-    public RequestResult updateUserInfo(@RequestBody UserInfo userInfo, HttpServletRequest request){
+    public RequestResult updateUserInfo(@Validated @RequestBody UserInfo userInfo,
+                                        HttpServletRequest request, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return RequestResult.failure("更新用户信息失败");
+        }
+
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = userService.updateUserInfo(userId, userInfo);
@@ -111,7 +122,13 @@ public class UserController {
      * @param register 注册实体类
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public  RequestResult register(@RequestBody Register register, HttpServletRequest request){
+    public  RequestResult register(@Validated @RequestBody Register register,
+                                   BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return RequestResult.failure("更新用户信息失败");
+        }
+
         try {
             ServiceResult verificationCodeServiceResult = verificationCodeService.verify(
                     register.getLoginName(),register.getCode());
