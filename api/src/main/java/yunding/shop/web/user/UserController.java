@@ -110,7 +110,7 @@ public class UserController {
      * 注册用户
      * @param register 注册实体类
      */
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public  RequestResult register(@RequestBody Register register, HttpServletRequest request){
         try {
             ServiceResult verificationCodeServiceResult = verificationCodeService.verify(
