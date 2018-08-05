@@ -12,6 +12,7 @@ import java.util.UUID;
 
 /**
  * @author ren
+ * 上传头像
  */
 @Service
 public class PhotoServiceImpl implements PhotoService{
@@ -23,8 +24,12 @@ public class PhotoServiceImpl implements PhotoService{
     public ServiceResult saveAvatar(Integer userId,MultipartFile pic, String realPath) {
         try {
             String picture=saveFile(pic,realPath);
-            userService.updateAvatar(userId,realPath);
-            return ServiceResult.success();
+            if(userService.updateAvatar(userId,picture).isSuccess())
+            {
+                return ServiceResult.success();
+            }else {
+                return ServiceResult.failure("图片上传失败");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("作品上传失败");

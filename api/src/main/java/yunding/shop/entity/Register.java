@@ -1,7 +1,5 @@
 package yunding.shop.entity;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
 /**
  * 注册实体类
  * @author 齐语冰

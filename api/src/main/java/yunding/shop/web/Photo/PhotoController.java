@@ -23,7 +23,7 @@ public class PhotoController {
     PhotoService photoService;
 
     @ResponseBody
-    @RequestMapping(value = "/upload",method = RequestMethod.GET)
+    @RequestMapping(value = "/upload",method = RequestMethod.PUT)
     public RequestResult saveAvatar(MultipartFile pic, HttpServletRequest request){
 
         try{
