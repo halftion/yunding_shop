@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult updateState(Integer orderId, Integer state) {
         try {
-            if (state >= 0 && orderMapper.selectByOrderId(orderId).getState()!= (state - 1 )) {
+            if (state >= 0 && orderMapper.selectByOrderId(orderId).getState() != (state - 1 )) {
                 return ServiceResult.failure("订单状态有误");
             }
             if (orderMapper.updateState(orderId, state) != 1) {
