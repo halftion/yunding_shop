@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServletRequest;
  * @author ren
  */
 
-@RequestMapping("/api/user")
+@RequestMapping("/api/photo")
 public class PhotoController {
+
     @Autowired
     PhotoService photoService;
 
     @ResponseBody
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/upload",method = RequestMethod.GET)
     public RequestResult saveAvatar(MultipartFile pic, HttpServletRequest request){
 
         try{
