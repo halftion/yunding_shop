@@ -8,6 +8,7 @@ import yunding.shop.entity.Order;
 import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 订单信息
@@ -22,14 +23,14 @@ public class OrderController {
 
     /**
      * 创建一个新订单
-     * @param order 订单类
+     * @param orderList 订单列表
      * @param request request对象
      */
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
-    public RequestResult createOrder(@RequestBody Order order , HttpServletRequest request){
+    public RequestResult createOrder(@RequestBody List<Order> orderList , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.createOrder(userId,order);
+            ServiceResult serviceResult = orderService.createOrder(userId,orderList);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(null);
             }else {
