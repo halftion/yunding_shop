@@ -121,6 +121,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult updateState(Integer orderId, Integer state) {
         try{
             if(orderMapper.updateState(orderId,state) == 1){
@@ -130,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure();
             }
         }catch (Exception e){
-            return ServiceResult.failure("Service 错误 查询订单失败");
+            throw  new RuntimeException("订单状态修改失败");
         }
     }
 
