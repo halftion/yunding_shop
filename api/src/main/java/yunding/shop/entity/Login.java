@@ -1,7 +1,8 @@
 package yunding.shop.entity;
 
-import javax.annotation.Generated;
-import javax.persistence.GeneratedValue;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -16,10 +17,14 @@ public class Login {
     /**
      * 登录名
      */
+    @NotEmpty
+    @Size(min = 11, max = 11)
     private String loginName;
     /**
      * 登录密码
      */
+    @NotEmpty
+    @Size(min = 6, max = 20)
     private String password;
     /**
      * 创建时间
