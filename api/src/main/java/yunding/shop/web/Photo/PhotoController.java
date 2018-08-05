@@ -22,10 +22,9 @@ public class PhotoController {
     PhotoService photoService;
 
     @RequestMapping(value = "/avatar",method = RequestMethod.POST)
-    public RequestResult saveAvatar(@RequestParam MultipartFile pic, HttpServletRequest request){
+    public RequestResult saveAvatar(@RequestParam("pic") MultipartFile pic, HttpServletRequest request){
 
         try{
-            System.out.println("!@#$$##@@@@@！！！！！！！！########"+(pic == null));
             Integer userId = UserUtil.getCurrentUserId(request);
             String realPath = FileUtil.getRealPath(request);
 
