@@ -2,7 +2,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.ShopMapper">
+
     <select id="selectByName" parameterType="java.lang.String" resultType="yunding.shop.entity.Shop">
         SELECT * FROM t_shop WHERE `name` LIKE #{name}
+    </select>
+
+    <select id="selectUserIdByShopId" parameterType="java.lang.Integer">
+        SELECT user_id FROM  t_shop WHERE shop_id = #{shopId}
     </select>
 </mapper>

@@ -13,4 +13,11 @@ public interface ShopService {
      * @param keyword 关键词
      */
     ServiceResult selectByName (String keyword);
+
+    /**
+     * 根据店铺Id查询商户Id
+     * @param shopId 店铺Id
+     * @return 商户Id
+     */
+    ServiceResult selectUserIdByShopId (Integer shopId);
 }

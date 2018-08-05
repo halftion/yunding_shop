@@ -31,19 +31,18 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                boolean b = true;
-                if(!shopService.selectByName(newKeyword).isSuccess() ||
-                        !goodsService.selectByName(newKeyword).isSuccess()){
-                    b =false;
+                if(!shopService.selectByName(newKeyword).isSuccess()){
+                    //获取店铺失败
+                    return ServiceResult.failure(shopService.selectByName(newKeyword).getMessage());
+                }
+                if(!goodsService.selectByName(newKeyword).isSuccess()){
+                    //获取商品失败
+                    return ServiceResult.failure(goodsService.selectByName(newKeyword).getMessage());
                 }
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("shop",shopService.selectByName(newKeyword).getData());
                 jsonObject.put("goods",goodsService.selectByName(newKeyword).getData());
-                if(b){
-                    return ServiceResult.success(jsonObject);
-                }else {
-                    return ServiceResult.failure("商品和店铺获取失败");
-                }
+                return ServiceResult.success(jsonObject);
             }
         }catch (Exception e){
             return ServiceResult.failure("Service错误");
@@ -62,7 +61,8 @@ public class SearchServiceImpl implements SearchService {
                 if(goodsService.selectNameByGoodsName(newKeyword).isSuccess()){
                     return ServiceResult.success(goodsService.selectNameByGoodsName(newKeyword).getData());
                 }else {
-                    return ServiceResult.failure("获取商品名称错误");
+                    //获取商品名称失败
+                    return ServiceResult.failure(goodsService.selectNameByGoodsName(newKeyword).getMessage());
                 }
             }
         }catch (Exception e){
@@ -82,7 +82,8 @@ public class SearchServiceImpl implements SearchService {
                 if(goodsService.selectByShopIdAndGoodsName(shopId,newKeyword).isSuccess()){
                     return ServiceResult.success(goodsService.selectByShopIdAndGoodsName(shopId,newKeyword).getData());
                 }else{
-                    return ServiceResult.failure("获取商品错误");
+                    //获取商品失败
+                    return ServiceResult.failure(goodsService.selectByShopIdAndGoodsName(shopId,newKeyword).getMessage());
                 }
             }
         }catch (Exception e){

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Order;
 import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
@@ -107,7 +108,7 @@ public class OrderController {
      * @param orderId 订单ID
      * @param request request对象
      */
-    @RequestMapping(value = "id/{orderId}" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "/id/{orderId}" , method = RequestMethod.DELETE)
     public RequestResult deleteOrder(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
@@ -119,6 +120,62 @@ public class OrderController {
             }
         }catch (Exception e){
             return RequestResult.failure("查询订单失败");
+        }
+    }
+
+    /**
+     * 订单发货
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/send/{orderId}" , method = RequestMethod.PUT)
+    public RequestResult updateState(Integer orderId){
+        try {
+            ServiceResult serviceResult = orderService.updateState(orderId, Constant.WAIT_RECEIVE_GOOD);
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("订单状态修改失败");
+        }
+    }
+
+    /**
+     * 订单收货
+     * @param orderId 订单Id
+     */
+    @RequestMapping(value = "/receive/{orderId}" , method = RequestMethod.PUT)
+    public RequestResult receiveState( Integer orderId){
+        try {
+            ServiceResult serviceResult = orderService.updateState(orderId, Constant.WAIT_COMMENT);
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("收货失败");
+        }
+    }
+
+    /**
+     * 根据店铺ID查询订单
+     * @param shopId 店铺Id
+     */
+    @RequestMapping(value = "/shop/{shopId}" , method = RequestMethod.GET)
+    public RequestResult selectByShopId(@PathVariable("shopId") Integer shopId , HttpServletRequest request){
+        try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = orderService.selectByShopId(userId ,shopId);
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("收货失败");
         }
     }
 }

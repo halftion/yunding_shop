@@ -22,4 +22,16 @@ public class ShopServiceImpl implements ShopService {
             return ServiceResult.failure("获取店铺失败");
         }
     }
+
+    @Override
+    public ServiceResult selectUserIdByShopId(Integer shopId) {
+        try {
+            Integer userId = shopMapper.selectUserIdByShopId(shopId);
+            return ServiceResult.success(userId);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商户Id失败");
+        }
+    }
+
+
 }

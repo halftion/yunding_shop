@@ -52,5 +52,13 @@ public interface OrderService {
      * @param orderId 订单ID
      * @param state 订单状态
      */
-    ServiceResult updateState(@Param("orderId") Integer orderId, @Param("state") Integer state);
+    ServiceResult updateState( Integer orderId, Integer state);
+
+    /**
+     * 根据店铺ID查询订单
+     * @param userId 用户Id
+     * @param shopId 店铺Id
+     * @return 订单列表
+     */
+    ServiceResult selectByShopId (Integer userId , Integer shopId);
 }
