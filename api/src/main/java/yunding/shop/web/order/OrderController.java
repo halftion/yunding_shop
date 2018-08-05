@@ -1,6 +1,8 @@
 package yunding.shop.web.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
@@ -28,7 +30,13 @@ public class OrderController {
      * @param request request对象
      */
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
-    public RequestResult createOrder(@RequestBody List<Order> orderList , HttpServletRequest request){
+    public RequestResult createOrder(@Validated @RequestBody List<Order> orderList ,
+                                     HttpServletRequest request, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return RequestResult.failure("更新用户信息失败");
+        }
+
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = orderService.createOrder(userId,orderList);
@@ -125,8 +133,7 @@ public class OrderController {
 
     /**
      * 订单发货
-     * @param orderId
-     * @return
+     * @param orderId 订单id
      */
     @RequestMapping(value = "/send/{orderId}" , method = RequestMethod.PUT)
     public RequestResult updateState(Integer orderId){
