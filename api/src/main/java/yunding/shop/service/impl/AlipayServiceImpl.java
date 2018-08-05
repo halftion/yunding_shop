@@ -40,7 +40,7 @@ public class AlipayServiceImpl implements AlipayService {
 
            System.out.println(order);
            if(order.getState() == Constant.WAIT_PAY){
-               orderService.updateState(order.getOrderId(),Constant.WAIT_SEND_GOOD);
+               orderService.userPayByOrderId(order.getUserId(),order.getOrderId());
            }else{
                return ServiceResult.failure("订单状态错误");
            }

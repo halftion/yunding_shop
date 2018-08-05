@@ -45,4 +45,11 @@ public interface OrderMapper {
      * @param state 订单状态
      */
     Integer updateState(@Param("orderId") Integer orderId ,@Param("state") Integer state);
+
+    /**
+     * 根据店铺ID查询所有订单
+     * @param shopId 店铺Id
+     * @return 所有订单信息
+     */
+    List<Order> selectByShopId(Integer shopId);
 }

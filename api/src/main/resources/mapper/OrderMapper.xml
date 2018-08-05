@@ -54,4 +54,8 @@
     <update id="updateState">
         UPDATE t_order SET state = #{state} WHERE order_id = #{orderId}
     </update>
+
+    <select id="selectByShopId" parameterType="java.lang.Integer">
+        SELECT * FROM t_order WHERE shop_id = #{shopId}
+    </select>
 </mapper>

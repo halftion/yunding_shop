@@ -1,8 +1,6 @@
 package yunding.shop.web.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
@@ -28,19 +26,8 @@ public class OrderController {
      * @param request request对象
      * @return 用户的所有订单信息
      */
-<<<<<<< HEAD
     @RequestMapping(value = "/user" , method = RequestMethod.GET)
     public RequestResult selectByUserId(HttpServletRequest request){
-=======
-    @RequestMapping(value = "/create" , method = RequestMethod.POST)
-    public RequestResult createOrder(@Validated @RequestBody List<Order> orderList ,
-                                     HttpServletRequest request, BindingResult bindingResult){
-
-        if (bindingResult.hasErrors()) {
-            return RequestResult.failure("更新用户信息失败");
-        }
-
->>>>>>> bb61ede92190099df54ac5b6d525d281c6f42642
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = orderService.selectByUserId(userId);
@@ -135,14 +122,9 @@ public class OrderController {
     }
 
     /**
-<<<<<<< HEAD
      * 订单收货
      * @param orderId 订单Id
      * @param request request对象
-=======
-     * 订单发货
-     * @param orderId 订单id
->>>>>>> bb61ede92190099df54ac5b6d525d281c6f42642
      */
     @RequestMapping(value = "/receive/{orderId}" , method = RequestMethod.PUT)
     public RequestResult receiveGoods( Integer orderId , HttpServletRequest request){
@@ -180,7 +162,7 @@ public class OrderController {
     }
 
     /**
-     * 根据订单ID删除订单
+     * 根据订单ID 删除订单
      * @param orderId 订单ID
      * @param request request对象
      */
