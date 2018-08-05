@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServiceResult updateAvatar(Integer userId, String avatar) {
-        if(userMapper.updateAvatar(userId,avatar) == 1){
+        if(userMapper.updateAvatar(userId, avatar) == 1){
             return ServiceResult.success();
         }else {
             return ServiceResult.failure("更新头像失败");
