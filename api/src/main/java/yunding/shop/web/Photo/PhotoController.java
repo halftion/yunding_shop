@@ -1,10 +1,7 @@
 package yunding.shop.web.photo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
@@ -24,12 +21,11 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
-    @ResponseBody
     @RequestMapping(value = "/avatar",method = RequestMethod.POST)
-    public RequestResult saveAvatar(MultipartFile pic, HttpServletRequest request){
+    public RequestResult saveAvatar(@RequestParam MultipartFile pic, HttpServletRequest request){
 
         try{
-            System.out.println("!@#$$##@@@@@！！！！！！！！########"+pic.getOriginalFilename());
+            System.out.println("!@#$$##@@@@@！！！！！！！！########"+(pic == null));
             Integer userId = UserUtil.getCurrentUserId(request);
             String realPath = FileUtil.getRealPath(request);
 
