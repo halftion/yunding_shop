@@ -46,5 +46,11 @@ public interface UserService {
      */
     ServiceResult register(String loginName, String password);
 
+    /**
+     * 更新用户头像地址
+     * @param userId 用户id
+     * @param avatar 头像地址
+     * @return 是否成功
+     */
     ServiceResult updateAvatar(Integer userId, String avatar);
 }

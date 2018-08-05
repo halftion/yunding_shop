@@ -10,6 +10,7 @@ import yunding.shop.entity.Order;
 import yunding.shop.mapper.OrderMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
+import java.util.List;
 
 /**
  * @author guo
@@ -25,17 +26,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult createOrder(Integer userId, Order order) {
+    public ServiceResult createOrder(Integer userId, List<Order> orderList) {
         try{
             Boolean b = true;
-            order.setUserId(userId);
-            order.createAtNow();
-            order.updateAtNow();
-            if(!goodsService.processOrderCreate(order).isSuccess()){
-                b = false;
-            }
-            if ( b && orderMapper.insertOrder(order) != 1){
-                b = false;
+            for (Order order : orderList){
+                order.setUserId(userId);
+                order.createAtNow();
+                order.updateAtNow();
+                if(!goodsService.processOrderCreate(order).isSuccess()){
+                    b = false;
+                }
+                if ( b && orderMapper.insertOrder(order) != 1){
+                    b = false;
+                }
             }
             if(b)
             {

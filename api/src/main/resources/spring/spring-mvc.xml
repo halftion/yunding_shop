@@ -37,6 +37,7 @@
             <mvc:mapping path="/api/user/**"/>
             <mvc:mapping path="/api/order/**"/>
             <mvc:mapping path="/api/aliPay/**"/>
+            <mvc:mapping path="/api/photo/**"/>
             <mvc:exclude-mapping path="/api/user/checkLoginName/**"/>
             <mvc:exclude-mapping path="/api/user/login/**"/>
             <mvc:exclude-mapping path="/api/user/register/**"/>
@@ -57,8 +58,7 @@
         <property name="order" value="0"/>
     </bean>
 
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 设定默认编码 -->
         <property name="defaultEncoding" value="UTF-8"/>
         <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
