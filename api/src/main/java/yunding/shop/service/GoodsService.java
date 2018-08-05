@@ -8,6 +8,7 @@ import yunding.shop.entity.Order;
  * @author guo
  */
 public interface GoodsService {
+
     /**
      * 根据商品id查询商品
      * @param id 商品id

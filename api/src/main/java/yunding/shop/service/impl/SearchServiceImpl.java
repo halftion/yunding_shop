@@ -1,20 +1,14 @@
 package yunding.shop.service.impl;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.mapper.GoodsMapper;
-import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.SearchService;
 import yunding.shop.service.ShopService;
 import yunding.shop.utils.Separator;
 import yunding.shop.utils.StringFilter;
-import java.util.List;
-
-import static yunding.shop.entity.Constant.HINT_SIZE;
 
 /**
  * @author guo
@@ -24,6 +18,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Autowired
     private ShopService shopService;
+
     @Autowired
     private GoodsService goodsService;
 
@@ -94,6 +89,4 @@ public class SearchServiceImpl implements SearchService {
             return ServiceResult.failure("Service错误");
         }
     }
-
-
 }

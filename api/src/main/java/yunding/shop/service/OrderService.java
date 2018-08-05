@@ -4,8 +4,6 @@ import org.apache.ibatis.annotations.Param;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
 
-import java.util.List;
-
 /**
  * @author guo
  */
@@ -14,9 +12,9 @@ public interface OrderService {
     /**
      * 创建一个新订单
      * @param userId 用户ID
-     * @param orderList 订单列表
+     * @param order 订单信息
      */
-    ServiceResult createOrder(Integer userId, List<Order> orderList);
+    ServiceResult createOrder(Integer userId, Order order);
 
     /**
      * 评论订单
@@ -52,5 +50,5 @@ public interface OrderService {
      * @param orderId 订单ID
      * @param state 订单状态
      */
-    ServiceResult updateState(@Param("orderId") Integer orderId , @Param("state") Integer state);
+    ServiceResult updateState(@Param("orderId") Integer orderId, @Param("state") Integer state);
 }

@@ -18,6 +18,7 @@ import static yunding.shop.entity.Constant.HINT_SIZE;
  */
 @Service
 public class GoodsServiceImpl implements GoodsService{
+
     @Autowired
     private GoodsMapper goodsMapper;
 
@@ -39,7 +40,6 @@ public class GoodsServiceImpl implements GoodsService{
         order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
         order.setShopId(goods.getShopId());
         order.setShopName(goods.getShopName());
-
         Integer i = goodsMapper.updateStockAndSales(goodsId,
                 (goods.getStockNum() - order.getGoodsNum()),
                 (goods.getSales() + order.getGoodsNum()));
@@ -54,7 +54,6 @@ public class GoodsServiceImpl implements GoodsService{
     public ServiceResult processOrderDelete(Order order) {
         Integer goodsId = order.getGoodsId();
         Goods goods = goodsMapper.selectByGoodsId(goodsId);
-
         Integer i = goodsMapper.updateStockAndSales(goodsId,
                 (goods.getStockNum() + order.getGoodsNum()),
                 (goods.getSales() - order.getGoodsNum()));

@@ -6,6 +6,7 @@ import yunding.shop.dto.ServiceResult;
  * @author guo
  */
 public interface SearchService {
+
     /**
      * 根据关键词在平台内搜索商品和店铺
      * @param keyword 关键词
@@ -26,5 +27,5 @@ public interface SearchService {
      * @param shopId 店铺名称
      * @return 查询到的店铺内的商品
      */
-    ServiceResult shopSearch(String keyword , Integer shopId);
+    ServiceResult shopSearch(String keyword, Integer shopId);
 }
