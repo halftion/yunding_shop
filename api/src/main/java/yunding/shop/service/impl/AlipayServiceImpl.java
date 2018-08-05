@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Alipay;
-import yunding.shop.entity.Alipay;
 import yunding.shop.entity.Constant;
 import yunding.shop.entity.Order;
 import yunding.shop.service.AlipayService;
@@ -19,6 +18,7 @@ public class AlipayServiceImpl implements AlipayService {
 
     @Autowired
     private OrderService orderService;
+
     @Override
     public ServiceResult purchase(Order order) {
        try{
@@ -31,14 +31,11 @@ public class AlipayServiceImpl implements AlipayService {
            String totalPrice= new String(String.valueOf(order.getTotalPrice()).getBytes("ISO-8859-1"),"utf-8");
            String orderName="";
            String body="";
-
            alipayTradePagePayRequest.setBizContent("{\"out_trade_no\":\""+ orderId +"\","
                    + "\"total_amount\":\""+ totalPrice +"\","
                    + "\"subject\":\""+ orderName +"\","
                    + "\"body\":\""+ body +"\","
                    + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-
-
            String result= alipayClient.pageExecute(alipayTradePagePayRequest).getBody();
 
            System.out.println(order);
@@ -47,7 +44,6 @@ public class AlipayServiceImpl implements AlipayService {
            }else{
                return ServiceResult.failure("订单状态错误");
            }
-
            return ServiceResult.success(result);
        }catch (Exception e){
            throw new RuntimeException("支付失败");

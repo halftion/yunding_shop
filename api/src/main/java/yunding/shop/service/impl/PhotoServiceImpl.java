@@ -17,7 +17,7 @@ import yunding.shop.utils.FileUtil;
 public class PhotoServiceImpl implements PhotoService{
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     @Transactional(rollbackFor=Exception.class)
@@ -25,13 +25,12 @@ public class PhotoServiceImpl implements PhotoService{
 
         try {
             String picture = FileUtil.saveFile(pic,realPath);
-
             ServiceResult userServiceResult = userService.updateAvatar(userId,picture);
-
             if(userServiceResult.isSuccess())
             {
                 return ServiceResult.success(picture);
             }else {
+                //更新头像失败
                 return ServiceResult.failure(userServiceResult.getMessage());
             }
         } catch (Exception e) {

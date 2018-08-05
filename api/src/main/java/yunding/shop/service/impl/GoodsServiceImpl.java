@@ -97,4 +97,24 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.failure("获取商品失败");
         }
     }
+
+    @Override
+    public ServiceResult selectByPlatformCategoryId(Integer categoryId) {
+        try {
+            List<Goods> goods=goodsMapper.selectByPlatformCategoryId(categoryId);
+            return ServiceResult.success(goods);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商品集合失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectByShopCategoryId(Integer shopId, Integer category) {
+        try {
+            List<Goods> goods=goodsMapper.selectByShopCategoryId(shopId,category);
+            return ServiceResult.success(goods);
+        }catch (Exception e){
+            return ServiceResult.failure("获取商品集合失败");
+        }
+    }
 }

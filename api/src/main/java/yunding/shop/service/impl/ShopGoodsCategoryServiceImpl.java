@@ -5,11 +5,9 @@ import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.ShopGoodsCategory;
-import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.mapper.ShopGoodsCategoryMapper;
+import yunding.shop.service.GoodsService;
 import yunding.shop.service.ShopGoodsCategoryService;
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -19,10 +17,13 @@ import java.util.List;
  */
 @Service
 public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
+
     @Autowired
     private ShopGoodsCategoryMapper shopGoodsCategoryMapper;
+
     @Autowired
-    private GoodsMapper goodsMapper;
+    private GoodsService goodsService;
+
     @Override
     public ServiceResult getCategoryList(int shopId) {
         try{
@@ -37,7 +38,12 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
     @Override
     public ServiceResult getAllGoods(int shopId, int category) {
         try {
-            List<Goods> goods=goodsMapper.selectByShopCategoryId(shopId,category);
+            if(!goodsService.selectByShopCategoryId(shopId , category).isSuccess()){
+                //获取商品集合失败
+                return ServiceResult.failure(goodsService.selectByShopCategoryId(shopId , category).getMessage());
+            }
+            List<Goods> goods=(List<Goods>)
+                    goodsService.selectByShopCategoryId(shopId , category).getData();
             Collections.sort(goods, new Comparator<Goods>() {
                 @Override
                 public int compare(Goods o1, Goods o2) {

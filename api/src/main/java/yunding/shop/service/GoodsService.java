@@ -46,4 +46,17 @@ public interface GoodsService {
      * @param keyword 商品名称
      */
     ServiceResult selectByShopIdAndGoodsName(Integer shopId, String keyword);
+
+    /**
+     * 根据平台分类id查询指定平台分类中商品
+     * @param categoryId 指定平台分类的Id
+     */
+    ServiceResult selectByPlatformCategoryId(Integer categoryId);
+
+    /**
+     * 根据店铺id和店铺分类id查找店铺分类中的商品
+     * @param shopId 店铺Id
+     * @param category 店铺分类Id
+     */
+    ServiceResult selectByShopCategoryId(Integer shopId, Integer category);
 }

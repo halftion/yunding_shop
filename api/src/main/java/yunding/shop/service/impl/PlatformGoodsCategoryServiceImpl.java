@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
-import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.mapper.PlatformGoodsCategoryMapper;
+import yunding.shop.service.GoodsService;
 import yunding.shop.service.PlatformGoodsCategoryService;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,8 +19,9 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
 
     @Autowired
     private PlatformGoodsCategoryMapper platformGoodsCategoryMapper;
+
     @Autowired
-    private GoodsMapper goodsMapper;
+    private GoodsService goodsService;
 
     @Override
     public ServiceResult getCategoryList() {
@@ -35,7 +35,12 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
     @Override
     public ServiceResult getAllGoods(int categoryId) {
         try{
-            List<Goods> goods=goodsMapper.selectByPlatformCategoryId(categoryId);
+            if(!goodsService.selectByPlatformCategoryId(categoryId).isSuccess()){
+                //获取商品集合失败
+                return ServiceResult.failure(goodsService.selectByPlatformCategoryId(categoryId).getMessage());
+            }
+            List<Goods> goods=(List<Goods>)
+                    goodsService.selectByPlatformCategoryId(categoryId).getData();
             goods.sort(new Comparator<Goods>() {
                 @Override
                 public int compare(Goods o1, Goods o2) {
