@@ -45,4 +45,6 @@ public interface UserService {
      * @return 是否注册成功
      */
     ServiceResult register(String loginName, String password);
+
+    ServiceResult updateAvatar(Integer userId, String avatar);
 }

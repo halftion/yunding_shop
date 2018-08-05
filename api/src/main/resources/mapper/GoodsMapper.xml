@@ -32,4 +32,5 @@
         UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales}
         WHERE goods_id = #{goodsId}
     </update>
+
 </mapper>

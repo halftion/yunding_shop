@@ -26,4 +26,12 @@ public interface UserMapper {
      * @param userInfo 用户类
      */
     void insert(UserInfo userInfo);
+
+    /**
+     * 根据用户id修改用户头像
+     * @param userId 用户id
+     * @param avatar 头像地址
+     * @return 修改条数
+     */
+    Integer updateAvatar(@Param("userId")Integer userId, @Param("avatar") String avatar);
 }

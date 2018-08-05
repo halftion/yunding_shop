@@ -22,7 +22,11 @@
             keyProperty="userId"
             keyColumn="user_id"
             parameterType="yunding.shop.entity.UserInfo">
-        INSERT t_user_info (created_at,updated_at) VALUES(#{createdAt},#{updatedAt})
+        INSERT t_user_info (created_at,updated_at) VALUES (#{createdAt},#{updatedAt})
     </insert>
+    
+    <update id="updateAvatar">
+        UPDATE t_user_info SET avatar = #{avatar} WHERE user_id = #{userId}
+    </update>
 
 </mapper>

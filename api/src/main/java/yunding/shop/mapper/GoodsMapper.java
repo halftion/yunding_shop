@@ -58,9 +58,10 @@ public interface GoodsMapper {
      * @param goodsId 商品Id
      * @param stockNum 商品更改后库存
      * @param sales 商品更改后销量
-     * @return
+     * @return 修改条数
      */
     Integer updateStockAndSales ( @Param("goodsId") Integer goodsId  ,
                                   @Param("stockNum") Integer stockNum ,
                                   @Param("sales") Integer sales);
+
 }
