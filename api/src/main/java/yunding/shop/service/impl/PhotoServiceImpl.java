@@ -2,6 +2,7 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.PhotoService;
@@ -19,6 +20,7 @@ public class PhotoServiceImpl implements PhotoService{
     UserService userService;
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult saveAvatar(Integer userId, MultipartFile pic, String realPath) {
 
         try {

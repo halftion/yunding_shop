@@ -98,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult deleteByOrderId(Integer userId, Integer orderId) {
         try{
             boolean b = true;
@@ -121,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
                 return  ServiceResult.failure("用户信息不匹配");
             }
         }catch (Exception e){
-            return ServiceResult.failure("Service 错误 查询订单失败");
+            throw new RuntimeException("Service 错误 查询订单失败");
         }
     }
 
