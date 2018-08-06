@@ -303,7 +303,7 @@ JSON传入：
     "message": "检测用户名失败"
 }
 
-11.根据电话号发送验证码：/api/verificationCode/register/{phoneNumber} (POST)
+11.根据电话号发送验证码：/api/verificationCode/register/{phoneNumber} (GET)
 成功返回示例：
 {
     "code": 200,
@@ -530,7 +530,7 @@ JSON传入：
 
 
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
-订单：
+订单：买家
 
 17.创建一个新订单：/api/order (POST)
 JSON传入：
@@ -647,7 +647,19 @@ JSON传入：
     "message": "查询订单失败"
 }
 
-20.评论订单：/api/order/comment (PUT)
+20.订单收货：/api/order/receive/{orderId} (PUT)
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+21.评论订单：/api/order/comment (PUT)
 JSON传入：
 {
 	"orderId" : 8,
@@ -674,7 +686,33 @@ JSON传入：
     "message": "订单评论失败"
 }
 
-21.删除订单：/api/order/{orderId} (DELETE)
+22.删除订单：/api/order/{orderId} (DELETE)
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+订单：卖家
+
+23.根据店铺Id获取店铺订单：/api/order/shop/{shopId} (GET)
+成功返回示例：
+为空返回示例：
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+24.卖家发货: /api/order/send/{orderId} (PUT)
 成功返回示例：
 {
     "code": 200,
