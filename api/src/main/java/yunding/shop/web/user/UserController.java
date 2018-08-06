@@ -57,7 +57,6 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return RequestResult.failure("登录失败");
         }
-
         try {
             ServiceResult serviceResult = userService.login(login);
             if (serviceResult.isSuccess()) {
