@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 商品
@@ -220,5 +221,18 @@ public class Goods implements Comparator {
         }else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goods goods = (Goods) o;
+        return Objects.equals(goodsId, goods.goodsId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(goodsId);
     }
 }
