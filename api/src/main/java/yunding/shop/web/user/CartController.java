@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
+import yunding.shop.service.CartService;
 import yunding.shop.service.GoodsService;
 import yunding.shop.utils.UserUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,26 @@ public class CartController {
     Map<Integer, List<Goods>> cartMap;
 
     @Autowired
-    GoodsService goodsService;
+    CartService cartService;
+
+    /**
+     * 获取用户购物车
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public RequestResult getGoods(HttpServletRequest request){
+        Integer userId = UserUtil.getCurrentUserId(request);
+        try {
+            ServiceResult serviceResult = cartService.getGoods(userId,cartMap);
+
+            if (serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            } else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("获取商品失败");
+        }
+    }
 
     /**
      * 在购物车中添加商品
@@ -37,45 +57,17 @@ public class CartController {
     @RequestMapping(value = "/{goodsId}", method = RequestMethod.PUT)
     public RequestResult addGoods(@PathVariable Integer goodsId,
                                   HttpServletRequest request){
-
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = cartService.addGoods(userId,goodsId,cartMap);
 
-            List<Goods> goodsList;
-
-            ServiceResult serviceResult = goodsService.selectById(goodsId);
-
-            if (serviceResult.isSuccess())
-            {
-                //购物车中是否包含此用户
-                if (cartMap.containsKey(userId)){
-                    goodsList= cartMap.get(userId);
-                } else {
-                    goodsList = new ArrayList<>();
-                }
-
-                goodsList.add((Goods) serviceResult.getData());
-                cartMap.put(userId,goodsList);
-                return RequestResult.success(goodsList);
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
             } else {
-                return RequestResult.failure("获取商品失败");
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("添加商品失败");
-        }
-    }
-
-    /**
-     * 获取用户购物车
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public RequestResult getGoods(HttpServletRequest request){
-        Integer userId = null;
-        try {
-            userId = UserUtil.getCurrentUserId(request);
-            return RequestResult.success(cartMap.get(userId));
-        } catch (Exception e) {
-            return RequestResult.failure("获取商品失败");
         }
     }
 
@@ -89,29 +81,15 @@ public class CartController {
 
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = cartService.dropGoods(userId,goodsId,cartMap);
 
-            List<Goods> goodsList;
-
-            ServiceResult serviceResult = goodsService.selectById(goodsId);
-
-            if (serviceResult.isSuccess())
-            {
-                //购物车中是否包含此用户
-                if (cartMap.containsKey(userId)){
-                    goodsList= cartMap.get(userId);
-                    System.out.println(goodsList.lastIndexOf((Goods) serviceResult.getData()));
-                    goodsList.remove(
-                            goodsList.lastIndexOf((Goods) serviceResult.getData()));
-                    cartMap.put(userId,goodsList);
-                    return RequestResult.success(goodsList);
-                } else {
-                    return RequestResult.failure("购物车中无商品");
-                }
-            } else {
-                return RequestResult.failure("获取商品失败");
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            } else{
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
-            return RequestResult.failure("删除商品失败");
+            return RequestResult.failure("移除商品失败");
         }
     }
 }
