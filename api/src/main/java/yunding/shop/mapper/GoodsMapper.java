@@ -3,6 +3,7 @@ package yunding.shop.mapper;
 import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.Goods;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**

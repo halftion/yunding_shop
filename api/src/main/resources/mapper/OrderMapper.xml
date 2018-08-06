@@ -58,4 +58,10 @@
     <select id="selectByShopId" parameterType="java.lang.Integer">
         SELECT * FROM t_order WHERE shop_id = #{shopId}
     </select>
-</mapper>
+
+    <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
+        resultType="java.util.HashMap">
+        SELECT user_id , `comment` FROM t_order WHERE goods_id = #{goodsId}
+    </select>
+
+        </mapper>

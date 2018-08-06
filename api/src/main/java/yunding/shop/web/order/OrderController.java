@@ -108,7 +108,7 @@ public class OrderController {
      * @param request request对象
      */
     @RequestMapping(value = "/send/{orderId}" , method = RequestMethod.PUT)
-    public RequestResult sendGoods(Integer orderId, HttpServletRequest request){
+    public RequestResult sendGoods(@PathVariable("orderId") Integer orderId, HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = orderService.sendGoodsByOrderId(userId, orderId);
@@ -128,7 +128,7 @@ public class OrderController {
      * @param request request对象
      */
     @RequestMapping(value = "/receive/{orderId}" , method = RequestMethod.PUT)
-    public RequestResult receiveGoods( Integer orderId , HttpServletRequest request){
+    public RequestResult receiveGoods( @PathVariable("orderId") Integer orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = orderService.receiveGoodsByOrderId(userId , orderId);
@@ -178,7 +178,21 @@ public class OrderController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("查询订单失败");
+            return RequestResult.failure("删除订单失败");
+        }
+    }
+
+    @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
+    public RequestResult getCommentByGoodsId( Integer goodsId ){
+        try {
+            ServiceResult serviceResult =orderService.selectCommentByGoodsId(goodsId);
+            if(serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("获取商品评论失败");
         }
     }
 }

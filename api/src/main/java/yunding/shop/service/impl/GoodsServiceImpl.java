@@ -8,6 +8,8 @@ import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
+import yunding.shop.service.OrderService;
+
 import java.math.BigDecimal;
 import java.util.List;
 import static yunding.shop.entity.Constant.HINT_SIZE;
@@ -21,6 +23,9 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Autowired
     private GoodsMapper goodsMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public ServiceResult selectById(Integer id) {
@@ -123,6 +128,20 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             goodsMapper.commentGoods(goodsId);
             return ServiceResult.success();
+        }catch (Exception e){
+            return ServiceResult.failure("商品评价数量修改失败");
+        }
+    }
+
+    @Override
+    public ServiceResult getCommentByGoodsId(Integer goodsId) {
+        try {
+            ServiceResult serviceResult = orderService.selectCommentByGoodsId(goodsId);
+            if(!serviceResult.isSuccess()){
+                return ServiceResult.success(serviceResult.getData());
+            }else {
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
         }catch (Exception e){
             return ServiceResult.failure("商品评价数量修改失败");
         }

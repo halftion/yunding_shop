@@ -65,4 +65,11 @@ public interface GoodsService {
      * @param goodsId 商品Id
      */
     ServiceResult commentGoods(Integer goodsId);
+
+    /**
+     * 根据商品Id查询用户Id和用户评价
+     * @param goodsId 商品Id
+     * @return 用户Id和用户评价
+     */
+    ServiceResult getCommentByGoodsId(Integer goodsId);
 }

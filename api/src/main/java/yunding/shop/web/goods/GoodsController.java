@@ -12,6 +12,7 @@ import yunding.shop.service.GoodsService;
 /**
  * 根据商品id查询商品
  * @author ren
+ * @author guo
  */
 @RestController
 @RequestMapping("/api/goods")
@@ -20,6 +21,11 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    /**
+     * 根据商品Id查询商品
+     * @param id 商品Id
+     * @return 商品信息
+     */
     @RequestMapping(value = "/id/{id}",method = RequestMethod.GET)
     public RequestResult list(@PathVariable Integer id){
         try {
@@ -31,6 +37,25 @@ public class GoodsController {
             }
         }catch (Exception e){
             return RequestResult.failure("获取商品失败");
+        }
+    }
+
+    /**
+     * 根据商品Id获取商品所有评论
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
+    public RequestResult getCommentByGoodsId( Integer goodsId ){
+        try {
+            ServiceResult serviceResult=goodsService.getCommentByGoodsId(goodsId);
+            if(serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("获取商品评论失败");
         }
     }
 }

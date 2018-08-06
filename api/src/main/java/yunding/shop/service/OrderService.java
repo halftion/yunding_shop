@@ -75,4 +75,11 @@ public interface OrderService {
      */
     ServiceResult deleteByOrderId(Integer userId,Integer orderId);
 
+    /**
+     * 根据商品Id查询用户Id和用户评价
+     * @param goodsId 商品Id
+     * @return 用户Id和用户评价
+     */
+    ServiceResult selectCommentByGoodsId(Integer goodsId);
+
 }
