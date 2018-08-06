@@ -5,6 +5,7 @@ import yunding.shop.entity.Shop;
 import java.util.List;
 
 /**
+ * 店铺
  * @author 齐语冰
  */
 public interface ShopMapper {

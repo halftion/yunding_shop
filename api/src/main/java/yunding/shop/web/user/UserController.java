@@ -71,7 +71,9 @@ public class UserController {
     }
 
     /**
-     * 根据ID查询用户
+     * 根据用户ID获取用户信息
+     * @param request request对象
+     * @return 用户信息
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public RequestResult searchById(HttpServletRequest request) {

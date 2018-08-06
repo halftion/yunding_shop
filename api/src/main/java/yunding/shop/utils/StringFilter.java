@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author guo
  * 对于传入String关键词的过滤器
+ * @author guo
  */
 public class StringFilter {
 
