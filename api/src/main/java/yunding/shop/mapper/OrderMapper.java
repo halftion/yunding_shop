@@ -3,7 +3,9 @@ package yunding.shop.mapper;
 import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.Order;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 提供有关于订单的方法
@@ -52,4 +54,11 @@ public interface OrderMapper {
      * @return 所有订单信息
      */
     List<Order> selectByShopId(Integer shopId);
+
+    /**
+     * 根据商品Id查询商品评价
+     * @param goodsId 商品Id
+     * @return 用户Id和商品评价
+     */
+    HashMap<Integer,String> selectCommentByGoodsId (Integer goodsId);
 }

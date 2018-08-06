@@ -1,6 +1,7 @@
 package yunding.shop.service.impl;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,8 @@ import yunding.shop.mapper.OrderMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -166,6 +169,7 @@ public class OrderServiceImpl implements OrderService {
             }
             if(state.equals(Constant.WAIT_COMMENT) ){
                 orderMapper.updateComment(order.getOrderId(),order.getComment());
+                orderMapper.updateState(order.getOrderId() , Constant.OVER_ORDER);
             }else {
                 return ServiceResult.failure("订单状态有误");
             }
@@ -185,23 +189,32 @@ public class OrderServiceImpl implements OrderService {
     public ServiceResult deleteByOrderId(Integer userId, Integer orderId) {
         try{
             Order order = orderMapper.selectByOrderId(orderId);
-            if (order.getUserId().equals(userId)) {
-                if( order.getState()>=Constant.WAIT_RECEIVE_GOOD &&
-                        order.getState() <=Constant.OVER_ORDER){
-                    if(!goodsService.processOrderDelete(order).isSuccess()){
-                        //修改商品信息失败
-                        return ServiceResult.failure(goodsService.processOrderDelete(order).getMessage());
-                    }
-                }
-                if(orderMapper.updateState(orderId,Constant.DELETE_ORDER )!= 1){
-                    return ServiceResult.failure("订单状态修改失败");
-                }
-                return ServiceResult.success();
-            }else{
-                return  ServiceResult.failure("用户信息不匹配");
+            if (!order.getUserId().equals(userId)) {
+                return ServiceResult.failure("用户信息不匹配");
             }
+            if( order.getState()>=Constant.WAIT_RECEIVE_GOOD &&
+                    order.getState() <=Constant.OVER_ORDER){
+                if(!goodsService.processOrderDelete(order).isSuccess()){
+                    //修改商品库存失败
+                    return ServiceResult.failure(goodsService.processOrderDelete(order).getMessage());
+                }
+            }
+            if(orderMapper.updateState(orderId,Constant.DELETE_ORDER )!= 1){
+                return ServiceResult.failure("订单状态修改失败");
+            }
+            return ServiceResult.success();
         }catch (Exception e){
-            throw new RuntimeException("Service 错误 查询订单失败");
+            throw new RuntimeException("Service 错误 删除订单失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectCommentByGoodsId(Integer goodsId) {
+        try{
+            HashMap<Integer,String> hashMap = orderMapper.selectCommentByGoodsId(goodsId);
+            return ServiceResult.success(hashMap);
+        }catch (Exception e){
+            throw new RuntimeException("查询商品评价失败");
         }
     }
 }

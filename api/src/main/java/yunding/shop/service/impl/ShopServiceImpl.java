@@ -3,6 +3,7 @@ package yunding.shop.service.impl;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
@@ -24,12 +25,13 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult selectUserIdByShopId(Integer shopId) {
         try {
             Integer userId = shopMapper.selectUserIdByShopId(shopId);
             return ServiceResult.success(userId);
         }catch (Exception e){
-            return ServiceResult.failure("获取商户Id失败");
+            throw new RuntimeException("获取商户ID失败");
         }
     }
 
