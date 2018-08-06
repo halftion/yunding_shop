@@ -83,6 +83,10 @@ public class Order {
      */
     private int state;
     /**
+     * 订单 运单号
+     */
+    private String trackingNum;
+    /**
      * 订单 创建时间
      */
     private Date createdAt;
@@ -221,6 +225,14 @@ public class Order {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getTrackingNum() {
+        return trackingNum;
+    }
+
+    public void setTrackingNum(String trackingNum) {
+        this.trackingNum = trackingNum;
     }
 
     public Date getCreatedAt() {
