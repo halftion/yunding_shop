@@ -18,6 +18,8 @@ import java.util.Date;
 public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Autowired
     IdentifyingCodeMapper identifyingCodeMapper;
+    @Autowired
+    SmsUtil smsUtil;
 
     @Override
     @Transactional(rollbackFor=Exception.class)
@@ -27,7 +29,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             identifyingCodeMapper.drop(phoneNumber);
             String verificationCode= SmsUtil.randomVerificationCode();
             //发送验证码
-            SmsUtil.sendMessaging(phoneNumber,verificationCode);
+            smsUtil.sendMessaging(phoneNumber,verificationCode);
             //插入到数据库
             identifyingCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
             return ServiceResult.success();

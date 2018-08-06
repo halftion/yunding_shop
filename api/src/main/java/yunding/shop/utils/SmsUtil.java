@@ -9,6 +9,9 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -17,36 +20,46 @@ import java.util.UUID;
  * @author huguobin
  * 用于发送验证码
  */
+@Configuration
+@PropertySource(value = "classpath:SMS.properties", encoding = "utf-8")
 public class SmsUtil {
     /**
      * 产品名称:云通信短信API产品
      */
-    private static String product = "Dysmsapi";
+    @Value("${SMS.product}")
+    private  String product;
     /**
      *   产品域名
      */
-    private static String domain = "dysmsapi.aliyuncs.com";
+    @Value("${SMS.domain}")
+    private  String domain;
     /**
      *云账号密码
      */
-    private static String accessKeyId = "LTAIlwNSZ7sYSDA7";
-    private static String accessKeySecret = "UUqyQsRRZRMvMOBpQXPkOxB0j3WTbG";
+    @Value("${SMS.accessKeyId}")
+    private  String accessKeyId ;
+    @Value("${SMS.accessKeySecret}")
+    private  String accessKeySecret ;
     /**
      * 短信签名
      */
-    private static String signName = "齐语冰";
+    @Value("${SMS.signName}")
+    private String signName;
     /**
      * 短信模板
      */
-    private static String templateCode = "SMS_141380028";
+    @Value("${SMS.templateCode}")
+    private  String templateCode;
     /**
      * 手机号码
      */
-    private static String phoneNumber;
+    private  String phoneNumber;
     /**
      * 过期时间
      */
-    private static String outTime = "300000";
+    @Value("${SMS.outTime")
+    private  String outTime;
+
     /**
      *
      * @param phoneNumber 请求短信验证码的手机号
@@ -54,8 +67,8 @@ public class SmsUtil {
      * @throws ClientException
      */
 
-    public static SendSmsResponse sendSms(String phoneNumber,String verification) throws ClientException {
-        SmsUtil.phoneNumber = phoneNumber;
+    public  SendSmsResponse sendSms(String phoneNumber,String verification) throws ClientException {
+        this.phoneNumber = phoneNumber;
         //连接主机超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", outTime);
         //从主机获取数据超时时间
@@ -69,7 +82,7 @@ public class SmsUtil {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
-        request.setPhoneNumbers(String.valueOf(phoneNumber));
+        request.setPhoneNumbers(phoneNumber);
         //必填:短信签名-可在短信控制台中找到
         request.setSignName(signName);
         //必填:短信模板-可在短信控制台中找到
@@ -88,7 +101,7 @@ public class SmsUtil {
 
         return sendSmsResponse;
     }
-    public static QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
+    public  QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", String.valueOf(outTime));
@@ -122,9 +135,17 @@ public class SmsUtil {
     /**
      * 发送短信
      */
-    public static void sendMessaging(String phoneNumber,String verification) throws ClientException {
+    public  void sendMessaging(String phoneNumber,String verification) throws ClientException {
+
+        System.out.println(product);
+        System.out.println(domain);
+        System.out.println(accessKeyId);
+        System.out.println(accessKeySecret);
+        System.out.println(signName);
+        System.out.println(templateCode);
+        System.out.println(outTime);
         //发短信
-        SendSmsResponse response = SmsUtil.sendSms(phoneNumber,verification);
+        SendSmsResponse response = sendSms(phoneNumber,verification);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
@@ -135,7 +156,7 @@ public class SmsUtil {
 
         //查明细
         if(response.getCode() != null && response.getCode().equals("OK")) {
-            QuerySendDetailsResponse querySendDetailsResponse =SmsUtil.querySendDetails(response.getBizId());
+            QuerySendDetailsResponse querySendDetailsResponse =querySendDetails(response.getBizId());
             System.out.println("短信明细查询接口返回数据----------------");
             System.out.println("Code=" + querySendDetailsResponse.getCode());
             System.out.println("Message=" + querySendDetailsResponse.getMessage());
@@ -154,6 +175,8 @@ public class SmsUtil {
             }
             System.out.println("TotalCount=" + querySendDetailsResponse.getTotalCount());
             System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
+        }else {
+            throw  new RuntimeException("发送验证码错误");
         }
     }
     /**
@@ -164,12 +187,35 @@ public class SmsUtil {
         return UUID.randomUUID().toString().substring(0,6).toUpperCase();
     }
 
-    public  String getProduct() {
-        return product;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
-    public  void setProduct(String product) {
-        SmsUtil.product = product;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
+    }
+
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
+    }
+
+//    public void setSignName(String signName) {
+//        this.signName = signName;
+//    }
+
+    public void setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setOutTime(String outTime) {
+        this.outTime = outTime;
+    }
 }

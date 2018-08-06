@@ -1,12 +1,10 @@
 package yunding.shop.web.Alipay;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
-import yunding.shop.entity.UserInfo;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
@@ -41,4 +39,15 @@ public class AlipayController {
             return RequestResult.failure();
         }
     }
+
+    @RequestMapping(value = "/purchase/result",method = RequestMethod.POST)
+    public String result(HttpServletRequest request){
+        try {
+            alipayService.result(request);
+            return "success";
+        }catch (Exception e){
+            return "fail";
+        }
+    }
+
 }
