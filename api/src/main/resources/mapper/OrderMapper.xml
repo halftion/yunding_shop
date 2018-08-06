@@ -39,7 +39,7 @@
 
     <select id="selectByOrderId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Order">
-        SELECT * FROM t_order WHERE order_id = #{orderId}
+        SELECT * FROM t_order WHERE order_id = #{orderId} AND state != -1
     </select>
 
     <update id="updateComment">
@@ -48,7 +48,7 @@
 
     <select id="selectByUserId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Order">
-        SELECT * FROM t_order WHERE user_id = #{userId}
+        SELECT * FROM t_order WHERE user_id = #{userId} AND state != -1
     </select>
 
     <update id="updateState">
@@ -56,6 +56,6 @@
     </update>
 
     <select id="selectByShopId" parameterType="java.lang.Integer">
-        SELECT * FROM t_order WHERE shop_id = #{shopId}
+        SELECT * FROM t_order WHERE shop_id = #{shopId} AND state != -1
     </select>
 </mapper>

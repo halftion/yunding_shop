@@ -166,9 +166,14 @@ public class OrderServiceImpl implements OrderService {
             }
             if(state.equals(Constant.WAIT_COMMENT) ){
                 orderMapper.updateComment(order.getOrderId(),order.getComment());
-                return ServiceResult.success();
             }else {
                 return ServiceResult.failure("订单状态有误");
+            }
+            if(goodsService.commentGoods(order.getOrderId()).isSuccess()){
+                return ServiceResult.success();
+            }else {
+                //商品评价数量修改失败
+                return ServiceResult.failure(goodsService.commentGoods(order.getOrderId()).getMessage());
             }
         }catch (Exception e){
             throw  new RuntimeException("订单评论失败");

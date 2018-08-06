@@ -64,4 +64,10 @@ public interface GoodsMapper {
                                   @Param("stockNum") Integer stockNum ,
                                   @Param("sales") Integer sales);
 
+    /**
+     * 根据用户ID添加商品评论
+     * @param goodsId 商品Id
+     */
+    Integer commentGoods(Integer goodsId);
+
 }

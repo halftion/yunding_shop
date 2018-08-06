@@ -117,4 +117,14 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.failure("获取商品集合失败");
         }
     }
+
+    @Override
+    public ServiceResult commentGoods(Integer goodsId) {
+        try {
+            goodsMapper.commentGoods(goodsId);
+            return ServiceResult.success();
+        }catch (Exception e){
+            return ServiceResult.failure("商品评价数量修改失败");
+        }
+    }
 }

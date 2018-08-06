@@ -59,4 +59,10 @@ public interface GoodsService {
      * @param category 店铺分类Id
      */
     ServiceResult selectByShopCategoryId(Integer shopId, Integer category);
+
+    /**
+     * 根据商品ID评论商品
+     * @param goodsId 商品Id
+     */
+    ServiceResult commentGoods(Integer goodsId);
 }
