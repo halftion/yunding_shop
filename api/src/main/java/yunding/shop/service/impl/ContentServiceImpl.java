@@ -8,8 +8,8 @@ import yunding.shop.mapper.ContentMapper;
 import yunding.shop.service.ContentService;
 
 /**
- * @author guo
  * 文章获取
+ * @author guo
  */
 @Service
 public class ContentServiceImpl implements ContentService {
