@@ -56,6 +56,6 @@
     </update>
 
     <select id="selectByShopId" parameterType="java.lang.Integer">
-        SELECT * FROM t_order WHERE shop_id = #{shopId} AND state != -1
+        SELECT * FROM t_order WHERE shop_id = #{shopId}
     </select>
 </mapper>
