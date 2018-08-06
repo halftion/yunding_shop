@@ -117,11 +117,11 @@ public class OrderServiceImpl implements OrderService {
         try{
             Order order = orderMapper.selectByOrderId(orderId);
             Integer shopId = order.getShopId();
-            if(!shopService.selectUserIdByShopId(shopId).isSuccess()){
-                return ServiceResult.failure(shopService.selectUserIdByShopId(shopId).getMessage());
+            ServiceResult serviceResult = shopService.selectUserIdByShopId(shopId);
+            if(!serviceResult.isSuccess()){
+                return ServiceResult.failure(serviceResult.getMessage());
             }
-            Shop shop = (Shop) shopService.selectUserIdByShopId(shopId).getData();
-            if (!shop.getUserId().equals(userId)) {
+            if (!serviceResult.getData().equals(userId)) {
                 return ServiceResult.failure("商户信息不匹配");
             }
             if(order.getState() == Constant.WAIT_RECEIVE_GOOD) {
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("订单状态修改失败");
             }
         }catch (Exception e){
-            throw new RuntimeException("订单状态修改失败");
+            throw new RuntimeException("发货失败");
         }
     }
 

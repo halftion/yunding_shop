@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
+import yunding.shop.entity.UserInfo;
 import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -117,7 +118,7 @@ public class OrderController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("订单状态修改失败");
+            return RequestResult.failure("Controller 发货失败");
         }
     }
 
