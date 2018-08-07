@@ -16,4 +16,10 @@ public interface ShopGoodsCategoryMapper {
      * @return 店铺商品分类集合
      */
     List<ShopGoodsCategory> selectByShopId(int shopId);
+
+    /**
+     * 添加店铺商品分类
+     * @param shopGoodsCategory ShopGoodsCategory类
+     */
+    Integer insertShopCategory(ShopGoodsCategory shopGoodsCategory);
 }

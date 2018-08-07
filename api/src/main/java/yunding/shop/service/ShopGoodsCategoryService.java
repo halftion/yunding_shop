@@ -1,12 +1,14 @@
 package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.ShopGoodsCategory;
 
 /**
  * @author huguobin
  * 店铺相关service
  */
 public interface ShopGoodsCategoryService {
+
     /**
      * 查询店铺商品分类
      * @param shopId 店铺id
@@ -21,4 +23,11 @@ public interface ShopGoodsCategoryService {
      * @return 商品列表
      */
     ServiceResult getAllGoods(int shopId, int category);
+
+    /**
+     * 添加商品分类
+     * @param userId 商户ID
+     * @param shopGoodsCategory 店铺分类
+     */
+    ServiceResult insertShopCategory (Integer userId ,ShopGoodsCategory shopGoodsCategory);
 }

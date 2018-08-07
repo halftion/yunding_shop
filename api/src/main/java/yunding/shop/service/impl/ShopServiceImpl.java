@@ -8,6 +8,10 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
 
+/**
+ * 店铺
+ * @author guo
+ */
 @Service
 public class ShopServiceImpl implements ShopService {
 
@@ -32,6 +36,16 @@ public class ShopServiceImpl implements ShopService {
             return ServiceResult.success(userId);
         }catch (Exception e){
             throw new RuntimeException("获取商户ID失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectShopIdByUserId(Integer userId) {
+        try {
+            Integer shopId = shopMapper.selectShopIdByUserId(userId);
+            return ServiceResult.success(shopId);
+        }catch (Exception e){
+            throw new RuntimeException("获取店铺ID失败");
         }
     }
 

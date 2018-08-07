@@ -10,4 +10,8 @@
     <select id="selectUserIdByShopId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT user_id FROM  t_shop WHERE shop_id = #{shopId}
     </select>
+
+    <select id="selectShopIdByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT shop_id FROM  t_shop WHERE user_id = #{userId} AND state = 0
+    </select>
 </mapper>

@@ -220,6 +220,15 @@ public class Goods implements Comparator {
         this.updatedAt = updatedAt;
     }
 
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
+
+    public void updateAtNow(){
+        this.updatedAt = new Date();
+    }
+
+
 
     @Override
     public int compare(Object o1, Object o2) {
@@ -236,8 +245,12 @@ public class Goods implements Comparator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Goods goods = (Goods) o;
         return Objects.equals(goodsId, goods.goodsId);
     }

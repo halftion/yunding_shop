@@ -2,24 +2,31 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.ShopGoodsCategory;
 import yunding.shop.mapper.ShopGoodsCategoryMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.ShopGoodsCategoryService;
+import yunding.shop.service.ShopService;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
  * @author huguobin
+ * @author guo
  */
 @Service
 public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
 
     @Autowired
     private ShopGoodsCategoryMapper shopGoodsCategoryMapper;
+
+    @Autowired
+    private ShopService shopService;
 
     @Autowired
     private GoodsService goodsService;
@@ -53,6 +60,30 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
             return ServiceResult.success(goods);
         }catch (Exception e){
             throw new RuntimeException("查询店铺分类商品失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult insertShopCategory(Integer userId, ShopGoodsCategory shopGoodsCategory) {
+        try{
+            ServiceResult serviceResult =  shopService.selectUserIdByShopId(shopGoodsCategory.getShopId());
+            if(!serviceResult.isSuccess()){
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+            if(!serviceResult.getData().equals(userId)){
+                return ServiceResult.failure("商户信息不匹配");
+            }
+            shopGoodsCategory.createAtNow();
+            shopGoodsCategory.updateAtNow();
+            if (shopGoodsCategoryMapper.insertShopCategory(shopGoodsCategory) == 1){
+                return ServiceResult.success();
+            }else {
+                return ServiceResult.failure("添加分类异常");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("添加店铺分类异常");
         }
     }
 }

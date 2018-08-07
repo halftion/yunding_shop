@@ -22,4 +22,11 @@ public interface ShopMapper {
      * @return 商户Id
      */
     Integer selectUserIdByShopId (Integer shopId);
+
+    /**
+     * 根据商户Id查询店铺Id
+     * @param userId 商户Id
+     * @return 店铺Id
+     */
+    Integer selectShopIdByUserId (Integer userId);
 }

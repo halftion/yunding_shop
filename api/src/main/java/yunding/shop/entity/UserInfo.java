@@ -158,6 +158,15 @@ public class UserInfo {
         this.updatedAt = updatedAt;
     }
 
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
+
+    public void updateAtNow(){
+        this.updatedAt = new Date();
+    }
+
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -173,5 +182,6 @@ public class UserInfo {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+
     }
 }

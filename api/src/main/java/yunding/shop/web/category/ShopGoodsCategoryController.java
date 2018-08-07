@@ -5,7 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.ShopGoodsCategory;
 import yunding.shop.service.ShopGoodsCategoryService;
+import yunding.shop.utils.UserUtil;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author huguobin
@@ -52,6 +56,27 @@ public class ShopGoodsCategoryController {
                 return RequestResult.failure(result.getMessage());
             }
         }catch (Exception e){
+            return RequestResult.failure("查询失败");
+        }
+    }
+
+    /**
+     * 添加商品分类
+     * @param shopGoodsCategory shopGoodsCategory对象
+     * @param request request对象
+     */
+    @RequestMapping(value = "" , method = RequestMethod.POST)
+    RequestResult insertShopCategory(@RequestBody ShopGoodsCategory shopGoodsCategory, HttpServletRequest request){
+        try{
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult result=shopGoodsCategoryService.insertShopCategory(userId, shopGoodsCategory);
+            if (result.isSuccess()){
+                return RequestResult.success(result.getData());
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return RequestResult.failure("查询失败");
         }
     }

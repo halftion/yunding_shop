@@ -109,4 +109,13 @@ public class Shop {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
+
+    public void updateAtNow(){
+        this.updatedAt = new Date();
+    }
+
 }
