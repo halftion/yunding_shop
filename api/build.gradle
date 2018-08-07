@@ -80,11 +80,15 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.9.1'
     /*swagger相关*/
-/*    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
+    /* compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'*/
     /*Validation验证框架*/
     compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
     compile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.0.Final'
+    /*tomcat*/
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+    compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.10'
+
 
 
 }

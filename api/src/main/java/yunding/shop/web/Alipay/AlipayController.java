@@ -10,6 +10,7 @@ import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author huguobin
@@ -24,11 +25,13 @@ public class AlipayController {
     @Autowired
     OrderService orderService;
 
+    private  Order order;
     @RequestMapping(value = "/purchase/{orderId}",method = RequestMethod.POST)
     public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
             Order order=(Order) orderService.selectByOrderId(userId,orderId).getData();
+            this.order=order;
             ServiceResult result=alipayService.purchase(order);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
@@ -40,11 +43,14 @@ public class AlipayController {
         }
     }
 
-    @RequestMapping(value = "/purchase/result",method = RequestMethod.POST)
-    public String result(HttpServletRequest request){
+
+    @RequestMapping(value = "/notifyUrl",method = RequestMethod.POST)
+    public String notifyUrl(HttpServletRequest request){
         try {
-            alipayService.result(request);
-            return "success";
+            System.out.println("收到异步通知");
+            String result=alipayService.notifyUrl(request,order);
+            System.out.println(result);
+            return result;
         }catch (Exception e){
             return "fail";
         }
