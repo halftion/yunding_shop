@@ -135,13 +135,14 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("商户信息不匹配");
             }
             if(newOrder.getState() == Constant.WAIT_SEND_GOOD) {
-                order.setState(Constant.WAIT_RECEIVE_GOOD);
-                order.updateAtNow();
-                orderMapper.sendGoods(order);
-                return ServiceResult.success();
-            }else {
+                return ServiceResult.failure("订单状态错误");
+            }
+            order.setState(Constant.WAIT_RECEIVE_GOOD);
+            order.updateAtNow();
+            if(orderMapper.sendGoods(order) != 1) {
                 return ServiceResult.failure("订单状态修改失败");
             }
+            return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("发货失败");
         }

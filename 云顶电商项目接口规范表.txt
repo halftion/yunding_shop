@@ -517,17 +517,28 @@ JSON传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：买家
 
-17.创建一个新订单：/api/order (POST)
+17.创建一个新订单：/api/order/create (POST)
 JSON传入：
-{
-    "goodsId":2,
-    "goodsName":"篮球",
-    "goodsNum":1,
-    "remark":"早点发货！",
-    "address":"火星",
-    "phoneNumber":"120",
-    "consigneeName":"郭怡馨"
-}
+[
+	{
+    	"goodsId":21,
+	    "goodsName":"日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+    	"goodsNum":2,
+	    "remark":"希望买二送一哦，谢谢小姐姐！",
+    	"address":"木星",
+	    "phoneNumber":"115",
+    	"consigneeName":"郭怡馨"
+	},
+	{
+		"goodsId":22,
+	    "goodsName": "SK-II小灯泡30ml美白保湿精华露护肤套装",
+    	"goodsNum": 1,
+	    "remark":"请发申通快递",
+    	"address":"土星",
+	    "phoneNumber":"116",
+    	"consigneeName":"郭怡馨"
+	}
+]
 成功返回示例：
 {
     "code": 200,
@@ -538,6 +549,22 @@ JSON传入：
     "code": 500,
     "message": "创建订单失败 "
 }
+
+18.通过订单id付款：/api/aliPay/purchase/{orderId} (POST)
+成功返回示例：
+{
+    "code": 200,
+    "data": "<form name=\"punchout_form\" method=\"post\" action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=huAMAM28di1cUOPs8FSzPtCyfn%2B9b79o1Q0dx3acTeZsinUfgpJoEJ3GjdzJAUJR6hMkCJhZw1IdJCFDTqRIsG2lVyV7%2BXg%2FutRwN8gKccTz6ifRBZGfY8uvryUf4rEeaJf6sBZarVuJ%2BU5U3UqMQdwnm%2Bzehx5ZWFEAeVB9uBr6mNLFi60htLgRxtIxrzDzehP00Q3MWlztvhDswhvBMGBrBS4vetdoL2B4NpzSQiDVeOVRZnER1VOSPSIpFXfO2ULYxqrgW2xR5ntOQvyDBTXQoKkncZACdWQAnUtyylVUngv4PEbSVoHvZiQG31Iljk6BHu7G6WLrYEOTnU6g0g%3D%3D&return_url=http%3A%2F%2Flocalhost%3A8080%2Findee.jsp&notify_url=http%3A%2F%2Fpunfwv.natappfree.cc%2Fapi%2FaliPay%2FnotifyUrl&version=1.0&app_id=2016091800539964&sign_type=RSA2&timestamp=2018-08-07+21%3A33%3A38&alipay_sdk=alipay-sdk-java-3.3.4.ALL&format=json\">\n<input type=\"hidden\" name=\"biz_content\" value=\"{&quot;out_trade_no&quot;:&quot;15&quot;,&quot;total_amount&quot;:&quot;2398&quot;,&quot;subject&quot;:&quot;日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml&quot;,&quot;body&quot;:&quot;&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}\">\n<input type=\"submit\" value=\"立即支付\" style=\"display:none\" >\n</form>\n<script>document.forms[0].submit();</script>",
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+	    "code": 500,
+    "message": "xxx错误"
+}
+
+19.通过订单id收货：/api/order/receive/{orderId} (PUT)
+
 
 18.通过用户id获取对应的所有订单信息：/api/order/user (GET)
 成功返回示例：
