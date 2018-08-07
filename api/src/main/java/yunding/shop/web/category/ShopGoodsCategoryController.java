@@ -65,7 +65,7 @@ public class ShopGoodsCategoryController {
      * @param shopGoodsCategory shopGoodsCategory对象
      * @param request request对象
      */
-    @RequestMapping(value = "" , method = RequestMethod.POST)
+    @RequestMapping(value = "/" , method = RequestMethod.POST)
     RequestResult insertShopCategory(@RequestBody ShopGoodsCategory shopGoodsCategory, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
