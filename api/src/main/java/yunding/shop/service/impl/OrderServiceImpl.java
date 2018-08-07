@@ -209,11 +209,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult selectCommentByGoodsId(Integer goodsId) {
         try{
-            HashMap<Integer,String> hashMap = orderMapper.selectCommentByGoodsId(goodsId);
-            return ServiceResult.success(hashMap);
+
+            //List<Order> commentList = orderMapper.selectCommentByGoodsId(order);
+            JSONArray commentList = JSONArray.fromObject(orderMapper.selectCommentByGoodsId(goodsId));
+            return ServiceResult.success(commentList);
         }catch (Exception e){
+            e.printStackTrace();
             throw new RuntimeException("查询商品评价失败");
         }
     }
