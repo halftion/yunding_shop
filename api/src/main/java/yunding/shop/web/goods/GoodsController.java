@@ -7,6 +7,7 @@ import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.GoodsService;
+import yunding.shop.utils.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -97,6 +98,43 @@ public class GoodsController {
         }catch (Exception e){
             e.printStackTrace();
             return RequestResult.failure();
+        }
+    }
+
+    /**
+     * 新建商品
+     * @param goods 商品信息
+     * @param request request对象
+     */
+    @RequestMapping(value = "/" , method = RequestMethod.POST)
+    public RequestResult insertGoods(@RequestBody Goods goods , HttpServletRequest request){
+        try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = goodsService.insertGoods(userId, goods);
+            if(serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("添加商品失败");
+        }
+    }
+
+
+    @RequestMapping(value = "/{goodsId}" , method = RequestMethod.DELETE)
+    public RequestResult deleteGoods(@PathVariable("goodsId") Integer goodsId,
+                                     HttpServletRequest request) {
+        try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = goodsService.deleteGoods(userId, goodsId);
+            if (serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            } else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("删除商品失败");
         }
     }
 }

@@ -86,4 +86,30 @@ public interface GoodsMapper {
      */
     void updatePic(@Param("webPath") String webPath, @Param("goodsId") int goodsId);
 
+    /**
+     * 根据商品Id查询店铺Id
+     * @param goodsId 商品Id
+     * @return 店铺Id
+     */
+    Integer selectShopIdByGoodsId (Integer goodsId);
+
+    /**
+     * 保存商品图片
+     * @param goods 商品图片
+     */
+    Integer saveGoodsPhoto(Goods goods);
+
+    /**
+     * 添加商品
+     * @param goods 商品详情
+     */
+    Integer insertGoods (Goods goods);
+
+    /**
+     * 删除商品
+     * @param goods 商品Id
+     */
+    Integer deleteGoods(Goods goods);
+
+
 }

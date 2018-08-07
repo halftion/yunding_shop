@@ -88,4 +88,33 @@ public interface GoodsService {
      */
     ServiceResult updatePic(HttpServletRequest request, MultipartFile pic, int goodsId);
 
+    /**
+     * 根据商品Id查询商品店铺
+     * @param goodsId 商品Id
+     * @return 商品店铺
+     */
+    ServiceResult selectShopIdByGoodsId(Integer goodsId);
+
+    /**
+     * 保存商品图片
+     * @param goodsId 商品ID
+     * @param picture 商品图片
+     */
+    ServiceResult saveGoodsPhoto(Integer goodsId , String picture);
+
+    /**
+     * 新建商品
+     * @param userId 用户Id
+     * @param goods 商品详情
+     */
+    ServiceResult insertGoods(Integer userId , Goods goods);
+
+    /**
+     * 删除商品
+     * @param userId 用户Id
+     * @param goodsId 商品Id
+     */
+    ServiceResult deleteGoods(Integer userId , Integer goodsId);
+
+
 }

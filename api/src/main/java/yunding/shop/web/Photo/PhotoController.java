@@ -64,8 +64,7 @@ public class PhotoController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            e.printStackTrace();
-            return RequestResult.failure("商品图片上传失败");
+          return RequestResult.failure("商品图片上传失败");
         }
     }
 }

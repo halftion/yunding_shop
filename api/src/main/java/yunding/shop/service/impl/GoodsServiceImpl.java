@@ -3,6 +3,7 @@ package yunding.shop.service.impl;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
@@ -10,6 +11,7 @@ import yunding.shop.entity.Order;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
+import yunding.shop.service.ShopService;
 import yunding.shop.utils.FileUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,9 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ShopService shopService;
 
     @Override
     public ServiceResult selectById(Integer id) {
@@ -172,6 +177,87 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("更新商品信息失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectShopIdByGoodsId(Integer goodsId) {
+        try {
+            Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
+            return ServiceResult.success(shopId);
+        } catch (Exception e) {
+            return ServiceResult.failure("获取店铺ID失败");
+        }
+    }
+
+    @Override
+    public ServiceResult saveGoodsPhoto(Integer goodsId, String picture) {
+        try {
+            Goods goods = new Goods();
+            goods.setGoodsId(goodsId);
+            goods.setPicture(picture);
+            goods.updateAtNow();
+            if (goodsMapper.saveGoodsPhoto(goods) == 1) {
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure("保存图片失败");
+            }
+        } catch (Exception e) {
+            return ServiceResult.failure("获取店铺ID失败");
+        }
+    }
+
+    @Override
+    public ServiceResult insertGoods(Integer userId, Goods goods) {
+        try {
+            ServiceResult sr1 = shopService.selectShopIdByUserId(userId);
+            if (!sr1.isSuccess()) {
+                return ServiceResult.failure(sr1.getMessage());
+            }
+            Integer shopId = (Integer) sr1.getData();
+            ServiceResult sr2 = shopService.selectShopNameByShopId(shopId);
+            if (!sr2.isSuccess()) {
+                return ServiceResult.failure(sr2.getMessage());
+            }
+            String shopName = (String) sr2.getData();
+            goods.setShopId(shopId);
+            goods.setShopName(shopName);
+            goods.createAtNow();
+            goods.updateAtNow();
+            if (goodsMapper.insertGoods(goods) != 1) {
+                return ServiceResult.failure("保存失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            return ServiceResult.failure("添加商品失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ServiceResult deleteGoods(Integer userId, Integer goodsId) {
+        try {
+            ServiceResult sr1 = shopService.selectShopIdByUserId(userId);
+            if (!sr1.isSuccess()) {
+                //获取店铺Id失败
+                return ServiceResult.failure(sr1.getMessage());
+            }
+            Integer shopId1 = (Integer) sr1.getData();
+            Integer shopId2 = goodsMapper.selectShopIdByGoodsId(goodsId);
+            if (!shopId1.equals(shopId2)) {
+                return ServiceResult.failure("用户信息不匹配");
+            }
+
+            Goods goods = new Goods();
+            goods.setGoodsId(goodsId);
+            goods.setState(-1);
+            goods.updateAtNow();
+            if (goodsMapper.deleteGoods(goods) != 1) {
+                return ServiceResult.failure("删除商品失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("发货失败");
         }
     }
 }

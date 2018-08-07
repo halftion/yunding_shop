@@ -35,7 +35,7 @@
     </update>
 
     <update id="commentGoods">
-        UPDATE t_goods SET comment_num = comment_num+1 WHERE goods_id = #{goodsId};
+        UPDATE t_goods SET comment_num = comment_num+1 WHERE goods_id = #{goodsId}
     </update>
 
 
@@ -57,6 +57,47 @@
         UPDATE  t_goods SET
         picture= #{webPath}
         WHERE  goods_id= #{goodsId}
+    </update>
+
+    <select id="selectShopIdByGoodsId" parameterType="java.lang.Integer"
+            resultType="java.lang.Integer">
+        SELECT shop_id FROM t_goods WHERE goods_id = #{goodsId}
+    </select>
+
+    <update id="saveGoodsPhoto" parameterType="yunding.shop.entity.Goods">
+        UPDATE t_goods SET picture = #{picture} ,
+                            updated_at = #{updatedAt}
+                            WHERE goods_id = #{goodsId}
+    </update>
+
+    <insert id="insertGoods" parameterType="yunding.shop.entity.Goods">
+        INSERT INTO t_goods (
+        shop_id,
+        shop_name,
+        platform_goods_category_id,
+        shop_goods_category_id,
+        `name`,
+        stock_num,
+        price,
+        created_at,
+        updated_at
+        ) VALUES (
+        #{shopId},
+        #{shopName},
+        #{platformGoodsCategoryId},
+        #{shopGoodsCategoryId},
+        #{name},
+        #{stockNum},
+        #{price},
+        #{createdAt},
+        #{updatedAt}
+        )
+    </insert>
+
+    <update id="deleteGoods" parameterType="yunding.shop.entity.Goods">
+        UPDATE t_goods SET state = #{state},
+                            updated_at = #{updatedAt}
+                            WHERE goods_id = #{goodsId}
     </update>
 
 </mapper>
