@@ -49,5 +49,15 @@ public class ShopServiceImpl implements ShopService {
         }
     }
 
+    @Override
+    public ServiceResult selectShopNameByShopId(Integer shopId) {
+        try {
+            String shopName = shopMapper.selectShopNameByShopId(shopId);
+            return ServiceResult.success(shopName);
+        }catch (Exception e){
+            throw new RuntimeException("获取店铺名称失败");
+        }
+    }
+
 
 }

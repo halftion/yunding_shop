@@ -31,13 +31,13 @@ public class Goods implements Comparator {
      */
     @NotEmpty
     @Size(max = 1)
-    private Integer platformGoodsCateGoryId;
+    private Integer platformGoodsCategoryId;
     /**
      * 商品 所属店铺类别id
      */
     @NotEmpty
     @Size(max = 1)
-    private Integer shopGoodsCateGoryId;
+    private Integer shopGoodsCategoryId;
     /**
      * 商品 名称
      */
@@ -116,20 +116,20 @@ public class Goods implements Comparator {
         this.shopName = shopName;
     }
 
-    public Integer getPlatformGoodsCateGoryId() {
-        return platformGoodsCateGoryId;
+    public Integer getPlatformGoodsCategoryId() {
+        return platformGoodsCategoryId;
     }
 
-    public void setPlatformGoodsCateGoryId(Integer platformGoodsCateGoryId) {
-        this.platformGoodsCateGoryId = platformGoodsCateGoryId;
+    public void setPlatformGoodsCategoryId(Integer platformGoodsCategoryId) {
+        this.platformGoodsCategoryId = platformGoodsCategoryId;
     }
 
-    public Integer getShopGoodsCateGoryId() {
-        return shopGoodsCateGoryId;
+    public Integer getShopGoodsCategoryId() {
+        return shopGoodsCategoryId;
     }
 
-    public void setShopGoodsCateGoryId(Integer shopGoodsCateGoryId) {
-        this.shopGoodsCateGoryId = shopGoodsCateGoryId;
+    public void setShopGoodsCategoryId(Integer shopGoodsCategoryId) {
+        this.shopGoodsCategoryId = shopGoodsCategoryId;
     }
 
     public String getName() {

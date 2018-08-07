@@ -27,7 +27,7 @@ public interface ShopGoodsCategoryService {
     /**
      * 添加商品分类
      * @param userId 商户ID
-     * @param shopGoodsCategory 店铺分类
+     * @param name 分类名称
      */
-    ServiceResult insertShopCategory (Integer userId ,ShopGoodsCategory shopGoodsCategory);
+    ServiceResult insertShopCategory (Integer userId ,String name);
 }

@@ -27,4 +27,11 @@ public interface ShopService {
      * @return 店铺Id
      */
     ServiceResult selectShopIdByUserId (Integer userId);
+
+    /**
+     * 根据店铺ID查询店铺名称
+     * @param shopId 店铺ID
+     * @return 店铺名称
+     */
+    ServiceResult selectShopNameByShopId (Integer shopId);
 }

@@ -65,15 +65,16 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult insertShopCategory(Integer userId, ShopGoodsCategory shopGoodsCategory) {
+    public ServiceResult insertShopCategory(Integer userId, String name) {
         try{
-            ServiceResult serviceResult =  shopService.selectUserIdByShopId(shopGoodsCategory.getShopId());
+            ServiceResult serviceResult =  shopService.selectShopIdByUserId(userId);
+            Integer shopId = (Integer) serviceResult.getData();
             if(!serviceResult.isSuccess()){
                 return ServiceResult.failure(serviceResult.getMessage());
             }
-            if(!serviceResult.getData().equals(userId)){
-                return ServiceResult.failure("商户信息不匹配");
-            }
+            ShopGoodsCategory shopGoodsCategory = new ShopGoodsCategory();
+            shopGoodsCategory.setShopId(shopId);
+            shopGoodsCategory.setName(name);
             shopGoodsCategory.createAtNow();
             shopGoodsCategory.updateAtNow();
             if (shopGoodsCategoryMapper.insertShopCategory(shopGoodsCategory) == 1){

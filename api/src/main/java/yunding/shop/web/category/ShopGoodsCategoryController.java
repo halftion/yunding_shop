@@ -62,14 +62,14 @@ public class ShopGoodsCategoryController {
 
     /**
      * 添加商品分类
-     * @param shopGoodsCategory shopGoodsCategory对象
+     * @param name 分类名称
      * @param request request对象
      */
-    @RequestMapping(value = "/" , method = RequestMethod.POST)
-    RequestResult insertShopCategory(@RequestBody ShopGoodsCategory shopGoodsCategory, HttpServletRequest request){
+    @RequestMapping(value = "/{name}" , method = RequestMethod.POST)
+    RequestResult insertShopCategory(@PathVariable("name") String name, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult result=shopGoodsCategoryService.insertShopCategory(userId, shopGoodsCategory);
+            ServiceResult result=shopGoodsCategoryService.insertShopCategory(userId, name);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {

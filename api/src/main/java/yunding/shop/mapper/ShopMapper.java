@@ -29,4 +29,11 @@ public interface ShopMapper {
      * @return 店铺Id
      */
     Integer selectShopIdByUserId (Integer userId);
+
+    /**
+     * 根据店铺Id查询店铺名称
+     * @param shopId 店铺Id
+     * @return 店铺名称
+     */
+    String selectShopNameByShopId(Integer shopId);
 }
