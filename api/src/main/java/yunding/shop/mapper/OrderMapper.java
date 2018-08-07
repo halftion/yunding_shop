@@ -60,5 +60,5 @@ public interface OrderMapper {
      * @param goodsId 商品Id
      * @return 用户Id和商品评价
      */
-    HashMap<Integer,String> selectCommentByGoodsId (Integer goodsId);
+    List<Order> selectCommentByGoodsId (Integer goodsId);
 }

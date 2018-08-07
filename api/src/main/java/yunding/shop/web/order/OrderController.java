@@ -192,6 +192,7 @@ public class OrderController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
+            e.printStackTrace();
             return RequestResult.failure("获取商品评论失败");
         }
     }

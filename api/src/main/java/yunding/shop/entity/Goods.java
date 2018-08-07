@@ -1,6 +1,8 @@
 package yunding.shop.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
@@ -27,22 +29,31 @@ public class Goods implements Comparator {
     /**
      * 商品 所属平台类别id
      */
+    @NotEmpty
+    @Size(max = 1)
     private Integer platformGoodsCateGoryId;
     /**
      * 商品 所属店铺类别id
      */
+    @NotEmpty
+    @Size(max = 1)
     private Integer shopGoodsCateGoryId;
     /**
      * 商品 名称
      */
+    @NotEmpty
+    @Size(max = 50)
     private String name;
     /**
      * 商品 库存数量
      */
+    @NotEmpty
+    @Size
     private Integer stockNum;
     /**
      * 商品 价格
      */
+    @Size
     private BigDecimal price;
     /**
      * 商品 预览图片地址
