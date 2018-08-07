@@ -137,13 +137,13 @@ public class GoodsServiceImpl implements GoodsService{
     public ServiceResult getCommentByGoodsId(Integer goodsId) {
         try {
             ServiceResult serviceResult = orderService.selectCommentByGoodsId(goodsId);
-            if(!serviceResult.isSuccess()){
+            if(serviceResult.isSuccess()){
                 return ServiceResult.success(serviceResult.getData());
             }else {
                 return ServiceResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return ServiceResult.failure("商品评价数量修改失败");
+            return ServiceResult.failure("商品评价查询失败");
         }
     }
 }

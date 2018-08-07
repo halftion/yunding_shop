@@ -7,7 +7,7 @@
         SELECT * FROM t_shop WHERE `name` LIKE #{name} AND state = 0
     </select>
 
-    <select id="selectUserIdByShopId" parameterType="java.lang.Integer">
+    <select id="selectUserIdByShopId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT user_id FROM  t_shop WHERE shop_id = #{shopId}
     </select>
 </mapper>

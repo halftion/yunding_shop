@@ -50,9 +50,9 @@ public interface OrderService {
     /**
      * 根据订单Id 卖家发货
      * @param userId 用户Id
-     * @param orderId 订单ID
+     * @param order 订单ID和物流单号
      */
-    ServiceResult sendGoodsByOrderId(Integer userId,Integer orderId);
+    ServiceResult sendGoods(Integer userId, Order order);
 
     /**
      * 根据订单Id 买家收货

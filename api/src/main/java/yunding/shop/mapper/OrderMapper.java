@@ -1,6 +1,7 @@
 package yunding.shop.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import yunding.shop.entity.Comment;
 import yunding.shop.entity.Order;
 
 import java.util.HashMap;
@@ -60,5 +61,11 @@ public interface OrderMapper {
      * @param goodsId 商品Id
      * @return 用户Id和商品评价
      */
-    List<Order> selectCommentByGoodsId (Integer goodsId);
+    List<Comment> selectCommentByGoodsId (Integer goodsId);
+
+    /**
+     * 添加物流单号并发货
+     * @param order
+     */
+    Integer sendGoods (Order order);
 }

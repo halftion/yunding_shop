@@ -53,4 +53,11 @@ public interface UserService {
      * @return 是否成功
      */
     ServiceResult updateAvatar(Integer userId, String avatar);
+
+    /**
+     * 根据用户ID获取用户昵称
+     * @param userId 用户Id
+     * @return 用户昵称
+     */
+    ServiceResult getNickNameById (Integer userId);
 }

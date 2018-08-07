@@ -34,4 +34,11 @@ public interface UserMapper {
      * @return 修改条数
      */
     Integer updateAvatar(@Param("userId")Integer userId, @Param("avatar") String avatar);
+
+    /**
+     * 根据用户Id查询用户昵称
+     * @param userId
+     * @return 用户昵称
+     */
+    String selectNickNameById(Integer userId);
 }

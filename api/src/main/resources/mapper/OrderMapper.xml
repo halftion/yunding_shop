@@ -60,35 +60,12 @@
     </select>
 
     <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
-        resultType="CommentByGoodsIdMap">
+        resultType="yunding.shop.entity.Comment">
         SELECT user_id , `comment` FROM t_order WHERE goods_id = #{goodsId}
     </select>
 
-    <resultMap type="yunding.shop.entity.Order" id="CommentByGoodsIdMap">
-        <!-- 配置订单的映射信息 -->
-        <!--
-            id:指定查询列中的唯一标识，订单信息中的唯一标识，若有多个列组成唯一标识，需配置多个id
-            column: 订单信息的唯一标识列
-            property: 订单信息的唯一标识列所映射到的 Orders的对应的属性
-         -->
-        <id column="goods_id" property="goodsId"/>
-        <result column="user_id" property="userId"/>
-        <result column="comment" property="comment" />
-        <!-- 配置映射的关联的用户信息 -->
-        <!-- association：用于映射关联查询单个对象的信息
-            property：要将关联查询的用户信息映射到Orders中的对应属性
-         -->
-        <!--<association property="user" javaType="cn.higgin.mybatis.po.User">-->
-            <!--&lt;!&ndash;-->
-                <!--id：关联查询用户的唯一标识-->
-                <!--column：指定唯一标识用户信息的列-->
-                <!--javaType：映射到user的对应属性-->
-             <!--&ndash;&gt;-->
-            <!--<id column="user_id" property="id"/>-->
-            <!--<result column="username" property="username"/>-->
-            <!--<result column="sex" property="sex"/>-->
-            <!--<result column="address" property="address"/>-->
-        <!--</association>-->
-    </resultMap>
+    <update id="sendGoods" parameterType="yunding.shop.entity.Order">
+        UPDATE t_order SET state = #{state} , tracking_num = #{trackingNum} WHERE order_id = #{orderId}
+    </update>
 
         </mapper>

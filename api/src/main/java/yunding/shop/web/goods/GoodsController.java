@@ -46,9 +46,9 @@ public class GoodsController {
      * @return
      */
     @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
-    public RequestResult getCommentByGoodsId( Integer goodsId ){
+    public RequestResult getCommentByGoodsId( @PathVariable("goodsId") Integer goodsId ){
         try {
-            ServiceResult serviceResult=goodsService.getCommentByGoodsId(goodsId);
+            ServiceResult serviceResult = goodsService.getCommentByGoodsId(goodsId);
             if(serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             }else {

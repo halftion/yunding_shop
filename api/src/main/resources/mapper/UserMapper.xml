@@ -29,4 +29,8 @@
         UPDATE t_user_info SET avatar = #{avatar} WHERE user_id = #{userId} AND state != -1
     </update>
 
+    <select id="selectNickNameById" resultType="java.lang.String">
+        SELECT nick_name FROM t_user_info WHERE user_id = #{userId} AND state != -1
+    </select>
+
 </mapper>

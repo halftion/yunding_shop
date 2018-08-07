@@ -119,5 +119,15 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("更新头像失败");
         }
     }
+
+    @Override
+    public ServiceResult getNickNameById(Integer userId) {
+        try{
+            String nickName = userMapper.selectNickNameById( userId );
+            return ServiceResult.success(nickName);
+        }catch (Exception e){
+            return ServiceResult.failure("获取昵称失败");
+        }
+    }
 }
 

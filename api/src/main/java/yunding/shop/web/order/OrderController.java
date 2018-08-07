@@ -104,20 +104,21 @@ public class OrderController {
 
     /**
      * 订单发货
-     * @param orderId 订单Id
+     * @param order 订单Id和物流单号
      * @param request request对象
      */
-    @RequestMapping(value = "/send/{orderId}" , method = RequestMethod.PUT)
-    public RequestResult sendGoods(@PathVariable("orderId") Integer orderId, HttpServletRequest request){
+    @RequestMapping(value = "/send" , method = RequestMethod.PUT)
+    public RequestResult sendGoods(@RequestBody Order order , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.sendGoodsByOrderId(userId, orderId);
+            ServiceResult serviceResult = orderService.sendGoods(userId,order);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
+            e.printStackTrace();
             return RequestResult.failure("Controller 发货失败");
         }
     }
@@ -178,22 +179,8 @@ public class OrderController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("删除订单失败");
-        }
-    }
-
-    @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
-    public RequestResult getCommentByGoodsId( Integer goodsId ){
-        try {
-            ServiceResult serviceResult =orderService.selectCommentByGoodsId(goodsId);
-            if(serviceResult.isSuccess()) {
-                return RequestResult.success(serviceResult.getData());
-            }else {
-                return RequestResult.failure(serviceResult.getMessage());
-            }
-        }catch (Exception e){
             e.printStackTrace();
-            return RequestResult.failure("获取商品评论失败");
+            return RequestResult.failure("删除订单失败");
         }
     }
 }
