@@ -24,12 +24,7 @@ public class AlipayServiceImpl implements AlipayService {
     public ServiceResult purchase(Order order) {
        try{
 
-           String result= (String) alipayUtil.alipayClient(String.valueOf(order.getOrderId()),order.getGoodsName(),"","");
-           if(order.getState() == Constant.WAIT_PAY){
-               orderService.userPayByOrderId(order.getUserId(),order.getOrderId());
-           }else{
-               return ServiceResult.failure("订单状态错误");
-           }
+           String result= (String) alipayUtil.alipayClient(String.valueOf(order.getOrderId()),order.getGoodsName(),"", String.valueOf(order.getTotalPrice()));
            return ServiceResult.success(result);
        }catch (Exception e){
            throw new RuntimeException("支付失败");
@@ -37,7 +32,21 @@ public class AlipayServiceImpl implements AlipayService {
     }
 
     @Override
-    public void result(HttpServletRequest request) {
-
+    public String notifyUrl(HttpServletRequest request,Order order) {
+        try{
+            String result=alipayUtil.notifyUrl(request);
+            if (result.equals("success")){
+                if(order.getState() == Constant.WAIT_PAY){
+                    orderService.userPayByOrderId(order.getUserId(),order.getOrderId());
+                }else{
+                    throw new RuntimeException("订单已经支付");
+                }
+            }
+            return result;
+        }catch (Exception e){
+            throw new RuntimeException("异步通知 异常");
+        }
     }
+
+
 }

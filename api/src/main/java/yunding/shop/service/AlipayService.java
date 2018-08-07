@@ -17,8 +17,11 @@ public interface AlipayService {
     ServiceResult purchase(Order order);
 
     /**
-     * 支付结果
+     * 处理异步通知
      * @param request
      */
-    void result(HttpServletRequest request);
+
+    String notifyUrl(HttpServletRequest request,Order order);
+
+
 }
