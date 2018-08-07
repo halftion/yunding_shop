@@ -1,13 +1,14 @@
 package yunding.shop.web.goods;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Goods;
 import yunding.shop.service.GoodsService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 根据商品id查询商品
@@ -56,6 +57,46 @@ public class GoodsController {
             }
         }catch (Exception e){
             return RequestResult.failure("获取商品评论失败");
+        }
+    }
+    /**
+     * 店铺更改商品(无图)
+     * @param goods
+     * @return
+     */
+
+    @RequestMapping(value = "/",method = RequestMethod.PUT)
+    public RequestResult updateGoods(@RequestBody Goods goods){
+        try {
+
+            ServiceResult result=goodsService.updategoods(goods);
+            if (result.isSuccess()){
+                return RequestResult.success(result.getData());
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return RequestResult.failure();
+        }
+    }
+
+    /**
+     * 更改图片
+     */
+    @RequestMapping(value = "/pic/{goodsId}",method = RequestMethod.PUT)
+    public RequestResult updateGoods(@PathVariable Integer goodsId,@RequestParam("picture") MultipartFile pic, HttpServletRequest request){
+        try {
+
+            ServiceResult result=goodsService.updatePic(request,pic,goodsId);
+            if (result.isSuccess()){
+                return RequestResult.success(result.getData());
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return RequestResult.failure();
         }
     }
 }

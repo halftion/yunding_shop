@@ -3,13 +3,16 @@ package yunding.shop.service.impl;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
+import yunding.shop.utils.FileUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import static yunding.shop.entity.Constant.HINT_SIZE;
@@ -144,6 +147,31 @@ public class GoodsServiceImpl implements GoodsService{
             }
         }catch (Exception e){
             return ServiceResult.failure("商品评价查询失败");
+        }
+    }
+
+    @Override
+    public ServiceResult updategoods(Goods goods) {
+        try {
+            goods.updateAtNow();
+            goodsMapper.updateGoodsInfo(goods);
+            return ServiceResult.success();
+        }catch (Exception e){
+            throw new RuntimeException("更新商品信息失败");
+        }
+    }
+
+    @Override
+    public ServiceResult updatePic(HttpServletRequest request, MultipartFile pic, int goodsId) {
+        try {
+
+            String realPath= FileUtil.getRealPath(request);
+            String webPath=FileUtil.saveFile(pic,realPath);
+
+            goodsMapper.updatePic(webPath,goodsId);
+            return ServiceResult.success();
+        }catch (Exception e){
+            throw new RuntimeException("更新商品信息失败");
         }
     }
 }

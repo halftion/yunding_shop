@@ -38,4 +38,25 @@
         UPDATE t_goods SET comment_num = comment_num+1 WHERE goods_id = #{goodsId};
     </update>
 
+
+    <update id="updateGoodsInfo" parameterType="yunding.shop.entity.Goods">
+        UPDATE  t_goods SET
+        platform_goods_category_id = #{platformGoodsCateGoryId},
+        shop_goods_category_id = #{shopGoodsCateGoryId},
+        `name` = #{name},
+        stock_num = #{stockNum},
+        picture = #{picture},
+        introduction = #{introduction},
+        state = #{state},
+        updated_at = #{updatedAt}
+         WHERE goods_id = #{goodsId}
+
+    </update>
+
+    <update id="updatePic" >
+        UPDATE  t_goods SET
+        picture= #{webPath}
+        WHERE  goods_id= #{goodsId}
+    </update>
+
 </mapper>

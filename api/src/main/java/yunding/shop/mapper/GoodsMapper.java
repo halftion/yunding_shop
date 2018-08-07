@@ -71,4 +71,19 @@ public interface GoodsMapper {
      */
     Integer commentGoods(Integer goodsId);
 
+
+
+    /**
+     * 更改商品信息
+     * @param goods 商品详情
+     */
+    void updateGoodsInfo(Goods goods);
+
+    /**
+     * 更改图片
+     * @param webPath 图片网络地址
+     * @param goodsId 商品id
+     */
+    void updatePic(@Param("webPath") String webPath, @Param("goodsId") int goodsId);
+
 }

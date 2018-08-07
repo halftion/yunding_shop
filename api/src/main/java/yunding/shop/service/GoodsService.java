@@ -1,7 +1,11 @@
 package yunding.shop.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Goods;
 import yunding.shop.entity.Order;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ren
@@ -72,4 +76,16 @@ public interface GoodsService {
      * @return 用户Id和用户评价
      */
     ServiceResult getCommentByGoodsId(Integer goodsId);
+
+    /**
+     * 更改商品信息
+     * @param goods
+     * @return
+     */
+    ServiceResult updategoods(Goods goods);
+    /**
+     * 更改图片
+     */
+    ServiceResult updatePic(HttpServletRequest request, MultipartFile pic, int goodsId);
+
 }
