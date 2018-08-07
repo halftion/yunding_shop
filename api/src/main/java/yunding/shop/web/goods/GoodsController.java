@@ -61,7 +61,7 @@ public class GoodsController {
         }
     }
     /**
-     * 店铺更改商品(无图)
+     * 店铺更改商品
      * @param goods
      * @return
      */
@@ -71,25 +71,6 @@ public class GoodsController {
         try {
 
             ServiceResult result=goodsService.updategoods(goods);
-            if (result.isSuccess()){
-                return RequestResult.success(result.getData());
-            }else {
-                return RequestResult.failure(result.getMessage());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return RequestResult.failure();
-        }
-    }
-
-    /**
-     * 更改图片
-     */
-    @RequestMapping(value = "/pic/{goodsId}",method = RequestMethod.PUT)
-    public RequestResult updateGoods(@PathVariable Integer goodsId,@RequestParam("picture") MultipartFile pic, HttpServletRequest request){
-        try {
-
-            ServiceResult result=goodsService.updatePic(request,pic,goodsId);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {

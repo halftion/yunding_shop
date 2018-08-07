@@ -1,5 +1,6 @@
 package yunding.shop.mapper;
 
+import jdk.nashorn.internal.runtime.SharedPropertyMap;
 import yunding.shop.entity.Shop;
 
 import java.util.List;
@@ -15,6 +16,13 @@ public interface ShopMapper {
      * @return 店铺结果列表
      */
     List<Shop> selectByName(String name);
+
+    /**
+     * 根据店铺Id查询店铺
+     * @param shopId 店铺Id
+     * @return 店铺详情
+     */
+    Shop selectById(Integer shopId);
 
     /**
      * 根据店铺Id查询商户Id
@@ -36,4 +44,11 @@ public interface ShopMapper {
      * @return 店铺名称
      */
     String selectShopNameByShopId(Integer shopId);
+
+    /**
+     * 修改店铺销量
+     * @param shop 店铺信息
+     */
+    Integer updateSales (Shop shop);
+
 }

@@ -34,4 +34,11 @@ public interface ShopService {
      * @return 店铺名称
      */
     ServiceResult selectShopNameByShopId (Integer shopId);
+
+    /**
+     * 根据店铺Id修改店铺销量
+     * @param shopId 店铺Id
+     * @param goodsNum 商品总销量
+     */
+    ServiceResult updateSales (Integer shopId , Integer goodsNum);
 }

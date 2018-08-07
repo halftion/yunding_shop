@@ -107,6 +107,7 @@ public class OrderServiceImpl implements OrderService {
             if (!order.getUserId().equals(userId)) {
                 return ServiceResult.failure("用户信息不匹配");
             }
+            ServiceResult serviceResult =goodsService.processOrderCreate(order);
             if(order.getState() == Constant.WAIT_PAY) {
                 order.setState(Constant.WAIT_SEND_GOOD);
                 order.updateAtNow();
@@ -162,6 +163,11 @@ public class OrderServiceImpl implements OrderService {
             if(orderMapper.updateState(order) != 1){
                 return ServiceResult.failure("订单状态修改失败");
             }
+            if(!shopService.updateSales(order.getShopId(), order.getGoodsNum()).isSuccess())
+            {
+                //店铺销量修改失败
+                return ServiceResult.failure(shopService.updateSales(order.getShopId(), order.getGoodsNum()).getMessage());
+            }
             return ServiceResult.success();
         }catch (Exception e){
             e.printStackTrace();
@@ -176,6 +182,7 @@ public class OrderServiceImpl implements OrderService {
             Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
             Integer orderUser = newOrder.getUserId();
             Integer state = newOrder.getState();
+            Integer num = newOrder.getGoodsNum();
             if(!orderUser.equals(userId)){
                 return ServiceResult.failure("用户ID和订单不匹配");
             }

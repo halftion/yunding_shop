@@ -83,10 +83,6 @@ public interface GoodsService {
      * @return
      */
     ServiceResult updategoods(Goods goods);
-    /**
-     * 更改图片
-     */
-    ServiceResult updatePic(HttpServletRequest request, MultipartFile pic, int goodsId);
 
     /**
      * 根据商品Id查询商品店铺

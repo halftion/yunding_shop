@@ -56,20 +56,15 @@ public interface GoodsMapper {
 
     /**
      * 创建订单时更改商品的库存和销量
-     * @param goodsId 商品Id
-     * @param stockNum 商品更改后库存
-     * @param sales 商品更改后销量
-     * @return 修改条数
+     * @param goods 商品更改后库存、商品更改后销量
      */
-    Integer updateStockAndSales ( @Param("goodsId") Integer goodsId  ,
-                                  @Param("stockNum") Integer stockNum ,
-                                  @Param("sales") Integer sales);
+    Integer updateStockAndSales ( Goods goods);
 
     /**
      * 根据用户ID添加商品评论
-     * @param goodsId 商品Id
+     * @param goods 商品类
      */
-    Integer commentGoods(Integer goodsId);
+    Integer commentGoods(Goods goods);
 
 
 
@@ -78,13 +73,6 @@ public interface GoodsMapper {
      * @param goods 商品详情
      */
     void updateGoodsInfo(Goods goods);
-
-    /**
-     * 更改图片
-     * @param webPath 图片网络地址
-     * @param goodsId 商品id
-     */
-    void updatePic(@Param("webPath") String webPath, @Param("goodsId") int goodsId);
 
     /**
      * 根据商品Id查询店铺Id

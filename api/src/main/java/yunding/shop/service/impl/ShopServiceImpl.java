@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Shop;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
 
@@ -59,5 +60,21 @@ public class ShopServiceImpl implements ShopService {
         }
     }
 
-
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult updateSales(Integer shopId, Integer goodsNum) {
+        try{
+            Shop shop = shopMapper.selectById(shopId);
+            Integer sales = shop.getSales();
+            shop.setShopId(shopId);
+            shop.setSales(sales + goodsNum);
+            shop.updateAtNow();
+            if(shopMapper.updateSales(shop) != 1){
+                return ServiceResult.failure("数据库更改销量失败");
+            }
+            return ServiceResult.success();
+        }catch (Exception e){
+            throw  new RuntimeException("店铺销量更改失败");
+        }
+    }
 }

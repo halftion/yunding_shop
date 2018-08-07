@@ -46,34 +46,47 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult processOrderCreate(Order order) {
-        Integer goodsId = order.getGoodsId();
-        Goods goods = (goodsMapper.selectByGoodsId(goodsId));
-        order.setUnitPrice(goods.getPrice());
-        order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
-        order.setShopId(goods.getShopId());
-        order.setShopName(goods.getShopName());
-        Integer i = goodsMapper.updateStockAndSales(goodsId,
-                (goods.getStockNum() - order.getGoodsNum()),
-                (goods.getSales() + order.getGoodsNum()));
-        if(i ==1){
-            return ServiceResult.success();
-        }else {
-            return ServiceResult.failure("修改商品信息失败");
+        try {
+            Integer goodsId = order.getGoodsId();
+            Goods goods = (goodsMapper.selectByGoodsId(goodsId));
+            order.setUnitPrice(goods.getPrice());
+            order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
+            order.setShopId(goods.getShopId());
+            order.setShopName(goods.getShopName());
+
+            goods.setStockNum(goods.getStockNum() - order.getGoodsNum());
+            goods.setSales(goods.getSales() + order.getGoodsNum());
+            goods.updateAtNow();
+            Integer i = goodsMapper.updateStockAndSales(goods);
+            if (i == 1) {
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure("修改商品信息失败");
+            }
+        }catch (Exception e){
+            throw new RuntimeException("库存销量修改失败");
         }
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult processOrderDelete(Order order) {
-        Integer goodsId = order.getGoodsId();
-        Goods goods = goodsMapper.selectByGoodsId(goodsId);
-        Integer i = goodsMapper.updateStockAndSales(goodsId,
-                (goods.getStockNum() + order.getGoodsNum()),
-                (goods.getSales() - order.getGoodsNum()));
-        if ( i == 1){
-            return ServiceResult.success();
-        }else {
-            return ServiceResult.failure("修改商品信息失败");
+        try {
+            Integer goodsId = order.getGoodsId();
+            Goods goods = goodsMapper.selectByGoodsId(goodsId);
+            goods.setStockNum(goods.getStockNum() + order.getGoodsNum());
+            goods.setSales(goods.getSales() - order.getGoodsNum());
+            goods.updateAtNow();
+            Integer i = goodsMapper.updateStockAndSales(goods);
+            if (i == 1) {
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure("修改商品信息失败");
+            }
+        }catch (Exception e){
+            throw new RuntimeException("库存销量修改失败");
         }
     }
 
@@ -134,7 +147,10 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult commentGoods(Integer goodsId) {
         try {
-            goodsMapper.commentGoods(goodsId);
+            Goods goods = new Goods();
+            goods.setGoodsId(goodsId);
+            goods.updateAtNow();
+            goodsMapper.commentGoods(goods);
             return ServiceResult.success();
         }catch (Exception e){
             return ServiceResult.failure("商品评价数量修改失败");
@@ -160,20 +176,6 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             goods.updateAtNow();
             goodsMapper.updateGoodsInfo(goods);
-            return ServiceResult.success();
-        }catch (Exception e){
-            throw new RuntimeException("更新商品信息失败");
-        }
-    }
-
-    @Override
-    public ServiceResult updatePic(HttpServletRequest request, MultipartFile pic, int goodsId) {
-        try {
-
-            String realPath= FileUtil.getRealPath(request);
-            String webPath=FileUtil.saveFile(pic,realPath);
-
-            goodsMapper.updatePic(webPath,goodsId);
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("更新商品信息失败");

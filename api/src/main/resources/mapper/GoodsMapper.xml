@@ -29,13 +29,13 @@
         SELECT * FROM t_goods WHERE shop_id = #{shopId} AND `name` LIKE #{goodsName}  AND state = 0
     </select>
     
-    <update id="updateStockAndSales">
-        UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales}
+    <update id="updateStockAndSales" parameterType="yunding.shop.entity.Goods">
+        UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales} ,updated_at = #{updatedAt}
         WHERE goods_id = #{goodsId}  AND state = 0
     </update>
 
     <update id="commentGoods">
-        UPDATE t_goods SET comment_num = comment_num+1 WHERE goods_id = #{goodsId}
+        UPDATE t_goods SET comment_num = comment_num+1 , updated_at = #{updatedAt} WHERE goods_id = #{goodsId}
     </update>
 
 
@@ -51,12 +51,6 @@
         updated_at = #{updatedAt}
          WHERE goods_id = #{goodsId}
 
-    </update>
-
-    <update id="updatePic" >
-        UPDATE  t_goods SET
-        picture= #{webPath}
-        WHERE  goods_id= #{goodsId}
     </update>
 
     <select id="selectShopIdByGoodsId" parameterType="java.lang.Integer"

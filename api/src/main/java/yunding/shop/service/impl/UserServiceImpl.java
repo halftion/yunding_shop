@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
             userMapper.insert(userInfo);
             //返回自动递增主键
             Integer userId = userInfo.getUserId();
-            Login login = new Login(userId,loginName,password,now,now);
+            Login login = new Login(userId,loginName,password,new Date(),new Date());
             loginMapper.insert(login);
             //注册成功返回用户信息
             return ServiceResult.success(userMapper.selectById(userId));
@@ -113,7 +113,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult updateAvatar(Integer userId, String avatar) {
-        if(userMapper.updateAvatar(userId, avatar) == 1){
+        UserInfo userInfo = userMapper.selectById(userId);
+        userInfo.setUserId(userId);
+        userInfo.setAvatar(avatar);
+        userInfo.updateAtNow();
+        if(userMapper.updateAvatar(userInfo) == 1){
             return ServiceResult.success();
         }else {
             throw new RuntimeException("更新头像失败");

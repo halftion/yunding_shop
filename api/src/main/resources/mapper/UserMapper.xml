@@ -25,8 +25,8 @@
         INSERT t_user_info (created_at,updated_at) VALUES (#{createdAt},#{updatedAt})
     </insert>
     
-    <update id="updateAvatar">
-        UPDATE t_user_info SET avatar = #{avatar} WHERE user_id = #{userId} AND state != -1
+    <update id="updateAvatar" parameterType="yunding.shop.entity.UserInfo">
+        UPDATE t_user_info SET avatar = #{avatar} , updated_at = #{updatedAt} WHERE user_id = #{userId} AND state != -1
     </update>
 
     <select id="selectNickNameById" resultType="java.lang.String">

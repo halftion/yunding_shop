@@ -1,7 +1,7 @@
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 首页
 
-1.获取平台分类栏：/api/platformCategory/list (GET)
+1.获取平台分类栏：/api/platformCategory/list (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -29,44 +29,29 @@
 	"message" : "xxx错误"
 }
 
-2.通过平台分类id获取对应的所有商品：/api/platformCategory/allGoods/sales/{categoryId} (GET)
+2.通过平台分类id获取对应的所有商品：/api/platformCategory/allGoods/sales/{categoryId} (GET) √
 成功返回示例：
 {
     "code": 200,
     "data": [
         {
-            "goodsId": 2,
+            "goodsId": 54,
             "shopId": 1,
-            "shopName": "篮球店铺",
-            "platformGoodsCateGoryId": 1,
-            "shopGoodsCateGoryId": 1,
-            "name": "超级蓝色篮球",
-            "stockNum": 100,
-            "price": 150,
-            "sales": 38,
+            "shopName": "云顶官方旗舰店",
+            "platformGoodsCategoryId": 1,
+            "shopGoodsCategoryId": 1,
+            "name": "GYXBoyfriend",
+            "stockNum": 1,
+            "price": 1000,
+            "picture": "http://127.0.0.1:8080/static/upload/5482f9ff9e234399b2a74ddf209a2e99.jpg",
+            "sales": 0,
             "commentNum": 0,
             "collectionNum": 0,
             "state": 0,
-            "createdAt": 1533007295000,
-            "updatedAt": 1533007296000
-        },
-        {
-            "goodsId": 3,
-            "shopId": 1,
-            "shopName": "篮球店铺",
-            "platformGoodsCateGoryId": 1,
-            "shopGoodsCateGoryId": 1,
-            "name": "超级黄色篮球",
-            "stockNum": 100,
-            "price": 150,
-            "sales": 23,
-            "commentNum": 0,
-            "collectionNum": 0,
-            "state": 0,
-            "createdAt": 1533084458000,
-            "updatedAt": 1533084463000
+            "createdAt": 1533641083000,
+            "updatedAt": 1533643488000
         }
-        ],
+    ],
     "message": "操作成功！"
 }
 为空返回示例：

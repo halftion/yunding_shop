@@ -89,4 +89,8 @@ public class IdentifyingCode {
                 ", createdAt=" + createdAt +
                 '}';
     }
+
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
 }

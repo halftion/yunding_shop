@@ -29,11 +29,9 @@ public interface UserMapper {
 
     /**
      * 根据用户id修改用户头像
-     * @param userId 用户id
-     * @param avatar 头像地址
-     * @return 修改条数
+     * @param userInfo 用户类
      */
-    Integer updateAvatar(@Param("userId")Integer userId, @Param("avatar") String avatar);
+    Integer updateAvatar(UserInfo userInfo);
 
     /**
      * 根据用户Id查询用户昵称
