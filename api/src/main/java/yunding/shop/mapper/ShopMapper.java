@@ -1,6 +1,5 @@
 package yunding.shop.mapper;
 
-import jdk.nashorn.internal.runtime.SharedPropertyMap;
 import yunding.shop.entity.Shop;
 
 import java.util.List;
