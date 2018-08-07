@@ -108,7 +108,9 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("用户信息不匹配");
             }
             if(order.getState() == Constant.WAIT_PAY) {
-                orderMapper.updateState(orderId, Constant.WAIT_SEND_GOOD);
+                order.setState(Constant.WAIT_SEND_GOOD);
+                order.updateAtNow();
+                orderMapper.updateState(order);
                 return ServiceResult.success();
             }else {
                 return ServiceResult.failure("订单状态修改失败");
@@ -133,6 +135,7 @@ public class OrderServiceImpl implements OrderService {
             }
             if(newOrder.getState() == Constant.WAIT_SEND_GOOD) {
                 order.setState(Constant.WAIT_RECEIVE_GOOD);
+                order.updateAtNow();
                 orderMapper.sendGoods(order);
                 return ServiceResult.success();
             }else {
@@ -154,7 +157,9 @@ public class OrderServiceImpl implements OrderService {
             if(order.getState() != Constant.WAIT_RECEIVE_GOOD) {
                 return ServiceResult.failure("订单状态有误");
             }
-            if(orderMapper.updateState(orderId, Constant.WAIT_COMMENT) != 1){
+            order.setState(Constant.WAIT_COMMENT);
+            order.updateAtNow();
+            if(orderMapper.updateState(order) != 1){
                 return ServiceResult.failure("订单状态修改失败");
             }
             return ServiceResult.success();
@@ -175,8 +180,9 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("用户ID和订单不匹配");
             }
             if(state.equals(Constant.WAIT_COMMENT) ){
-                orderMapper.updateComment(order.getOrderId(),order.getComment());
-                orderMapper.updateState(order.getOrderId() , Constant.OVER_ORDER);
+                order.setState(Constant.OVER_ORDER);
+                order.updateAtNow();
+                orderMapper.updateComment(order);
             }else {
                 return ServiceResult.failure("订单状态有误");
             }
@@ -206,7 +212,9 @@ public class OrderServiceImpl implements OrderService {
                     return ServiceResult.failure(goodsService.processOrderDelete(order).getMessage());
                 }
             }
-            if(orderMapper.updateState(orderId, Constant.DELETE_ORDER ) != 1){
+            order.setState(Constant.DELETE_ORDER);
+            order.updateAtNow();
+            if(orderMapper.updateState(order) != 1){
                 return ServiceResult.failure("订单状态修改失败");
             }
             return ServiceResult.success();

@@ -42,8 +42,11 @@
         SELECT * FROM t_order WHERE order_id = #{orderId} AND state != -1
     </select>
 
-    <update id="updateComment">
-        UPDATE t_order SET comment = #{comment} WHERE order_id = #{orderId}
+    <update id="updateComment" parameterType="yunding.shop.entity.Order">
+        UPDATE t_order SET comment = #{comment},
+                            state = #{state},
+                            updated_at = #{updatedAt}
+                            WHERE order_id = #{orderId}
     </update>
 
     <select id="selectByUserId" parameterType="java.lang.Integer"
@@ -51,8 +54,8 @@
         SELECT * FROM t_order WHERE user_id = #{userId} AND state != -1
     </select>
 
-    <update id="updateState">
-        UPDATE t_order SET state = #{state} WHERE order_id = #{orderId}
+    <update id="updateState" parameterType="yunding.shop.entity.Order">
+        UPDATE t_order SET state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
     </update>
 
     <select id="selectByShopId" parameterType="java.lang.Integer">
@@ -65,7 +68,10 @@
     </select>
 
     <update id="sendGoods" parameterType="yunding.shop.entity.Order">
-        UPDATE t_order SET state = #{state} , tracking_num = #{trackingNum} WHERE order_id = #{orderId}
+        UPDATE t_order SET state = #{state} ,
+                            tracking_num = #{trackingNum}
+                            updated_at = #{updatedAt}
+                            WHERE order_id = #{orderId}
     </update>
 
         </mapper>

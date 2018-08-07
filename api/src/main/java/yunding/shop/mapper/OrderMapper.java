@@ -30,10 +30,9 @@ public interface OrderMapper {
 
     /**
      * 评价订单
-     * @param orderId 订单ID
-     * @param comment 评价
+     * @param order 订单ID和评价
      */
-    Integer updateComment(@Param("orderId") Integer orderId , @Param("comment") String comment);
+    Integer updateComment(Order order);
 
     /**
      * 根据用户ID查询所有订单
@@ -44,10 +43,9 @@ public interface OrderMapper {
 
     /**
      * 修改订单状态
-     * @param orderId 订单ID
-     * @param state 订单状态
+     * @param order 订单ID和订单状态
      */
-    Integer updateState(@Param("orderId") Integer orderId ,@Param("state") Integer state);
+    Integer updateState(Order order);
 
     /**
      * 根据店铺ID查询所有订单
