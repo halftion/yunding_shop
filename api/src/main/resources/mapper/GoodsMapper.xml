@@ -2,6 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.GoodsMapper">
+
     <select id="selectByName" parameterType="java.lang.String" resultType="yunding.shop.entity.Goods">
         SELECT * FROM t_goods WHERE `name` LIKE #{name} AND state = 0
     </select>
@@ -41,13 +42,11 @@
 
     <update id="updateGoodsInfo" parameterType="yunding.shop.entity.Goods">
         UPDATE  t_goods SET
-        platform_goods_category_id = #{platformGoodsCateGoryId},
-        shop_goods_category_id = #{shopGoodsCateGoryId},
+        platform_goods_category_id = #{platformGoodsCategoryId},
+        shop_goods_category_id = #{shopGoodsCategoryId},
         `name` = #{name},
         stock_num = #{stockNum},
-        picture = #{picture},
         introduction = #{introduction},
-        state = #{state},
         updated_at = #{updatedAt}
          WHERE goods_id = #{goodsId}
 

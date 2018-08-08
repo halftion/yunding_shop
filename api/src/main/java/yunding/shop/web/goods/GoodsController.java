@@ -60,12 +60,11 @@ public class GoodsController {
             return RequestResult.failure("获取商品评论失败");
         }
     }
-    /**
-     * 店铺更改商品
-     * @param goods
-     * @return
-     */
 
+    /**
+     * 更新商品信息
+     * @param goods
+     */
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public RequestResult updateGoods(@RequestBody Goods goods){
         try {
@@ -102,7 +101,11 @@ public class GoodsController {
         }
     }
 
-
+    /**
+     * 下架商品
+     * @param goodsId 商品Id
+     * @param request request对象
+     */
     @RequestMapping(value = "/{goodsId}" , method = RequestMethod.DELETE)
     public RequestResult deleteGoods(@PathVariable("goodsId") Integer goodsId,
                                      HttpServletRequest request) {
@@ -118,4 +121,5 @@ public class GoodsController {
             return RequestResult.failure("删除商品失败");
         }
     }
+
 }

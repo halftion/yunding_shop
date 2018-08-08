@@ -45,12 +45,12 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
     @Override
     public ServiceResult getAllGoods(int shopId, int category) {
         try {
-            if(!goodsService.selectByShopCategoryId(shopId , category).isSuccess()){
+            ServiceResult serviceResult = goodsService.selectByShopCategoryId(shopId , category);
+            if(!serviceResult.isSuccess()){
                 //获取商品集合失败
-                return ServiceResult.failure(goodsService.selectByShopCategoryId(shopId , category).getMessage());
+                return ServiceResult.failure(serviceResult.getMessage());
             }
-            List<Goods> goods=(List<Goods>)
-                    goodsService.selectByShopCategoryId(shopId , category).getData();
+            List<Goods> goods=(List<Goods>) serviceResult.getData();
             Collections.sort(goods, new Comparator<Goods>() {
                 @Override
                 public int compare(Goods o1, Goods o2) {
