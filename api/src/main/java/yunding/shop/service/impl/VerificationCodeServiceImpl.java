@@ -27,13 +27,21 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         try {
             //使该登录名的验证码都失效
             identifyingCodeMapper.drop(phoneNumber);
+
+
             String verificationCode= SmsUtil.randomVerificationCode();
+
+
             //发送验证码
             smsUtil.sendMessaging(phoneNumber,verificationCode);
+            System.out.println(4);
+
             //插入到数据库
             identifyingCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
+            System.out.println(4);
             return ServiceResult.success();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("发送和保存验证码错误");
         }
     }

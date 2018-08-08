@@ -68,12 +68,12 @@ public class SmsUtil {
      */
 
     public  SendSmsResponse sendSms(String phoneNumber,String verification) throws ClientException {
-        this.phoneNumber = phoneNumber;
-        //连接主机超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", outTime);
-        //从主机获取数据超时时间
-        System.setProperty("sun.net.client.defaultReadTimeout", outTime);
 
+        this.phoneNumber = phoneNumber;
+
+        //可自助调整超时时间
+        System.setProperty("sun.net.client.defaultConnectTimeout", outTime);
+        System.setProperty("sun.net.client.defaultReadTimeout", outTime);
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
@@ -88,16 +88,17 @@ public class SmsUtil {
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(templateCode);
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"code\":\""+verification+"\"}");
+        request.setTemplateParam("{ \"code\":\""+verification+"\"}");
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
 
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
-        request.setOutId("yourOutId");
+        request.setOutId(accessKeyId);
 
         //hint 此处可能会抛出异常，注意catch
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        System.out.println(1);
 
         return sendSmsResponse;
     }
@@ -144,6 +145,9 @@ public class SmsUtil {
         System.out.println(signName);
         System.out.println(templateCode);
         System.out.println(outTime);
+        System.out.println(verification);
+        System.out.println(phoneNumber);
+
         //发短信
         SendSmsResponse response = sendSms(phoneNumber,verification);
         System.out.println("短信接口返回的数据----------------");
