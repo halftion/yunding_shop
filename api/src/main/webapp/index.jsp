@@ -1,4 +1,4 @@
-<%@ page import="yunding.shop.web.Alipay.AlipayController" %>
+<%@ page import="yunding.shop.web.alipay.AlipayController" %>
 <%@ page import="yunding.shop.dto.RequestResult" %>
 <%@ page import="yunding.shop.service.AlipayService" %>
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
