@@ -73,7 +73,7 @@ public class PhotoServiceImpl implements PhotoService{
             ServiceResult sr = goodsService.saveGoodsPhoto(goodsId,picture);
             if(sr.isSuccess())
             {
-                return ServiceResult.success();
+                return ServiceResult.success(picture);
             }else {
                 //保存图片失败
                 return ServiceResult.failure(sr.getMessage());

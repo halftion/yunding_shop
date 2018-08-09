@@ -97,7 +97,7 @@ public class UserController {
      * @param request request对象
      */
     @RequestMapping(value = "/info", method = RequestMethod.PUT)
-    public RequestResult updateUserInfo(@Validated @RequestBody UserInfo userInfo,
+    public RequestResult updateUserInfo(@RequestBody UserInfo userInfo,
                                         HttpServletRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return RequestResult.failure("更新用户信息失败");

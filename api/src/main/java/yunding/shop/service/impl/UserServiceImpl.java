@@ -84,9 +84,9 @@ public class UserServiceImpl implements UserService {
     public ServiceResult updateUserInfo(Integer userId, UserInfo userInfo) {
         try {
             userInfo.setUserId(userId);
-            userInfo.setUpdatedAt(new Date());
+            userInfo.updateAtNow();
             userMapper.update(userInfo);
-            return ServiceResult.success(userMapper.selectById(userInfo.getUserId()));
+            return ServiceResult.success(userMapper.selectById(userId));
         } catch (Exception e) {
             throw new RuntimeException("更新用户信息失败");
         }
