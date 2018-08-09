@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.entity.Constant;

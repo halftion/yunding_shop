@@ -11,9 +11,8 @@ import yunding.shop.entity.Register;
 import yunding.shop.entity.UserInfo;
 import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
-import yunding.shop.utils.UserUtil;
+import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户

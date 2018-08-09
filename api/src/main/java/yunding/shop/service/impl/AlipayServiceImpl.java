@@ -7,7 +7,7 @@ import yunding.shop.entity.Constant;
 import yunding.shop.entity.Order;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
-import yunding.shop.utils.AlipayUtil;
+import yunding.shop.util.AlipayUtil;
 
 import javax.servlet.http.HttpServletRequest;
 

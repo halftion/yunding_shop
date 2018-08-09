@@ -2,12 +2,11 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.CartService;
 import yunding.shop.service.GoodsService;
-import yunding.shop.utils.UserUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

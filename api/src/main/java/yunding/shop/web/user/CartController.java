@@ -10,10 +10,8 @@ import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.CartService;
-import yunding.shop.service.GoodsService;
-import yunding.shop.utils.UserUtil;
+import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

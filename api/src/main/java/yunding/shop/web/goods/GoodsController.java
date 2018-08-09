@@ -2,12 +2,11 @@ package yunding.shop.web.goods;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.GoodsService;
-import yunding.shop.utils.UserUtil;
+import yunding.shop.util.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
 

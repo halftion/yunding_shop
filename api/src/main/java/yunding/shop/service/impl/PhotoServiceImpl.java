@@ -9,7 +9,7 @@ import yunding.shop.service.GoodsService;
 import yunding.shop.service.PhotoService;
 import yunding.shop.service.ShopService;
 import yunding.shop.service.UserService;
-import yunding.shop.utils.FileUtil;
+import yunding.shop.util.FileUtil;
 
 /**
  * 上传头像

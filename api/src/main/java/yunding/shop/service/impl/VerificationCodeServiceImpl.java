@@ -7,7 +7,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.IdentifyingCode;
 import yunding.shop.mapper.IdentifyingCodeMapper;
 import yunding.shop.service.VerificationCodeService;
-import yunding.shop.utils.SmsUtil;
+import yunding.shop.util.SmsUtil;
 
 import java.util.Date;
 

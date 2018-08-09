@@ -5,9 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
-import yunding.shop.entity.UserInfo;
 import yunding.shop.service.OrderService;
-import yunding.shop.utils.UserUtil;
+import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 

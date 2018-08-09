@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.PhotoService;
-import yunding.shop.utils.FileUtil;
-import yunding.shop.utils.UserUtil;
+import yunding.shop.util.FileUtil;
+import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
 
 /**

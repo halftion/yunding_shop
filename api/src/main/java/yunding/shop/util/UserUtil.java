@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 import yunding.shop.entity.UserInfo;
 import yunding.shop.service.impl.UserServiceImpl;

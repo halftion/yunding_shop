@@ -7,8 +7,8 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.SearchService;
 import yunding.shop.service.ShopService;
-import yunding.shop.utils.Separator;
-import yunding.shop.utils.StringFilter;
+import yunding.shop.util.Separator;
+import yunding.shop.util.StringFilter;
 
 /**
  * @author guo

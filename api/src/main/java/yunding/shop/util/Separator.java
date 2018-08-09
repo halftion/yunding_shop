@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 /**
  * 分隔符工具类

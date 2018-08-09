@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 
 import com.alipay.api.AlipayApiException;

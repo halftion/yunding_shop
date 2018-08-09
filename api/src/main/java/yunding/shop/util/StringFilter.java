@@ -1,4 +1,4 @@
-package yunding.shop.utils;
+package yunding.shop.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
