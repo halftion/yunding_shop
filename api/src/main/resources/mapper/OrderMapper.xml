@@ -3,6 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.OrderMapper">
 
+    <select id="selectByOrderId" parameterType="java.lang.Integer"
+            resultType="yunding.shop.entity.Order">
+        SELECT * FROM t_order WHERE order_id = #{orderId} AND state != -1
+    </select>
+
+    <select id="selectByUserId" parameterType="java.lang.Integer"
+            resultType="yunding.shop.entity.Order">
+        SELECT * FROM t_order WHERE user_id = #{userId} AND state != -1
+    </select>
+
+    <select id="selectByShopId" parameterType="java.lang.Integer"
+            resultType="yunding.shop.entity.Order">
+        SELECT * FROM t_order WHERE shop_id = #{shopId}
+    </select>
+
+    <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
+            resultType="yunding.shop.entity.Comment">
+        SELECT user_id , `comment` FROM t_order WHERE goods_id = #{goodsId}
+    </select>
+
     <insert id="insertOrder" parameterType="yunding.shop.entity.Order">
         INSERT INTO t_order (
         user_id,
@@ -37,39 +57,20 @@
         )
     </insert>
 
-    <select id="selectByOrderId" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.Order">
-        SELECT * FROM t_order WHERE order_id = #{orderId} AND state != -1
-    </select>
-
-    <update id="updateComment" parameterType="yunding.shop.entity.Order">
-        UPDATE t_order SET comment = #{comment},
-                            state = #{state},
-                            updated_at = #{updatedAt}
-                            WHERE order_id = #{orderId}
-    </update>
-
-    <select id="selectByUserId" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.Order">
-        SELECT * FROM t_order WHERE user_id = #{userId} AND state != -1
-    </select>
-
     <update id="updateState" parameterType="yunding.shop.entity.Order">
         UPDATE t_order SET state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
     </update>
 
-    <select id="selectByShopId" parameterType="java.lang.Integer">
-        SELECT * FROM t_order WHERE shop_id = #{shopId}
-    </select>
-
-    <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
-        resultType="yunding.shop.entity.Comment">
-        SELECT user_id , `comment` FROM t_order WHERE goods_id = #{goodsId}
-    </select>
-
     <update id="sendGoods" parameterType="yunding.shop.entity.Order">
         UPDATE t_order SET state = #{state} ,
-                            tracking_num = #{trackingNum}
+                            tracking_num = #{trackingNum},
+                            updated_at = #{updatedAt}
+                            WHERE order_id = #{orderId}
+    </update>
+
+    <update id="updateComment" parameterType="yunding.shop.entity.Order">
+        UPDATE t_order SET comment = #{comment},
+                            state = #{state},
                             updated_at = #{updatedAt}
                             WHERE order_id = #{orderId}
     </update>

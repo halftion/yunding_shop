@@ -134,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
             if (!serviceResult.getData().equals(userId)) {
                 return ServiceResult.failure("商户信息不匹配");
             }
-            if(newOrder.getState() == Constant.WAIT_SEND_GOOD) {
+            if(newOrder.getState() != Constant.WAIT_SEND_GOOD) {
                 return ServiceResult.failure("订单状态错误");
             }
             order.setState(Constant.WAIT_RECEIVE_GOOD);

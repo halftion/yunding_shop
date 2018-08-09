@@ -1,4 +1,4 @@
-package yunding.shop.web.Alipay;
+package yunding.shop.web.alipay;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

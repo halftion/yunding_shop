@@ -76,8 +76,10 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             Integer goodsId = order.getGoodsId();
             Goods goods = goodsMapper.selectByGoodsId(goodsId);
-            goods.setStockNum(goods.getStockNum() + order.getGoodsNum());
-            goods.setSales(goods.getSales() - order.getGoodsNum());
+            Integer stockNum = goods.getStockNum();
+            Integer sales = goods.getSales();
+            goods.setStockNum(stockNum+ order.getGoodsNum());
+            goods.setSales(sales- order.getGoodsNum());
             goods.updateAtNow();
             Integer i = goodsMapper.updateStockAndSales(goods);
             if (i == 1) {

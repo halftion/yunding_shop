@@ -66,7 +66,7 @@
     "message" : "xxx错误"
 }
 
-3.根据板块类型id获取文章信息：/api/content/{typeId} (GET)
+3.根据板块类型id获取文章信息：/api/content/{typeId} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -99,7 +99,7 @@
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 店铺：
 
-4.根据店铺id获取店铺分类栏：/api/shopCategory/list/{shopId} (GET)
+4.根据店铺id获取店铺分类栏：/api/shopCategory/list/{shopId} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -111,6 +111,68 @@
             "goodsNum": 1,
             "createdAt": 1533005537000,
             "updatedAt": 1533005541000
+        },
+        {
+            "shopGoodsCategoryId": 2,
+            "shopId": 1,
+            "name": "服装",
+            "goodsNum": 20,
+            "createdAt": 1533287054000,
+            "updatedAt": 1533287055000
+        }
+    ],
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data": [],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+5.通过店铺id和店铺分类id获取对应全部商品:/api/search/allGoods/sales/{shopId}/{categoryId} (GET) √
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "goodsId": 54,
+            "shopId": 1,
+            "shopName": "云顶官方旗舰店",
+            "platformGoodsCategoryId": 1,
+            "shopGoodsCategoryId": 1,
+            "name": "Jackson",
+            "stockNum": 1,
+            "price": 1000,
+            "picture": "http://127.0.0.1:8080/static/upload/594939c9e0c243eda86898b32f619f25.jpg",
+            "introduction": "易烊千玺易烊千玺",
+            "sales": 0,
+            "commentNum": 0,
+            "collectionNum": 0,
+            "state": 0,
+            "createdAt": 1533641083000,
+            "updatedAt": 1533689520000
+        },
+        {
+            "goodsId": 55,
+            "shopId": 1,
+            "shopName": "云顶官方旗舰店",
+            "platformGoodsCategoryId": 1,
+            "shopGoodsCategoryId": 1,
+            "name": "Yi",
+            "stockNum": 1,
+            "price": 1000,
+            "sales": 0,
+            "commentNum": 0,
+            "collectionNum": 0,
+            "state": 0,
+            "createdAt": 1533688678000,
+            "updatedAt": 1533688678000
         }
     ],
     "message": "操作成功！"
@@ -479,31 +541,62 @@ JSON传入：
 
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 商品详情：
-16.根据商品id查询商品：/api/goods/id/{id} (GET)
+16.根据商品id查询商品：/api/goods/id/{id} (GET) √
 成功返回示例：
 {
     "code": 200,
     "data": {
         "goodsId": 2,
         "shopId": 1,
-        "shopName": "篮球店铺",
-        "platformGoodsCateGoryId": 1,
-        "shopGoodsCateGoryId": 1,
-        "name": "超级蓝色篮球",
+        "shopName": "云顶官方旗舰店",
+        "platformGoodsCategoryId": 7,
+        "shopGoodsCategoryId": 7,
+        "name": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
         "stockNum": 100,
-        "price": 150,
-        "sales": 38,
+        "price": 209,
+        "picture": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
+        "sales": 0,
         "commentNum": 0,
         "collectionNum": 0,
         "state": 0,
-        "createdAt": 1533007295000,
-        "updatedAt": 1533007296000
+        "createdAt": 1533294602000,
+        "updatedAt": 1533294608000
     },
     "message": "操作成功！"
 }
 为空返回示例：
 {
     "code": 200,
+    "data":[],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code" :500,
+    "message" : "xxx错误"
+}
+
+17.根据商品Id获取商品所有评论：/api/goods/comment/{goodsId} (GET) √
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "userId": 2,
+            "nickName": "测试用户号",
+            "comment": "为什么不给我发绿色的"
+        },
+        {
+            "userId": 2,
+            "nickName": "测试用户号"
+        }
+    ],
+    "message": "操作成功！"
+}
+为空返回示例：
+{
+    "code": 200,
+    "data":[],
     "message": "操作成功！"
 }
 失败返回示例：
@@ -517,7 +610,7 @@ JSON传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：买家
 
-17.创建一个新订单：/api/order/create (POST)
+17.创建一个新订单：/api/order/create (POST) √
 JSON传入：
 [
 	{
@@ -550,7 +643,7 @@ JSON传入：
     "message": "创建订单失败 "
 }
 
-18.通过订单id付款：/api/aliPay/purchase/{orderId} (POST)
+18.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
 成功返回示例：
 {
     "code": 200,
@@ -566,49 +659,92 @@ JSON传入：
 19.通过订单id收货：/api/order/receive/{orderId} (PUT)
 
 
-18.通过用户id获取对应的所有订单信息：/api/order/user (GET)
+18.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
 成功返回示例：
 {
     "code": 200,
-    "data": {
-        "address": "火星",
-        "comment": "",
-        "consigneeName": "郭怡馨",
-        "createdAt": {
-            "date": 3,
-            "day": 5,
-            "hours": 18,
-            "minutes": 59,
-            "month": 7,
-            "seconds": 25,
-            "time": 1533293965000,
-            "timezoneOffset": -480,
-            "year": 118
+    "data": [
+        {
+            "address": "月球",
+            "comment": "",
+            "consigneeName": "胡国斌",
+            "createdAt": {
+                "date": 6,
+                "day": 1,
+                "hours": 16,
+                "minutes": 26,
+                "month": 7,
+                "seconds": 23,
+                "time": 1533543983000,
+                "timezoneOffset": -480,
+                "year": 118
+            },
+            "goodsId": 2,
+            "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
+            "goodsNum": 1,
+            "orderId": 2,
+            "phoneNumber": "111",
+            "remark": "我要不用灌墨水的",
+            "shopId": 1,
+            "shopName": "云顶官方旗舰店",
+            "state": 1,
+            "totalPrice": 209,
+            "trackingNum": "",
+            "unitPrice": 209,
+            "updatedAt": {
+                "date": 6,
+                "day": 1,
+                "hours": 16,
+                "minutes": 26,
+                "month": 7,
+                "seconds": 26,
+                "time": 1533543986000,
+                "timezoneOffset": -480,
+                "year": 118
+            },
+            "userId": 2
         },
-        "goodsId": 2,
-        "goodsName": "篮球",
-        "goodsNum": 1,
-        "orderId": 7,
-        "phoneNumber": "120",
-        "remark": "早点发货！",
-        "shopId": 1,
-        "shopName": "篮球店铺",
-        "state": 0,
-        "totalPrice": 150,
-        "unitPrice": 150,
-        "updatedAt": {
-            "date": 3,
-            "day": 5,
-            "hours": 18,
-            "minutes": 59,
-            "month": 7,
-            "seconds": 25,
-            "time": 1533293965000,
-            "timezoneOffset": -480,
-            "year": 118
-        },
-        "userId": 16
-        },
+        {
+            "address": "水星",
+            "comment": "",
+            "consigneeName": "胡国斌",
+            "createdAt": {
+                "date": 6,
+                "day": 1,
+                "hours": 16,
+                "minutes": 27,
+                "month": 7,
+                "seconds": 43,
+                "time": 1533544063000,
+                "timezoneOffset": -480,
+                "year": 118
+            },
+            "goodsId": 3,
+            "goodsName": "凌美LAMY钢笔墨水签字笔钢笔水笔 专用50ml非碳素墨水黑色狩猎者恒星通用 德国原装进口文具",
+            "goodsNum": 3,
+            "orderId": 3,
+            "phoneNumber": "112",
+            "remark": "我要国产的",
+            "shopId": 1,
+            "shopName": "云顶官方旗舰店",
+            "state": 1,
+            "totalPrice": 207,
+            "trackingNum": "",
+            "unitPrice": 69,
+            "updatedAt": {
+                "date": 6,
+                "day": 1,
+                "hours": 16,
+                "minutes": 27,
+                "month": 7,
+                "seconds": 46,
+                "time": 1533544066000,
+                "timezoneOffset": -480,
+                "year": 118
+            },
+            "userId": 2
+        }
+    ],
     "message": "操作成功！"
 }
 为空返回示例：
@@ -623,43 +759,42 @@ JSON传入：
     "message" : "xxx错误"
 }
 
-19.通过订单id获取对应的订单信息：/api/order/{orderId} (GET)
+19.通过订单id获取对应的订单信息：/api/order/{orderId} (GET) √
 成功返回示例：
 {
     "code": 200,
     "data": {
-        "orderId": 8,
-        "userId": 16,
+        "orderId": 2,
+        "userId": 2,
         "goodsId": 2,
-        "goodsName": "篮球",
-        "goodsNum": 4,
-        "unitPrice": 150,
-        "totalPrice": 600,
+        "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
+        "goodsNum": 1,
+        "unitPrice": 209,
+        "totalPrice": 209,
         "shopId": 1,
-        "shopName": "篮球店铺",
-        "remark": "早点发货！",
-        "address": "火星",
-        "phoneNumber": "120",
-        "consigneeName": "郭怡馨",
-        "comment": "五星好评！",
-        "state": 4,
-        "createdAt": 1533294000000,
-        "updatedAt": 1533294000000
+        "shopName": "云顶官方旗舰店",
+        "remark": "我要不用灌墨水的",
+        "address": "月球",
+        "phoneNumber": "111",
+        "consigneeName": "胡国斌",
+        "state": 1,
+        "createdAt": 1533543983000,
+        "updatedAt": 1533543986000
     },
     "message": "操作成功！"
 }
 为空返回示例：
 {
     "code": 500,
-    "message": "Service 错误 查询订单失败"
+    "message": "订单查询失败"
 }
 失败返回示例：
 {
     "code": 500,
-    "message": "查询订单失败"
+    "message": "订单查询失败"
 }
 
-20.订单收货：/api/order/receive/{orderId} (PUT)
+20.订单收货：/api/order/receive/{orderId} (PUT) √
 成功返回示例：
 {
     "code": 200,
@@ -671,7 +806,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-21.评论订单：/api/order/comment (PUT)
+21.评论订单：/api/order/comment (PUT) √
 JSON传入：
 {
 	"orderId" : 8,
@@ -698,7 +833,7 @@ JSON传入：
     "message": "订单评论失败"
 }
 
-22.删除订单：/api/order/{orderId} (DELETE)
+22.删除订单：/api/order/id/{orderId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -724,7 +859,9 @@ JSON传入：
     "message": "xxx错误"
 }
 
-24.卖家发货: /api/order/send/{orderId} (PUT)
+24.卖家发货: /api/order/send (PUT)
+JSON传入：
+
 成功返回示例：
 {
     "code": 200,
@@ -735,3 +872,104 @@ JSON传入：
     "code": 500,
     "message": "xxx错误"
 }
+
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+卖家中心：
+25.添加商品：/api/goods/ (POST) √
+JSON传入：
+{
+	"platformGoodsCategoryId" : 1,
+	"shopGoodsCategoryId": 1,
+	"name" : "凌美钢笔",
+	"stockNum" : 1,
+	"price" : 1000
+}
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+25.添加/更新商品图片：
+
+25.修改商品信息：/api/goods/ (PUT)  √
+JSON传入：
+{
+	"goodsId" : 54,
+	"platformGoodsCategoryId" : 1,
+	"shopGoodsCategoryId": 1,
+	"name" : "凌美钢笔",
+	"stockNum" : 1,
+	"price" : 1001,
+	"introduction" : "顺滑好用"
+}
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+26.下架商品：/api/goods/{goodsId} (DELETE) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+27.管理店铺分类：/api/shopCategory/{name} (POST) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

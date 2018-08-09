@@ -15,13 +15,6 @@ import java.util.Map;
 public interface OrderMapper {
 
     /**
-     * 创建 订单
-     * @param order 传入order的信息
-     * @return 1为成功，否则失败
-     */
-    Integer insertOrder(Order order);
-
-    /**
      * 根据订单Id查询订单信息
      * @param orderId 订单id
      * @return 订单信息
@@ -29,23 +22,11 @@ public interface OrderMapper {
     Order selectByOrderId(Integer orderId);
 
     /**
-     * 评价订单
-     * @param order 订单ID和评价
-     */
-    Integer updateComment(Order order);
-
-    /**
      * 根据用户ID查询所有订单
      * @param userId 用户ID
      * @return 所有订单信息
      */
     List<Order> selectByUserId(Integer userId);
-
-    /**
-     * 修改订单状态
-     * @param order 订单ID和订单状态
-     */
-    Integer updateState(Order order);
 
     /**
      * 根据店铺ID查询所有订单
@@ -62,8 +43,28 @@ public interface OrderMapper {
     List<Comment> selectCommentByGoodsId (Integer goodsId);
 
     /**
+     * 创建 订单
+     * @param order 传入order的信息
+     * @return 1为成功，否则失败
+     */
+    Integer insertOrder(Order order);
+
+    /**
+     * 修改订单状态
+     * @param order 订单ID和订单状态
+     */
+    Integer updateState(Order order);
+
+    /**
      * 添加物流单号并发货
      * @param order
      */
     Integer sendGoods (Order order);
+
+    /**
+     * 评价订单
+     * @param order 订单ID和评价
+     */
+    Integer updateComment(Order order);
+
 }
