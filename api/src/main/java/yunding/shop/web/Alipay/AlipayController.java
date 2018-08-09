@@ -8,9 +8,7 @@ import yunding.shop.entity.Order;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
 import yunding.shop.utils.UserUtil;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author huguobin

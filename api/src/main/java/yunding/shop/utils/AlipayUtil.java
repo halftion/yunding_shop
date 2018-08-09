@@ -170,7 +170,7 @@ public class AlipayUtil {
 
     @Override
     public String toString() {
-        return "Alipay{" +
+        return "alipay{" +
                 "appId='" + appId + '\'' +
                 ", privateKey='" + privateKey + '\'' +
                 ", format='" + format + '\'' +

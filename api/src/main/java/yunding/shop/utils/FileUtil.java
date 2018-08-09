@@ -28,7 +28,11 @@ public class FileUtil {
                 .replace("-", "");
         String filename = uuid + "." + suffix;
 
-        String fileSaveName = realPath + "/" + filename;
+        String fileSaveName = realPath + filename;
+
+        System.out.println(realPath);
+        System.out.println(fileSaveName);
+
         pic.transferTo(new File(fileSaveName));
         return Constant.IP_ADDRESS + AVATAR_URI + filename;
     }
