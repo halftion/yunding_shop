@@ -1,6 +1,7 @@
 package yunding.shop.utils;
 
 import org.springframework.web.multipart.MultipartFile;
+import yunding.shop.entity.Constant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -10,6 +11,8 @@ import java.util.UUID;
  * @author 齐语冰
  */
 public class FileUtil {
+    private static final String AVATAR_URI = "/static/upload/avatar/";
+    private static final String GOODS_PIC_URI = "/static/upload/GoodsPic/";
 
     public static String saveFile(MultipartFile pic, String realPath) throws Exception {
         // 获取原始文件的后缀
@@ -25,12 +28,16 @@ public class FileUtil {
                 .replace("-", "");
         String filename = uuid + "." + suffix;
 
-        String fileSaveName = realPath + "/" + filename;
+        String fileSaveName = realPath + filename;
         pic.transferTo(new File(fileSaveName));
-        return "http://127.0.0.1:8080/static/upload/" + filename;
+        return Constant.IP_ADDRESS + AVATAR_URI + filename;
     }
 
-    public static String getRealPath(HttpServletRequest request){
-        return request.getServletContext().getRealPath("/static/upload");
+    public static String getAvatarRealPath(HttpServletRequest request){
+        return request.getServletContext().getRealPath(AVATAR_URI);
+    }
+
+    public static String getGoodsRealPath(HttpServletRequest request){
+        return request.getServletContext().getRealPath(GOODS_PIC_URI);
     }
 }

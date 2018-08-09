@@ -31,7 +31,7 @@ public class PhotoController {
     public RequestResult saveAvatar(@RequestParam("pic") MultipartFile pic, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
-            String realPath = FileUtil.getRealPath(request);
+            String realPath = FileUtil.getAvatarRealPath(request);
             ServiceResult serviceResult = photoService.saveAvatar(userId,pic,realPath);
             if(serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
@@ -56,7 +56,7 @@ public class PhotoController {
             @RequestParam("pic") MultipartFile pic, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
-            String realPath = FileUtil.getRealPath(request);
+            String realPath = FileUtil.getAvatarRealPath(request);
             ServiceResult serviceResult = photoService.saveGoodsPhoto(userId, goodsId, pic,realPath);
             if(serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());

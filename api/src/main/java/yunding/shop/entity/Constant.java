@@ -35,4 +35,9 @@ public class Constant {
      * 订单 删除
      */
     public static final Integer DELETE_ORDER = -1 ;
+
+    /**
+     * 项目IP地址
+     */
+    public static final String IP_ADDRESS = "http://localhost:8080";
 }
