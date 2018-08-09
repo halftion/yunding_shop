@@ -28,7 +28,7 @@ public class Register {
     @Size(min = 6, max = 20)
     private String password;
     /**
-     * 注册类型
+     * 注册类型 默认0
      */
     private Integer type;
 

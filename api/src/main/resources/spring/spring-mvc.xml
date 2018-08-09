@@ -34,6 +34,12 @@
 
     <mvc:interceptors>
         <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+        <!--解决跨域-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="yunding.shop.config.AjaxInterceptor"/>
+        </mvc:interceptor>
+
         <mvc:interceptor>
             <mvc:mapping path="/api/user/**"/>
             <mvc:mapping path="/api/order/**"/>

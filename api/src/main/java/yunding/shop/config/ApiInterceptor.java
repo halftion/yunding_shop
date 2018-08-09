@@ -20,14 +20,16 @@ public class ApiInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         String authorization = request.getHeader("Authorization");
-        if (null == authorization) {
+
+        if(null == authorization){
             response.setStatus(401);
             response.setHeader("Content-Type", "application/json;charset=UTF-8");
             response.getWriter().print("{\"code\": \"401\", \"error\": \"unauthorized\", \"message\": \"authorization required\"}");
             response.getWriter().flush();
             return false;
-        } else {
+        }else {
             String token = authorization.replace(TOKEN_HEADER, "");
 
             try {

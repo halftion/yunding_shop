@@ -13,6 +13,7 @@ import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
 import yunding.shop.utils.UserUtil;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户
@@ -99,7 +100,6 @@ public class UserController {
     @RequestMapping(value = "/info", method = RequestMethod.PUT)
     public RequestResult updateUserInfo(@Validated @RequestBody UserInfo userInfo,
                                         HttpServletRequest request, BindingResult bindingResult){
-
         if (bindingResult.hasErrors()) {
             return RequestResult.failure("更新用户信息失败");
         }
