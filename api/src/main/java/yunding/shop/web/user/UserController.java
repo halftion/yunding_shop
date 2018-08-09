@@ -126,7 +126,7 @@ public class UserController {
                                    BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
-            return RequestResult.failure("更新用户信息失败");
+            return RequestResult.failure("非法注册信息");
         }
 
         try {
@@ -149,7 +149,7 @@ public class UserController {
                 return RequestResult.failure(verificationCodeServiceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("注册失败"+e.getMessage());
+            return RequestResult.failure("注册失败");
         }
     }
 }
