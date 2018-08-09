@@ -381,7 +381,7 @@ JSON传入：
         "phoneNumber": "123",
         "email": "123@163.com",
         "xp": 0,
-        "state": 0,
+        "state": 1,
         "createdAt": 1533540206000,
         "updatedAt": 1533782366000
     },
