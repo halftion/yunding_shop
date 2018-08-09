@@ -30,9 +30,6 @@ public class FileUtil {
 
         String fileSaveName = realPath + filename;
 
-        System.out.println(realPath);
-        System.out.println(fileSaveName);
-
         pic.transferTo(new File(fileSaveName));
         return Constant.IP_ADDRESS + AVATAR_URI + filename;
     }
