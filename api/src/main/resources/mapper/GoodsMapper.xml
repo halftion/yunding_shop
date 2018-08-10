@@ -97,7 +97,7 @@
     </update>
 
     <select id="selectGoodsProperty" resultType="yunding.shop.entity.Goods">
-        SELECT property, goods_id FROM t_goods WHERE `name` = #{name} AND shop_id = #{shopId}
+        SELECT property, goods_id FROM t_goods WHERE `name` = #{name} AND shop_id = #{shopId} AND state = 0
     </select>
 
 </mapper>

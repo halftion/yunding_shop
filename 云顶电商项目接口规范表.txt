@@ -738,6 +738,40 @@ form-data传入：
     "message" : "xxx错误"
 }
 
+21.根据商品Id查找同类商品规格：/api/goods/property/{goodsId} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "goodsId": 54,
+            "property": "红色",
+            "state": 0
+        },
+        {
+            "goodsId": 55,
+            "property": "蓝色",
+            "state": 0
+        },
+        {
+            "goodsId": 56,
+            "property": "黄色",
+            "state": 0
+        },
+        {
+            "goodsId": 57,
+            "property": "紫色",
+            "state": 0
+        }
+    ],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "创建订单失败 "
+}
+
 
 
 
@@ -748,7 +782,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：买家
 
-21.创建一个新订单：/api/order/create (POST) √
+22.创建一个新订单：/api/order/create (POST) √
 JSON传入：
 [
 	{
@@ -781,7 +815,7 @@ JSON传入：
     "message": "创建订单失败 "
 }
 
-22.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
+23.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
 成功返回示例：
 {
     "code": 200,
@@ -794,7 +828,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-23.通过订单id收货：/api/order/receive/{orderId} (PUT) √
+24.通过订单id收货：/api/order/receive/{orderId} (PUT) √
 {
     "code": 200,
     "message": "操作成功！"
@@ -805,7 +839,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-24.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
+25.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -905,7 +939,7 @@ JSON传入：
     "message" : "xxx错误"
 }
 
-25.通过订单id获取对应的订单信息：/api/order/{orderId} (GET) √
+26.通过订单id获取对应的订单信息：/api/order/{orderId} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -940,7 +974,7 @@ JSON传入：
     "message": "订单查询失败"
 }
 
-26.订单收货：/api/order/receive/{orderId} (PUT) √
+27.订单收货：/api/order/receive/{orderId} (PUT) √
 成功返回示例：
 {
     "code": 200,
@@ -952,7 +986,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-27.评论订单：/api/order/comment (PUT) √
+28.评论订单：/api/order/comment (PUT) √
 JSON传入：
 {
 	"orderId" : 8,
@@ -979,7 +1013,7 @@ JSON传入：
     "message": "订单评论失败"
 }
 
-28.删除订单：/api/order/id/{orderId} (DELETE) √
+29.删除订单：/api/order/id/{orderId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -1001,7 +1035,7 @@ JSON传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：卖家
 
-29.根据店铺Id获取店铺订单：/api/order/shop/{shopId} (GET) √
+30.根据店铺Id获取店铺订单：/api/order/shop/{shopId} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -1101,7 +1135,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-30.卖家发货: /api/order/send (PUT) √
+31.卖家发货: /api/order/send (PUT) √
 JSON传入：
 {
 	"orderId" : 2,
@@ -1129,7 +1163,7 @@ JSON传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 卖家中心：
 
-31.添加商品：/api/goods/ (POST) √
+32.添加商品：/api/goods/ (POST) √
 JSON传入：
 {
 	"platformGoodsCategoryId" : 1,
@@ -1149,7 +1183,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-32.添加/更新商品图片：/api/photo/goods/{goodsId} (POST) √
+33.添加/更新商品图片：/api/photo/goods/{goodsId} (POST) √
 成功返回示例：
 {
     "code": 200,
@@ -1162,7 +1196,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-33.修改商品信息：/api/goods/ (PUT)  √
+34.修改商品信息：/api/goods/ (PUT)  √
 JSON传入：
 {
 	"goodsId" : 54,
@@ -1184,7 +1218,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-34.下架商品：/api/goods/{goodsId} (DELETE) √
+35.下架商品：/api/goods/{goodsId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -1196,7 +1230,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-35.管理店铺分类：/api/shopCategory/{name} (POST) √
+36.管理店铺分类：/api/shopCategory/{name} (POST) √
 成功返回示例：
 {
     "code": 200,

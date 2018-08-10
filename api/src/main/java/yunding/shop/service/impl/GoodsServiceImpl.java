@@ -1,5 +1,6 @@
 package yunding.shop.service.impl;
 
+import com.google.gson.JsonArray;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -266,11 +267,11 @@ public class GoodsServiceImpl implements GoodsService{
     public ServiceResult selectGoodsProperty(Integer goodsId) {
         try{
             Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
-            Goods goods = goodsMapper.selectByGoodsId(goodsId);
-            String name = goods.getName();
+            String name = goodsMapper.selectByGoodsId(goodsId).getName();
             List<Goods> propertyList = goodsMapper.selectGoodsProperty(name, shopId);
             return ServiceResult.success(propertyList);
         }catch (Exception e){
+            e.printStackTrace();
             return ServiceResult.failure("查找异常");
         }
     }

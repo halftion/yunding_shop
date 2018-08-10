@@ -105,7 +105,7 @@ public interface GoodsMapper {
      * @param shopId 店铺名称
      * @return 同类商品列表
      */
-    List<Goods> selectGoodsProperty(String name, Integer shopId);
+    List<Goods> selectGoodsProperty(@Param("name") String name, @Param("shopId") Integer shopId);
 
 
 }
