@@ -67,7 +67,6 @@ public class GoodsController {
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public RequestResult updateGoods(@RequestBody Goods goods){
         try {
-
             ServiceResult result=goodsService.updategoods(goods);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
@@ -118,6 +117,27 @@ public class GoodsController {
             }
         } catch (Exception e) {
             return RequestResult.failure("删除商品失败");
+        }
+    }
+
+    /**
+     * 根据商品Id获取同类商品属性
+     * @param goodsId 商品Id
+     * @param request request对象
+     * @return 商品属性和商品Id
+     */
+    @RequestMapping(value = "/property/{goodsId}", method = RequestMethod.GET)
+    RequestResult selectGoodsProperty (@PathVariable("goodsId") Integer goodsId, HttpServletRequest request){
+        try{
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = goodsService.selectGoodsProperty(goodsId);
+            if(serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
+            }else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("Controller异常");
         }
     }
 

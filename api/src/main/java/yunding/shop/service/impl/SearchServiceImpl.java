@@ -58,11 +58,11 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                if(goodsService.selectNameByGoodsName(newKeyword).isSuccess()){
-                    return ServiceResult.success(goodsService.selectNameByGoodsName(newKeyword).getData());
+                if(goodsService.selectNameByKeyword(newKeyword).isSuccess()){
+                    return ServiceResult.success(goodsService.selectNameByKeyword(newKeyword).getData());
                 }else {
                     //获取商品名称失败
-                    return ServiceResult.failure(goodsService.selectNameByGoodsName(newKeyword).getMessage());
+                    return ServiceResult.failure(goodsService.selectNameByKeyword(newKeyword).getMessage());
                 }
             }
         }catch (Exception e){

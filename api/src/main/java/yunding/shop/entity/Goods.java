@@ -42,8 +42,13 @@ public class Goods implements Comparator {
      * 商品 名称
      */
     @NotEmpty
-    @Size(max = 50)
+    @Size(max = 75)
     private String name;
+    /**
+     * 商品 名称
+     */
+    @Size(max = 50)
+    private String property;
     /**
      * 商品 库存数量
      */
@@ -138,6 +143,14 @@ public class Goods implements Comparator {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     public Integer getStockNum() {

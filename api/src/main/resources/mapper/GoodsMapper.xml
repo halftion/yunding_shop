@@ -7,13 +7,13 @@
         SELECT * FROM t_goods WHERE `name` LIKE #{name} AND state = 0
     </select>
 
-    <select id="selectByPlatformCategoryId" parameterType="int"
+    <select id="selectByPlatformCategoryId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Goods">
         SELECT  * FROM  t_goods
         WHERE  platform_goods_category_id = #{categoryId} AND state = 0
     </select>
 
-    <select id="selectByShopCategoryId" parameterType="int" resultType="yunding.shop.entity.Goods">
+    <select id="selectByShopCategoryId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Goods">
         SELECT  * FROM  t_goods WHERE  shop_id =#{shopId,jdbcType=INTEGER} AND  shop_goods_category_id = #{categoryId,jdbcType=INTEGER}
          AND state = 0
     </select>
@@ -22,7 +22,7 @@
         SELECT * FROM t_goods WHERE goods_id = #{id}  AND state = 0
     </select>
 
-    <select id="selectNameByGoodsName" parameterType="java.lang.String" resultType="java.lang.String">
+    <select id="selectNameByKeyword" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT `name` FROM t_goods WHERE `name` LIKE #{goodsName}  AND state = 0
     </select>
 
@@ -45,6 +45,7 @@
         platform_goods_category_id = #{platformGoodsCategoryId},
         shop_goods_category_id = #{shopGoodsCategoryId},
         `name` = #{name},
+        property = #{property},
         stock_num = #{stockNum},
         introduction = #{introduction},
         updated_at = #{updatedAt}
@@ -70,6 +71,7 @@
         platform_goods_category_id,
         shop_goods_category_id,
         `name`,
+        property,
         stock_num,
         price,
         created_at,
@@ -80,6 +82,7 @@
         #{platformGoodsCategoryId},
         #{shopGoodsCategoryId},
         #{name},
+        #{property},
         #{stockNum},
         #{price},
         #{createdAt},
@@ -92,5 +95,9 @@
                             updated_at = #{updatedAt}
                             WHERE goods_id = #{goodsId}
     </update>
+
+    <select id="selectGoodsProperty" resultType="yunding.shop.entity.Goods">
+        SELECT property, goods_id FROM t_goods WHERE `name` = #{name} AND shop_id = #{shopId}
+    </select>
 
 </mapper>

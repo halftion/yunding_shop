@@ -44,7 +44,7 @@ public interface GoodsMapper {
      * @param goodsName 商品关键字
      * @return 商品名称列表
      */
-    List<String> selectNameByGoodsName(String goodsName);
+    List<String> selectNameByKeyword(String goodsName);
 
     /**
      * 根据店铺id和商品名称查找对应商品
@@ -98,6 +98,14 @@ public interface GoodsMapper {
      * @param goods 商品Id
      */
     Integer deleteGoods(Goods goods);
+
+    /**
+     * 获取同类商品属性
+     * @param name 商品名称
+     * @param shopId 店铺名称
+     * @return 同类商品列表
+     */
+    List<Goods> selectGoodsProperty(String name, Integer shopId);
 
 
 }

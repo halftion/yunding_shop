@@ -100,9 +100,9 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public ServiceResult selectNameByGoodsName(String keyword) {
+    public ServiceResult selectNameByKeyword(String keyword) {
         try {
-            List<String> hintList = goodsMapper.selectNameByGoodsName(keyword);
+            List<String> hintList = goodsMapper.selectNameByKeyword(keyword);
             if(hintList.size() > HINT_SIZE){
                 hintList = hintList.subList(0,5);
             }
@@ -259,6 +259,19 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("发货失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectGoodsProperty(Integer goodsId) {
+        try{
+            Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
+            Goods goods = goodsMapper.selectByGoodsId(goodsId);
+            String name = goods.getName();
+            List<Goods> propertyList = goodsMapper.selectGoodsProperty(name, shopId);
+            return ServiceResult.success(propertyList);
+        }catch (Exception e){
+            return ServiceResult.failure("查找异常");
         }
     }
 }

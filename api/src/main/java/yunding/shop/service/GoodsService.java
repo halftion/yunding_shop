@@ -42,7 +42,7 @@ public interface GoodsService {
      * 根据商品关键词查询商品名称
      * @param keyword 关键字
      */
-    ServiceResult selectNameByGoodsName(String keyword);
+    ServiceResult selectNameByKeyword(String keyword);
 
     /**
      * 根据店铺id和商品名称查找对应商品
@@ -111,6 +111,13 @@ public interface GoodsService {
      * @param goodsId 商品Id
      */
     ServiceResult deleteGoods(Integer userId , Integer goodsId);
+
+    /**
+     * 根据商品Id获取同类商品属性
+     * @param goodsId 商品ID
+     * @return 商品属性列表
+     */
+    ServiceResult selectGoodsProperty(Integer goodsId);
 
 
 }
