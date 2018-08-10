@@ -61,9 +61,14 @@
         UPDATE t_order SET state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
     </update>
 
+    <update id="userPay" parameterType="yunding.shop.entity.Order">
+        UPDATE t_order SET alipay_num = #{alipayNum}, state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
+    </update>
+
     <update id="sendGoods" parameterType="yunding.shop.entity.Order">
         UPDATE t_order SET state = #{state} ,
                             tracking_num = #{trackingNum},
+                            express_company = #{expressCompany},
                             updated_at = #{updatedAt}
                             WHERE order_id = #{orderId}
     </update>

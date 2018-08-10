@@ -37,7 +37,7 @@ public class AlipayServiceImpl implements AlipayService {
             String result=alipayUtil.notifyUrl(request);
             if (result.equals("success")){
                 if(order.getState() == Constant.WAIT_PAY){
-                    orderService.userPayByOrderId(order.getUserId(),order.getOrderId());
+                    orderService.userPayByOrderId(order.getUserId(),order);
                 }else{
                     throw new RuntimeException("订单已经支付");
                 }

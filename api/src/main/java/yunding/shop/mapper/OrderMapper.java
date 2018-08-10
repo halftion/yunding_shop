@@ -50,16 +50,22 @@ public interface OrderMapper {
     Integer insertOrder(Order order);
 
     /**
-     * 修改订单状态
-     * @param order 订单ID和订单状态
+     * 买家付款
+     * @param order 获取支付宝交易号
      */
-    Integer updateState(Order order);
+    Integer userPay(Order order);
 
     /**
      * 添加物流单号并发货
      * @param order
      */
     Integer sendGoods (Order order);
+
+    /**
+     * 修改订单状态
+     * @param order 修改订单状态
+     */
+    Integer updateState(Order order);
 
     /**
      * 评价订单

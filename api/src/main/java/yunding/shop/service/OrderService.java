@@ -43,9 +43,9 @@ public interface OrderService {
     /**
      * 根据订单Id 买家付款
      * @param userId 用户Id
-     * @param orderId 订单ID
+     * @param order 订单ID和支付宝交易号
      */
-    ServiceResult userPayByOrderId(Integer userId,Integer orderId);
+    ServiceResult userPayByOrderId(Integer userId,Order order);
 
     /**
      * 根据订单Id 卖家发货

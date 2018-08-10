@@ -101,21 +101,25 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult userPayByOrderId(Integer userId, Integer orderId) {
+    public ServiceResult userPayByOrderId(Integer userId, Order newOrder) {
         try{
-            Order order = orderMapper.selectByOrderId(orderId);
+            Order order = orderMapper.selectByOrderId(newOrder.getOrderId());
             if (!order.getUserId().equals(userId)) {
                 return ServiceResult.failure("用户信息不匹配");
             }
+            if(newOrder.getAlipayNum() == null){
+                return ServiceResult.failure("支付宝交易号错误");
+            }
             ServiceResult serviceResult =goodsService.processOrderCreate(order);
-            if(order.getState() == Constant.WAIT_PAY) {
-                order.setState(Constant.WAIT_SEND_GOOD);
-                order.updateAtNow();
-                orderMapper.updateState(order);
-                return ServiceResult.success();
-            }else {
+            if(order.getState() != Constant.WAIT_PAY) {
+                return ServiceResult.failure("订单状态有误");
+            }
+            newOrder.setState(Constant.WAIT_SEND_GOOD);
+            newOrder.updateAtNow();
+            if(orderMapper.userPay(newOrder) != 1) {
                 return ServiceResult.failure("订单状态修改失败");
             }
+            return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("订单状态修改失败");
         }
@@ -133,6 +137,10 @@ public class OrderServiceImpl implements OrderService {
             }
             if (!serviceResult.getData().equals(userId)) {
                 return ServiceResult.failure("商户信息不匹配");
+            }
+            if(order.getTrackingNum() == null ||
+                    order.getExpressCompany() == null){
+                return ServiceResult.failure("订单物流信息有误");
             }
             if(newOrder.getState() != Constant.WAIT_SEND_GOOD) {
                 return ServiceResult.failure("订单状态错误");

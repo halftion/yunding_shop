@@ -1105,7 +1105,8 @@ JSON传入：
 JSON传入：
 {
 	"orderId" : 2,
-	"trackingNum" :"1111111111111"
+	"trackingNum" :"1111111111111",
+	"expressCompany" :"百世汇通"
 }
 成功返回示例：
 {

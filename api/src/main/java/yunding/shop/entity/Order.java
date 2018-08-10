@@ -84,6 +84,14 @@ public class Order {
      */
     private int state;
     /**
+     * 订单 支付宝交易号
+     */
+    private String alipayNum;
+    /**
+     * 订单 快递公司
+     */
+    private String expressCompany;
+    /**
      * 订单 运单号
      */
     private String trackingNum;
@@ -234,6 +242,22 @@ public class Order {
 
     public void setTrackingNum(String trackingNum) {
         this.trackingNum = trackingNum;
+    }
+
+    public String getAlipayNum() {
+        return alipayNum;
+    }
+
+    public void setAlipayNum(String alipayNum) {
+        this.alipayNum = alipayNum;
+    }
+
+    public String getExpressCompany() {
+        return expressCompany;
+    }
+
+    public void setExpressCompany(String expressCompany) {
+        this.expressCompany = expressCompany;
     }
 
     public Date getCreatedAt() {
