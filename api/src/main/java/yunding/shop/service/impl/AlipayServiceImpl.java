@@ -1,5 +1,6 @@
 package yunding.shop.service.impl;
 
+import com.alipay.api.AlipayApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
@@ -10,6 +11,7 @@ import yunding.shop.service.OrderService;
 import yunding.shop.util.AlipayUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 
 @Service
@@ -32,11 +34,12 @@ public class AlipayServiceImpl implements AlipayService {
     }
 
     @Override
-    public String notifyUrl(HttpServletRequest request,Order order) {
+    public String notifyUrl(HttpServletRequest request, Order order, String out_no) {
         try{
             String result=alipayUtil.notifyUrl(request);
             if (result.equals("success")){
                 if(order.getState() == Constant.WAIT_PAY){
+                    order.setAlipayNum(out_no);
                     orderService.userPayByOrderId(order.getUserId(),order);
                 }else{
                     throw new RuntimeException("订单已经支付");
@@ -46,6 +49,11 @@ public class AlipayServiceImpl implements AlipayService {
         }catch (Exception e){
             throw new RuntimeException("异步通知 异常");
         }
+    }
+
+    @Override
+    public String returnUrl(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+        return  alipayUtil.returnUrl(request);
     }
 
 

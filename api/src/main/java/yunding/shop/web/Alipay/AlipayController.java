@@ -9,6 +9,7 @@ import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
 import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author huguobin
@@ -24,6 +25,9 @@ public class AlipayController {
     OrderService orderService;
 
     private  Order order;
+    //支付宝交易号
+    private String out_no;
+
     @RequestMapping(value = "/purchase/{orderId}",method = RequestMethod.POST)
     public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
         try{
@@ -41,12 +45,21 @@ public class AlipayController {
         }
     }
 
-
+    @RequestMapping(value = "/returnUrl",method = RequestMethod.GET)
+    public void retuenUrl(HttpServletRequest request, HttpServletResponse response){
+        try {
+            System.out.println("收到同步通知");
+            out_no=alipayService.returnUrl(request);
+            request.getRequestDispatcher("").forward(request,response);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     @RequestMapping(value = "/notifyUrl",method = RequestMethod.POST)
     public String notifyUrl(HttpServletRequest request){
         try {
             System.out.println("收到异步通知");
-            String result=alipayService.notifyUrl(request,order);
+            String result=alipayService.notifyUrl(request,order,out_no);
             System.out.println(result);
             return result;
         }catch (Exception e){
