@@ -44,7 +44,7 @@ public class PhotoServiceImpl implements PhotoService{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("作品上传失败");
+            throw new RuntimeException("作品上传失败"+e.getMessage());
         }
     }
 

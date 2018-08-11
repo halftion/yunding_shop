@@ -15,23 +15,37 @@ public class Register {
     @NotEmpty
     @Size(min = 11, max = 11)
     private String loginName;
+
     /**
      * 验证码
      */
     @NotEmpty
     @Size(min = 6, max = 6)
     private String code;
+
     /**
      * 密码
      */
     @NotEmpty
     @Size(min = 6, max = 20)
     private String password;
+
     /**
      * 注册类型 默认0
      */
     private Integer type;
 
+    /**
+     * 用户昵称
+     */
+    @NotEmpty
+    @Size(min = 3,max = 10)
+    private String nickName;
+
+
+    public Login toLogin(){
+        return new Login(this.getLoginName(),this.getPassword());
+    }
 
     public String getLoginName() {
         return loginName;
@@ -64,4 +78,13 @@ public class Register {
     public void setType(Integer type) {
         this.type = type;
     }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
 }

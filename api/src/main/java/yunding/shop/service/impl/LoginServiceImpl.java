@@ -33,16 +33,16 @@ public class LoginServiceImpl implements LoginService {
     public ServiceResult checkExist(String loginName) {
         try{
             if(loginName.length() != 11){
-                return ServiceResult.failure("请输入11位的登录名");
+                return ServiceResult.failure("请输入11位的手机号");
             }
             Login dbLogin = loginMapper.selectByLoginName(loginName);
             if(dbLogin == null){
                 return ServiceResult.success();
             }else {
-                return ServiceResult.failure("该登录名已被占用");
+                return ServiceResult.failure("该手机号已被占用");
             }
         }catch (Exception e){
-            return ServiceResult.failure("产生异常");
+            return ServiceResult.failure("检测失败");
         }
     }
 
@@ -80,6 +80,10 @@ public class LoginServiceImpl implements LoginService {
             String loginName = register.getLoginName();
             String password = register.getPassword();
 
+            if(loginMapper.selectByLoginName(loginName) != null) {
+                return ServiceResult.failure("手机号已被注册");
+            }
+
             //创建用户信息并返回自动递增主键
             Integer userId = (Integer) userService.create(nickName).getData();
 
@@ -88,8 +92,9 @@ public class LoginServiceImpl implements LoginService {
             loginMapper.insert(login);
 
             //注册成功返回用户信息
-            return ServiceResult.success(userService.getById(userId));
+            return ServiceResult.success(userId);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("注册失败");
         }
     }

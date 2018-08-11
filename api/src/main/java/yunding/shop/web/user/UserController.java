@@ -9,6 +9,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.Register;
 import yunding.shop.entity.UserInfo;
+import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
 import yunding.shop.util.UserUtil;
@@ -29,6 +30,9 @@ public class UserController {
     @Autowired
     private VerificationCodeService verificationCodeService;
 
+    @Autowired
+    private LoginService loginService;
+
     /**
      * 检测登录名是否被占用
      * @param loginName 登录名
@@ -36,7 +40,7 @@ public class UserController {
     @RequestMapping(value = "/checkLoginName/{loginName}", method = RequestMethod.GET)
     public RequestResult checkLoginName(@PathVariable String loginName) {
         try {
-            ServiceResult serviceResult = userService.checkLoginName(loginName);
+            ServiceResult serviceResult = loginService.checkExist(loginName);
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             } else {
@@ -58,7 +62,7 @@ public class UserController {
             return RequestResult.failure("登录失败");
         }
         try {
-            ServiceResult serviceResult = userService.login(login);
+            ServiceResult serviceResult = loginService.login(login);
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             } else {
@@ -125,21 +129,23 @@ public class UserController {
     public  RequestResult register(@Validated @RequestBody Register register,
                                    BindingResult bindingResult){
 
+        String loginName = register.getLoginName();
+        String code = register.getCode();
+
         if (bindingResult.hasErrors()) {
             return RequestResult.failure("非法注册信息");
         }
 
         try {
             ServiceResult verificationCodeServiceResult = verificationCodeService.verify(
-                    register.getLoginName(),register.getCode());
+                    loginName,code);
+            //验证码正确
             if (verificationCodeServiceResult.isSuccess()){
-                ServiceResult registerResult = userService.register(
-                        register.getLoginName(), register.getPassword());
+                ServiceResult registerResult = loginService.register(register);
+                //注册成功
                 if(registerResult.isSuccess()){
-                    UserInfo userInfo = (UserInfo) registerResult.getData();
-/*                    //登录
-                    request.getSession().setAttribute("userInfo", userInfo);*/
-                    return RequestResult.success(userInfo);
+                    return RequestResult.success(
+                            loginService.login(register.toLogin()).getData());
                 }else {
                     //注册失败
                     return RequestResult.failure(registerResult.getMessage());
@@ -149,7 +155,19 @@ public class UserController {
                 return RequestResult.failure(verificationCodeServiceResult.getMessage());
             }
         }catch (Exception e){
+            e.printStackTrace();
             return RequestResult.failure("注册失败");
+        }
+    }
+
+    @RequestMapping(value = "/verifyCode")
+    public RequestResult verifyCode(@RequestBody String loginName, @RequestBody String code){
+        try {
+            verificationCodeService.verify(loginName,code);
+            return RequestResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return RequestResult.failure("验证码错误");
         }
     }
 }

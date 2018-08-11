@@ -35,8 +35,9 @@ public interface UserMapper {
 
     /**
      * 根据用户Id查询用户昵称
-     * @param userId
+     * @param userId 用户id
      * @return 用户昵称
      */
     String selectNickNameById(Integer userId);
+
 }

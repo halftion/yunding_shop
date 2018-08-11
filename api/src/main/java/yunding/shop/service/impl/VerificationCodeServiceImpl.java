@@ -51,21 +51,26 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     public ServiceResult verify(String loginName, String code) {
         try {
             //验证码失效时间
-            Integer outTime = 300000;
+            int outTime = 300000;
             Date now = new Date();
             IdentifyingCode identifyingCode = identifyingCodeMapper.selectByLoginName(loginName);
-            System.out.println(identifyingCode.toString());
-            //超时验证码失效
-            if (now.getTime() - identifyingCode.getCreatedAt().getTime() > outTime){
-                /*将state置为 -1*/
-                identifyingCodeMapper.drop(loginName);
-                return ServiceResult.failure("验证码超时");
-            }else if (identifyingCode.getCode().equals(code.toUpperCase())){
-                //服务层成功，验证码正确
-                return ServiceResult.success(true);
-            }else {
-                //服务层成功，验证码错误
-                return ServiceResult.failure("验证码错误");
+            if (identifyingCode != null) {
+                //超时验证码失效
+                if (now.getTime() - identifyingCode.getCreatedAt().getTime() > outTime){
+                    /*将state置为 -1*/
+                    identifyingCodeMapper.drop(loginName);
+                    return ServiceResult.failure("验证码超时");
+                    //验证码正确
+                }else if (identifyingCode.getCode().equals(code)){
+                    //验证成功，使验证码失效
+                    identifyingCodeMapper.drop(loginName);
+                    return ServiceResult.success(true);
+                }else {
+                    //服务层成功，验证码错误
+                    return ServiceResult.failure("验证码错误");
+                }
+            } else {
+                return ServiceResult.failure("该手机号未发送验证码");
             }
         } catch (Exception e) {
             //服务层失败

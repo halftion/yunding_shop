@@ -9,11 +9,13 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.graalvm.compiler.loop.MathUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -188,7 +190,7 @@ public class SmsUtil {
      * @return 验证码
      */
     public static String randomVerificationCode(){
-        return UUID.randomUUID().toString().substring(0,6).toUpperCase();
+        return String.valueOf((int)((Math.random()*9+1)*100000));
     }
 
     public void setProduct(String product) {
@@ -206,10 +208,6 @@ public class SmsUtil {
     public void setAccessKeySecret(String accessKeySecret) {
         this.accessKeySecret = accessKeySecret;
     }
-
-//    public void setSignName(String signName) {
-//        this.signName = signName;
-//    }
 
     public void setTemplateCode(String templateCode) {
         this.templateCode = templateCode;

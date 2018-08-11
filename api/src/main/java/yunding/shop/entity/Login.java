@@ -38,6 +38,11 @@ public class Login {
     public Login() {
     }
 
+    public Login(String loginName, String password) {
+        this.loginName = loginName;
+        this.password = password;
+    }
+
     public Login(Integer userId, String loginName, String password, Date createdAt, Date updatedAt) {
         this.userId = userId;
         this.loginName = loginName;

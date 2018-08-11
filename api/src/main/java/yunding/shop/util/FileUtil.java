@@ -5,20 +5,35 @@ import yunding.shop.entity.Constant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * @author 齐语冰
  */
 public class FileUtil {
+
     private static final String AVATAR_URI = "/static/upload/avatar/";
     private static final String GOODS_PIC_URI = "/static/upload/GoodsPic/";
+    private static List<String> legalSuffixList = Arrays.asList("PNG","JPG","JPEG");
 
     public static String saveFile(MultipartFile pic, String realPath) throws Exception {
+
+        //大于 3 MB
+        if (pic.getSize() > 3*1024*1024){
+            throw new RuntimeException("文件过大");
+        }
+
         // 获取原始文件的后缀
         String originalFilename = pic.getOriginalFilename();
         String suffix = originalFilename
                 .substring(originalFilename.lastIndexOf(".") + 1);
+
+        //非法后缀
+        if (!legalSuffixList.contains(suffix.toUpperCase())){
+            throw new RuntimeException("非法后缀");
+        }
 
         // 生成随机文件名
         String uuid = UUID

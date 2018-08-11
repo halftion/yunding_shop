@@ -22,7 +22,7 @@
             keyProperty="userId"
             keyColumn="user_id"
             parameterType="yunding.shop.entity.UserInfo">
-        INSERT t_user_info (created_at,updated_at) VALUES (#{createdAt},#{updatedAt})
+        INSERT t_user_info (nick_name, created_at, updated_at) VALUES (#{nickName}, #{createdAt}, #{updatedAt})
     </insert>
     
     <update id="updateAvatar" parameterType="yunding.shop.entity.UserInfo">

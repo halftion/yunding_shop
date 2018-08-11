@@ -64,7 +64,8 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(Date createdAt, Date updatedAt) {
+    public UserInfo(String nickName, Date createdAt, Date updatedAt) {
+        this.nickName = nickName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

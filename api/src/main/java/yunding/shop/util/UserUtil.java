@@ -18,7 +18,7 @@ public class UserUtil {
     }
 
     public static Integer getCurrentUserId(HttpServletRequest request){
-        return (Integer) request.getAttribute("currentUserId");
+        return Integer.parseInt(request.getAttribute("currentUserId").toString());
 }
 /*    private static RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
 

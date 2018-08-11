@@ -17,12 +17,14 @@ public interface LoginService {
     /**
      * 登录
      * @param login 登录信息
+     * @return token
      */
     ServiceResult login(Login login);
 
     /**
      * 注册
      * @param register 注册信息
+     * @return 用户id
      */
     ServiceResult register(Register register);
 }
