@@ -1169,6 +1169,7 @@ JSON传入：
 	"platformGoodsCategoryId" : 1,
 	"shopGoodsCategoryId": 1,
 	"name" : "凌美钢笔",
+	"property" : "蓝色",
 	"stockNum" : 1,
 	"price" : 1000
 }
@@ -1203,6 +1204,7 @@ JSON传入：
 	"platformGoodsCategoryId" : 1,
 	"shopGoodsCategoryId": 1,
 	"name" : "凌美钢笔",
+	"property" : "绿色",
 	"stockNum" : 1,
 	"price" : 1001,
 	"introduction" : "顺滑好用"
