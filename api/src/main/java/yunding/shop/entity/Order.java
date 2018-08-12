@@ -32,6 +32,10 @@ public class Order {
      */
     private String goodsName;
     /**
+     * 订单 商品图片
+     */
+    private String goodsPic;
+    /**
      * 订单 商品数量
      */
     @NotEmpty(message = "商品数量不能为空")
@@ -136,6 +140,14 @@ public class Order {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getGoodsPic() {
+        return goodsPic;
+    }
+
+    public void setGoodsPic(String goodsPic) {
+        this.goodsPic = goodsPic;
     }
 
     public Integer getGoodsNum() {

@@ -793,20 +793,22 @@ JSON传入：
 	{
     	"goodsId":21,
 	    "goodsName":"日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
-    	"goodsNum":2,
-	    "remark":"希望买二送一哦，谢谢小姐姐！",
-    	"address":"木星",
-	    "phoneNumber":"115",
+	    "goodsPic":"https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+    	"goodsNum":10,
+	    "remark" : "用了之后可以天天熬夜到三点还没有黑眼圈吗？",
+    	"address":"金星",
+	    "phoneNumber":"117",
     	"consigneeName":"郭怡馨"
 	},
 	{
 		"goodsId":22,
 	    "goodsName": "SK-II小灯泡30ml美白保湿精华露护肤套装",
-    	"goodsNum": 1,
-	    "remark":"请发申通快递",
-    	"address":"土星",
-	    "phoneNumber":"116",
-    	"consigneeName":"郭怡馨"
+	    "goodsPic" : "https://img13.360buyimg.com/n1/jfs/t20989/21/1452820745/104418/5d8006a5/5b2a0aa8N990d5bb0.jpg",
+    	"goodsNum": 10,
+	    "remark":"会影响我开法拉利的视角吗",
+    	"address":"冥王星",
+	    "phoneNumber":"118",
+    	"consigneeName":"胡国斌"
 	}
 ]
 成功返回示例：
