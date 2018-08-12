@@ -40,4 +40,11 @@ public interface UserMapper {
      */
     String selectNickNameById(Integer userId);
 
+    /**
+     * 根据用户Id查询用户头像
+     * @param userId 用户Id
+     * @return 用户头像
+     */
+    String selectAvatarById(Integer userId);
+
 }

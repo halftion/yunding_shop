@@ -89,5 +89,15 @@ public class UserServiceImpl implements UserService {
             return ServiceResult.failure("获取昵称失败");
         }
     }
+
+    @Override
+    public ServiceResult getAvatarById(Integer userId) {
+        try{
+            String avatar = userMapper.selectAvatarById(userId);
+            return ServiceResult.success(avatar);
+        }catch (Exception e){
+            return ServiceResult.failure("获取头像失败");
+        }
+    }
 }
 

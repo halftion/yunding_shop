@@ -8,6 +8,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Comment;
 import yunding.shop.entity.Constant;
 import yunding.shop.entity.Order;
+import yunding.shop.entity.UserInfo;
 import yunding.shop.mapper.OrderMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
@@ -243,7 +244,9 @@ public class OrderServiceImpl implements OrderService {
         try{
             List<Comment> commentList = orderMapper.selectCommentByGoodsId(goodsId);
             for (Comment comment : commentList){
+                comment.setGoodsId(goodsId);
                 comment.setNickName((String)userService.getNickNameById(comment.getUserId()).getData());
+                comment.setAvatar((String)userService.getAvatarById(comment.getUserId()).getData());
             }
             return ServiceResult.success(commentList);
         }catch (Exception e){

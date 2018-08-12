@@ -33,4 +33,8 @@
         SELECT nick_name FROM t_user_info WHERE user_id = #{userId} AND state != -1
     </select>
 
+    <select id="selectAvatarById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT avatar FROM t_user_info WHERE user_id = #{userId} AND state != -1
+    </select>
+
 </mapper>

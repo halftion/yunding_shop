@@ -20,7 +20,7 @@
 
     <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Comment">
-        SELECT user_id , `comment` FROM t_order WHERE goods_id = #{goodsId}
+        SELECT user_id , `comment`, updated_at FROM t_order WHERE goods_id = #{goodsId} AND state = 4
     </select>
 
     <insert id="insertOrder" parameterType="yunding.shop.entity.Order">

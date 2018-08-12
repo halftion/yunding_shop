@@ -46,4 +46,11 @@ public interface UserService {
      * @return 用户昵称
      */
     ServiceResult getNickNameById (Integer userId);
+
+    /**
+     * 根据用户Id获取用户头像
+     * @param userId 用户Id
+     * @return 用户头像
+     */
+    ServiceResult getAvatarById (Integer userId);
 }

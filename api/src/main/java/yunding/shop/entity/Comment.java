@@ -1,29 +1,41 @@
 package yunding.shop.entity;
 
+import java.sql.Date;
+
 /**
  * @author guo
  */
 public class Comment {
 
     /**
-     * 商品ID
+     * 商品 ID
      */
     private Integer goodsId;
 
     /**
-     * 用户ID
+     * 用户 ID
      */
     private Integer userId;
 
     /**
-     * 用户昵称
+     * 用户 昵称
      */
     private String nickName;
 
     /**
-     * 商品评价
+     * 用户 头像
+     */
+    private String avatar;
+
+    /**
+     * 商品 评价
      */
     private String comment;
+
+    /**
+     * 更新 时间
+     */
+    private Date updatedAt;
 
     public Integer getGoodsId() {
         return goodsId;
@@ -55,6 +67,22 @@ public class Comment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
