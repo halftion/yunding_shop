@@ -28,9 +28,6 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private VerificationCodeService verificationCodeService;
-
-    @Autowired
     private LoginService loginService;
 
     /**
@@ -40,7 +37,7 @@ public class UserController {
     @RequestMapping(value = "/checkLoginName/{loginName}", method = RequestMethod.GET)
     public RequestResult checkLoginName(@PathVariable String loginName) {
         try {
-            ServiceResult serviceResult = loginService.checkExist(loginName);
+            ServiceResult serviceResult = loginService.checkLoginName(loginName);
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             } else {
@@ -129,45 +126,21 @@ public class UserController {
     public  RequestResult register(@Validated @RequestBody Register register,
                                    BindingResult bindingResult){
 
-        String loginName = register.getLoginName();
-        String code = register.getCode();
-
         if (bindingResult.hasErrors()) {
             return RequestResult.failure("非法注册信息");
         }
 
         try {
-            ServiceResult verificationCodeServiceResult = verificationCodeService.verify(
-                    loginName,code);
-            //验证码正确
-            if (verificationCodeServiceResult.isSuccess()){
-                ServiceResult registerResult = loginService.register(register);
-                //注册成功
-                if(registerResult.isSuccess()){
-                    return RequestResult.success(
-                            loginService.login(register.toLogin()).getData());
-                }else {
-                    //注册失败
-                    return RequestResult.failure(registerResult.getMessage());
-                }
+            ServiceResult registerResult = loginService.register(register);
+
+            if (registerResult.isSuccess()){
+                return RequestResult.success(registerResult.getData());
             }else {
-                //验证失败
-                return RequestResult.failure(verificationCodeServiceResult.getMessage());
+                return RequestResult.failure(registerResult.getMessage());
             }
         }catch (Exception e){
             e.printStackTrace();
             return RequestResult.failure("注册失败");
-        }
-    }
-
-    @RequestMapping(value = "/verifyCode")
-    public RequestResult verifyCode(@RequestBody String loginName, @RequestBody String code){
-        try {
-            verificationCodeService.verify(loginName,code);
-            return RequestResult.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return RequestResult.failure("验证码错误");
         }
     }
 }

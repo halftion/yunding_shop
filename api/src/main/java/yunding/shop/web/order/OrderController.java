@@ -47,7 +47,7 @@ public class OrderController {
      * @param request request对象
      * @return 订单详细信息
      */
-    @RequestMapping(value = "id/{orderId}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/{orderId}" , method = RequestMethod.GET)
     public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
@@ -167,7 +167,7 @@ public class OrderController {
      * @param orderId 订单ID
      * @param request request对象
      */
-    @RequestMapping(value = "/id/{orderId}" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{orderId}" , method = RequestMethod.DELETE)
     public RequestResult deleteOrder(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);

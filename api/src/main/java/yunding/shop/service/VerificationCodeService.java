@@ -20,4 +20,10 @@ public interface VerificationCodeService {
      * @return 是否正确
      */
     ServiceResult verify(String loginName, String code);
+
+    /**
+     * 使用户的验证码失效
+     * @param loginName 用户名
+     */
+    ServiceResult dropCode(String loginName);
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="yunding.shop.mapper.IdentifyingCodeMapper">
+<mapper namespace="yunding.shop.mapper.VerificationCodeMapper">
 
     <insert id="insert" parameterType="yunding.shop.entity.IdentifyingCode">
         INSERT INTO t_identifying_code (login_name,code,created_at) VALUES (#{loginName},#{code},#{createdAt})

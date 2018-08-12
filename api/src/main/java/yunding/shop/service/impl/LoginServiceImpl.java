@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.JwtResult;
+import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.Register;
-import yunding.shop.entity.UserInfo;
 import yunding.shop.mapper.LoginMapper;
 import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
+import yunding.shop.service.VerificationCodeService;
+import yunding.shop.util.CheckUtils;
 import yunding.shop.util.JwtUtil;
 
 import java.util.Date;
@@ -29,17 +31,21 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private VerificationCodeService verificationCodeService;
+
     @Override
-    public ServiceResult checkExist(String loginName) {
+    public ServiceResult checkLoginName(String loginName) {
         try{
-            if(loginName.length() != 11){
-                return ServiceResult.failure("请输入11位的手机号");
-            }
-            Login dbLogin = loginMapper.selectByLoginName(loginName);
-            if(dbLogin == null){
-                return ServiceResult.success();
-            }else {
-                return ServiceResult.failure("该手机号已被占用");
+            if (CheckUtils.checkPhoneNumberFormat(loginName)) {
+                Login dbLogin = loginMapper.selectByLoginName(loginName);
+                if(dbLogin == null){
+                    return ServiceResult.success();
+                }else {
+                    return ServiceResult.failure("该手机号已被占用");
+                }
+            } else {
+                return ServiceResult.failure("手机号格式错误");
             }
         }catch (Exception e){
             return ServiceResult.failure("检测失败");
@@ -76,23 +82,54 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult register(Register register) {
         try {
+
             String nickName = register.getNickName();
             String loginName = register.getLoginName();
             String password = register.getPassword();
+            String code = register.getCode();
 
-            if(loginMapper.selectByLoginName(loginName) != null) {
-                return ServiceResult.failure("手机号已被注册");
+            ServiceResult serviceResult = checkLoginName(loginName);
+
+
+            //用户名合法可用
+            if (serviceResult.isSuccess()) {
+
+                //验证验证码，并使验证码失效
+                serviceResult = verificationCodeService.verify(loginName,code);
+                verificationCodeService.dropCode(loginName);
+
+                //验证码正确
+                if (serviceResult.isSuccess()){
+
+                    //创建用户信息，并返回自动递增主键
+                    serviceResult = userService.create(nickName);
+
+                    //创建用户信息成功
+                    if(serviceResult.isSuccess()){
+                        Integer userId = (Integer) serviceResult.getData();
+
+                        //创建登录信息
+                        Login login = new Login(userId,loginName,password,new Date(),new Date());
+                        loginMapper.insert(login);
+
+                        //登录，返回token
+                        serviceResult = login(login);
+
+                        //登录成功
+                        if (serviceResult.isSuccess()){
+                            return ServiceResult.success(serviceResult.getData());
+                        } else {
+                            return ServiceResult.failure(serviceResult.getMessage());
+                        }
+                    } else {
+                        return ServiceResult.failure(serviceResult.getMessage());
+                    }
+                } else {
+                    return ServiceResult.failure(serviceResult.getMessage());
+                }
+            } else {
+                return ServiceResult.failure(serviceResult.getMessage());
             }
-
-            //创建用户信息并返回自动递增主键
-            Integer userId = (Integer) userService.create(nickName).getData();
-
-            //创建登录信息
-            Login login = new Login(userId,loginName,password,new Date(),new Date());
-            loginMapper.insert(login);
-
-            //注册成功返回用户信息
-            return ServiceResult.success(userId);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("注册失败");

@@ -6,7 +6,7 @@ import yunding.shop.entity.IdentifyingCode;
  * @author huguobin
  * 用于存储验证码、手机号等信息
  */
-public interface IdentifyingCodeMapper {
+public interface VerificationCodeMapper {
     /**
      * 保存验证码
      * @param identifyingCode 验证码实体类

@@ -2,6 +2,7 @@ package yunding.shop.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -29,36 +30,37 @@ public class Goods implements Comparator {
     /**
      * 商品 所属平台类别id
      */
-    @NotEmpty
-    @Size(max = 1)
+    @NotEmpty(message = "平台分类不能为空")
+    @Min(value = 1, message = "分类id不能小于1")
     private Integer platformGoodsCategoryId;
     /**
      * 商品 所属店铺类别id
      */
-    @NotEmpty
-    @Size(max = 1)
+    @NotEmpty(message = "店铺分类不能为空")
+    @Min(value = 1, message = "分类id不能小于1")
     private Integer shopGoodsCategoryId;
     /**
      * 商品 名称
      */
-    @NotEmpty
-    @Size(max = 75)
+    @NotEmpty(message = "商品名称不能为空")
+    @Size(min = 5, max = 50, message = "商品名称介于5位至50位之间")
     private String name;
     /**
-     * 商品 名称
+     * 商品 属性
      */
-    @Size(max = 50)
+    @NotEmpty(message = "商品属性不能为空")
+    @Size(min = 1, max = 20, message = "商品属性介于1位至20位直接")
     private String property;
     /**
      * 商品 库存数量
      */
-    @NotEmpty
-    @Size
+    @NotEmpty(message = "库存数量不能为空")
+    @Min(value = 1, message = "库存数量不能小于1")
     private Integer stockNum;
     /**
      * 商品 价格
      */
-    @Size
+    @Min(value = 0, message = "商品价格不能小于0")
     private BigDecimal price;
     /**
      * 商品 预览图片地址

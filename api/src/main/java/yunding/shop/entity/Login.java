@@ -17,14 +17,14 @@ public class Login {
     /**
      * 登录名
      */
-    @NotEmpty
-    @Size(min = 11, max = 11)
+    @NotEmpty(message = "登录名不能为空")
+    @Size(min = 11, max = 11, message = "登录名应为11位")
     private String loginName;
     /**
      * 登录密码
      */
-    @NotEmpty
-    @Size(min = 6, max = 20)
+    @NotEmpty(message = "密码不能为空")
+    @Size(min = 6, max = 20, message = "密码应介于6至20位之间")
     private String password;
     /**
      * 创建时间

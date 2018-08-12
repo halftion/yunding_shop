@@ -12,7 +12,7 @@ public interface LoginService {
      * 检查用户名是否被占用
      * @param loginName 用户名
      */
-    ServiceResult checkExist(String loginName);
+    ServiceResult checkLoginName(String loginName);
 
     /**
      * 登录
