@@ -1,6 +1,5 @@
 package yunding.shop.service.impl;
 
-import com.google.gson.JsonArray;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
-
 import java.math.BigDecimal;
 import java.util.List;
 import static yunding.shop.entity.Constant.HINT_SIZE;
@@ -127,8 +125,8 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectByPlatformCategoryId(Integer categoryId) {
         try {
-            List<Goods> goods=goodsMapper.selectByPlatformCategoryId(categoryId);
-            return ServiceResult.success(goods);
+            List<Goods> goodsList=goodsMapper.selectByPlatformCategoryId(categoryId);
+            return ServiceResult.success(goodsList);
         }catch (Exception e){
             return ServiceResult.failure("获取商品集合失败");
         }
@@ -145,6 +143,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult commentGoods(Integer goodsId) {
         try {
             Goods goods = new Goods();
@@ -153,7 +152,7 @@ public class GoodsServiceImpl implements GoodsService{
             goodsMapper.commentGoods(goods);
             return ServiceResult.success();
         }catch (Exception e){
-            return ServiceResult.failure("商品评价数量修改失败");
+            throw new RuntimeException("商品评价数量修改失败");
         }
     }
 
@@ -172,6 +171,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult updategoods(Goods goods) {
         try {
             goods.updateAtNow();
@@ -193,6 +193,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult saveGoodsPhoto(Integer goodsId, String picture) {
         try {
             Goods goods = new Goods();
@@ -205,11 +206,12 @@ public class GoodsServiceImpl implements GoodsService{
                 return ServiceResult.failure("保存图片失败");
             }
         } catch (Exception e) {
-            return ServiceResult.failure("获取店铺ID失败");
+            throw new RuntimeException("获取店铺ID失败");
         }
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult insertGoods(Integer userId, Goods goods) {
         try {
             ServiceResult sr1 = shopService.selectShopIdByUserId(userId);
@@ -231,7 +233,7 @@ public class GoodsServiceImpl implements GoodsService{
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            return ServiceResult.failure("添加商品失败");
+            throw new RuntimeException("添加商品失败");
         }
     }
 

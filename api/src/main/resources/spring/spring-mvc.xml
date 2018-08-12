@@ -2,35 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-    <mvc:annotation-driven>
-        <!--Spring MVC 解决 Could not write JSON: No serializer found for class java.lang.Object
-            articleUrl:https://blog.csdn.net/kinginblue/article/details/51236938 -->
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/plain;charset=UTF-8</value>
-                        <value>text/html;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>application/json; charset=UTF-8</value>
-                        <value>application/x-www-form-urlencoded; charset=UTF-8</value>
-                    </list>
-                </property>
-                <!-- 配置 objectMapper 为我们自定义扩展后的 CustomMapper -->
-                <property name="objectMapper">
-                    <bean class="yunding.shop.config.CustomMapper">
-                    </bean>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+    <mvc:annotation-driven/>
 
     <mvc:interceptors>
         <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->

@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult create(String nickName) {
         try {
             Date now = new Date();
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
             userMapper.insert(userInfo);
             return ServiceResult.success(userInfo.getUserId());
         } catch (Exception e) {
-            return ServiceResult.failure();
+            throw new RuntimeException("创建用户信息失败");
         }
     }
 

@@ -9,7 +9,6 @@ import yunding.shop.mapper.VerificationCodeMapper;
 import yunding.shop.service.LoginService;
 import yunding.shop.service.VerificationCodeService;
 import yunding.shop.util.SmsUtil;
-
 import java.util.Date;
 
 /**
@@ -90,13 +89,14 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ServiceResult dropCode(String loginName) {
         try {
             verificationCodeMapper.drop(loginName);
             return ServiceResult.success();
         } catch (Exception e) {
             e.printStackTrace();
-            return ServiceResult.failure("使验证码失效失败");
+            throw new RuntimeException("使验证码失效失败");
         }
     }
 }

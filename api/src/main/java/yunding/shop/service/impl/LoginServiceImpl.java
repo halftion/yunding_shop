@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.JwtResult;
-import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.Register;
@@ -16,7 +15,6 @@ import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
 import yunding.shop.util.CheckUtils;
 import yunding.shop.util.JwtUtil;
-
 import java.util.Date;
 
 /**
@@ -111,6 +109,8 @@ public class LoginServiceImpl implements LoginService {
                         //创建登录信息
                         Login login = new Login(userId,loginName,password,new Date(),new Date());
                         loginMapper.insert(login);
+
+                        int a = 1/0;
 
                         //登录，返回token
                         serviceResult = login(login);

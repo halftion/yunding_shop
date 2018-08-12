@@ -1,7 +1,6 @@
 package yunding.shop.service.impl;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +13,6 @@ import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
 import yunding.shop.service.UserService;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

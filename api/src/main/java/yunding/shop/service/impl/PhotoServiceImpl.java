@@ -29,7 +29,6 @@ public class PhotoServiceImpl implements PhotoService{
     private ShopService shopService;
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
     public ServiceResult saveAvatar(Integer userId, MultipartFile pic, String realPath) {
 
         try {
@@ -44,7 +43,7 @@ public class PhotoServiceImpl implements PhotoService{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("作品上传失败"+e.getMessage());
+            return ServiceResult.failure("作品上传失败"+e.getMessage());
         }
     }
 
@@ -80,7 +79,7 @@ public class PhotoServiceImpl implements PhotoService{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("作品上传失败");
+            return ServiceResult.failure("作品上传失败");
         }
     }
 }
