@@ -10,6 +10,13 @@ import yunding.shop.dto.ServiceResult;
  */
 public interface PhotoService {
     /**
+     * 保存头像的url
+     * @param userId 用户id
+     * @param url url
+     * @return 是否成功
+     */
+    ServiceResult saveAvatarUrl(Integer userId, String url);
+    /**
      * 保存头像
      * @param userId 用户id
      * @param pic 用户头像文件

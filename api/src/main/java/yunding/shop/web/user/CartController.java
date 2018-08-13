@@ -36,7 +36,7 @@ public class CartController {
     public RequestResult getGoods(HttpServletRequest request){
         Integer userId = UserUtil.getCurrentUserId(request);
         try {
-            ServiceResult serviceResult = cartService.getGoods(userId,cartMap);
+            ServiceResult serviceResult = cartService.getGoodsFromCart(userId,cartMap);
 
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
@@ -57,7 +57,7 @@ public class CartController {
                                   HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = cartService.addGoods(userId,goodsId,cartMap);
+            ServiceResult serviceResult = cartService.addGoodsFromCart(userId,goodsId,cartMap);
 
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
@@ -79,7 +79,7 @@ public class CartController {
 
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = cartService.dropGoods(userId,goodsId,cartMap);
+            ServiceResult serviceResult = cartService.dropGoodsFromCart(userId,goodsId,cartMap);
 
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());

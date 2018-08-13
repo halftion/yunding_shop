@@ -1,5 +1,7 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.GeneratedValue;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * 验证码
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class IdentifyingCode {
     /**
      * 验证码id

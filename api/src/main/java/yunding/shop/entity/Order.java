@@ -1,5 +1,6 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Min;
@@ -11,6 +12,7 @@ import java.util.Objects;
 /** 订单
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
     /**
      * 订单 id
@@ -24,8 +26,8 @@ public class Order {
     /**
      * 订单 商品id
      */
-    @NotEmpty
-    @Size(min = 1)
+    @NotEmpty(message = "商品id不能为空")
+    @Size(min = 1, message = "商品id不能小于1")
     private Integer goodsId;
     /**
      * 订单 商品名称

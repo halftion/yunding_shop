@@ -1,10 +1,13 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.sql.Date;
 
 /**
  * @author guo
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment {
 
     /**

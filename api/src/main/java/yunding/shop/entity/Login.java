@@ -1,5 +1,6 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
@@ -9,6 +10,7 @@ import java.util.Date;
  * 登录信息
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Login {
     /**
      * 用户id

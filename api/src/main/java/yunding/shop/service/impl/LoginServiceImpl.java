@@ -80,7 +80,6 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult register(Register register) {
         try {
-
             String nickName = register.getNickName();
             String loginName = register.getLoginName();
             String password = register.getPassword();

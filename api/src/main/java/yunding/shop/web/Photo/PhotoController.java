@@ -1,5 +1,6 @@
 package yunding.shop.web.photo;
 
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,12 +23,29 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
+    @RequestMapping(value = "/avatarUrl", method = RequestMethod.POST)
+    public RequestResult saveAvatarUrl(@RequestBody JSONObject url, HttpServletRequest request){
+
+        try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = photoService.saveAvatarUrl(userId,url.getString("url"));
+
+            if(serviceResult.isSuccess()){
+                return RequestResult.success();
+            } else{
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("保存头像url失败");
+        }
+    }
+
     /**
      * 上传头像
      * @param pic 图片
      * @param request request对象
      */
-    @RequestMapping(value = "/avatar",method = RequestMethod.POST)
+    @RequestMapping(value = "/avatar", method = RequestMethod.POST)
     public RequestResult saveAvatar(@RequestParam("pic") MultipartFile pic, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);

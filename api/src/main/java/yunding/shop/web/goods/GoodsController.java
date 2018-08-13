@@ -43,8 +43,7 @@ public class GoodsController {
 
     /**
      * 根据商品Id获取商品所有评论
-     * @param goodsId
-     * @return
+     * @param goodsId 商品id
      */
     @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
     public RequestResult getCommentByGoodsId( @PathVariable("goodsId") Integer goodsId ){
@@ -62,7 +61,7 @@ public class GoodsController {
 
     /**
      * 更新商品信息
-     * @param goods
+     * @param goods 商品
      */
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public RequestResult updateGoods(@RequestBody Goods goods){

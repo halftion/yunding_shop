@@ -44,9 +44,9 @@
         UPDATE  t_goods SET
         platform_goods_category_id = #{platformGoodsCategoryId},
         shop_goods_category_id = #{shopGoodsCategoryId},
-        `name` = #{name},
         property = #{property},
         stock_num = #{stockNum},
+        price = #{price},
         introduction = #{introduction},
         updated_at = #{updatedAt}
          WHERE goods_id = #{goodsId}

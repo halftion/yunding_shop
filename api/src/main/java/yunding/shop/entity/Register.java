@@ -1,5 +1,6 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
@@ -9,6 +10,7 @@ import java.util.Date;
  * 注册实体类
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Register {
     /**
      * 登录名
@@ -40,7 +42,7 @@ public class Register {
      * 用户昵称
      */
     @NotEmpty(message = "用户昵称不能为空")
-    @Size(min = 3, max = 10, message = "用户昵称应介于3位至10位之间")
+    @Size(min = 3, max = 15, message = "用户昵称应介于3位至15位之间")
     private String nickName;
 
 

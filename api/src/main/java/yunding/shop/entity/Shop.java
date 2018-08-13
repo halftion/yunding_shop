@@ -1,12 +1,17 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * 店铺
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Shop {
     /**
      * 店铺 id
@@ -20,6 +25,8 @@ public class Shop {
     /**
      * 店铺 名称
      */
+    @NotEmpty
+    @Size(min = 3, max = 15, message = "店铺名称介于3至15位之间")
     private String name;
     /**
      * 店铺 销量

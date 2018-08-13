@@ -1,5 +1,8 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
@@ -7,6 +10,7 @@ import java.util.Date;
 /** 平台商品分类
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlatformGoodsCategory {
     /**
      * 商品所属平台类别 id
@@ -16,6 +20,7 @@ public class PlatformGoodsCategory {
     /**
      * 商品所属平台类别 名称
      */
+    @NotEmpty(message = "分类名称不能为空")
     private String name;
     /**
      * 商品所属平台类别 商品数量

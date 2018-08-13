@@ -1,5 +1,6 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Min;
@@ -13,6 +14,7 @@ import java.util.Objects;
  * 商品
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Goods implements Comparator {
     /**
      * 商品 id

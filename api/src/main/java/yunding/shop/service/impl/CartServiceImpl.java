@@ -21,7 +21,7 @@ public class CartServiceImpl implements CartService {
     GoodsService goodsService;
 
     @Override
-    public ServiceResult getGoods(Integer userId, Map<Integer, List<Goods>> cartMap) {
+    public ServiceResult getGoodsFromCart(Integer userId, Map<Integer, List<Goods>> cartMap) {
         try {
             return ServiceResult.success(cartMap.get(userId));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ServiceResult addGoods(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
+    public ServiceResult addGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
 
         List<Goods> goodsList;
 
@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ServiceResult dropGoods(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
+    public ServiceResult dropGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
 
         List<Goods> goodsList;
 

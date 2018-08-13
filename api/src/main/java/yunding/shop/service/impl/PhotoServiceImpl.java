@@ -29,6 +29,20 @@ public class PhotoServiceImpl implements PhotoService{
     private ShopService shopService;
 
     @Override
+    public ServiceResult saveAvatarUrl(Integer userId, String url) {
+        try {
+            ServiceResult serviceResult = userService.updateAvatar(userId,url);
+            if (serviceResult.isSuccess()){
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            return ServiceResult.failure("保存头像url失败");
+        }
+    }
+
+    @Override
     public ServiceResult saveAvatar(Integer userId, MultipartFile pic, String realPath) {
 
         try {

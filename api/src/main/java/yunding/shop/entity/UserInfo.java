@@ -1,8 +1,11 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,6 +14,7 @@ import java.util.Date;
  * 用户
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfo {
     /**
      * 用户 id
@@ -29,7 +33,8 @@ public class UserInfo {
      * 用户 性别：0-保密，1-男，2-女
      */
     @NotEmpty
-    @Size(max = 3)
+    @Min(value = 0, message = "性别：0-保密，1-男，2-女")
+    @Max(value = 2, message = "性别：0-保密，1-男，2-女")
     private Integer gender;
     /**
      * 用户 生日

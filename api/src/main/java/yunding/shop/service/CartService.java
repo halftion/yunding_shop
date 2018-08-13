@@ -17,7 +17,7 @@ public interface CartService {
      * @param cartMap 购物车表
      * @return 该用户当前购物车中商品列表
      */
-    ServiceResult getGoods(Integer userId, Map<Integer, List<Goods>> cartMap);
+    ServiceResult getGoodsFromCart(Integer userId, Map<Integer, List<Goods>> cartMap);
 
     /**
      * 向购物车中添加商品
@@ -25,7 +25,7 @@ public interface CartService {
      * @param goodsId 商品id
      * @return 该用户当前购物车中商品列表
      */
-    ServiceResult addGoods(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap);
+    ServiceResult addGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap);
 
     /**
      * 从购物车中移除商品
@@ -34,5 +34,5 @@ public interface CartService {
      * @param cartMap 购物车表
      * @return 该用户当前购物车中商品列表
      */
-    ServiceResult dropGoods(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap);
+    ServiceResult dropGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap);
 }

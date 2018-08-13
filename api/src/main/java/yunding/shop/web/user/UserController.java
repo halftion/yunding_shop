@@ -56,8 +56,9 @@ public class UserController {
     public RequestResult login(@Validated @RequestBody Login login, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return RequestResult.failure("登录失败");
+            return RequestResult.failure(bindingResult.getFieldError().getDefaultMessage());
         }
+
         try {
             ServiceResult serviceResult = loginService.login(login);
             if (serviceResult.isSuccess()) {
@@ -101,7 +102,7 @@ public class UserController {
     public RequestResult updateUserInfo(@RequestBody UserInfo userInfo,
                                         HttpServletRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            return RequestResult.failure("更新用户信息失败");
+            return RequestResult.failure(bindingResult.getFieldError().getDefaultMessage());
         }
 
         try {
@@ -127,7 +128,7 @@ public class UserController {
                                    BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
-            return RequestResult.failure("非法注册信息");
+            return RequestResult.failure(bindingResult.getFieldError().getDefaultMessage());
         }
 
         try {

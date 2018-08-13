@@ -1,12 +1,14 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.GeneratedValue;
 
 /**
  * 首页文章
  * @author 齐语冰
  */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Content {
     /**
      * 文章 id
