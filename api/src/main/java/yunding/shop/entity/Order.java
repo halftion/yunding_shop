@@ -1,8 +1,7 @@
 package yunding.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -11,10 +10,10 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
-    @NotEmpty(message = "订单信息不能为空")
+    @NotNull(message = "订单信息不能为空")
     private OrderInfo orderInfo;
 
-    @NotEmpty(message = "订单商品列表不能为空")
+    @NotNull(message = "订单商品列表不能为空")
     private List<OrderGoods> orderGoodsList;
 
 

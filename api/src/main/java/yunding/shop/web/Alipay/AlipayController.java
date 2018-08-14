@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.OrderInfo;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
@@ -26,13 +27,13 @@ public class AlipayController {
 
     private OrderInfo orderInfo;
     //支付宝交易号
-    private String out_no;
+    private String outNo;
 
     @RequestMapping(value = "/purchase/{orderId}",method = RequestMethod.POST)
-    public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
+    public RequestResult purchase(@PathVariable String orderId, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
-            OrderInfo orderInfo =(OrderInfo) orderService.selectByOrderId(userId,orderId).getData();
+            OrderInfo orderInfo =(OrderInfo) orderService.selectOrderByOrderIdAndState(userId,orderId, Constant.WAIT_PAY).getData();
             this.orderInfo = orderInfo;
             ServiceResult result=alipayService.purchase(orderInfo);
             if (result.isSuccess()){
@@ -49,7 +50,7 @@ public class AlipayController {
     public void retuenUrl(HttpServletRequest request, HttpServletResponse response){
         try {
             System.out.println("收到同步通知");
-            out_no=alipayService.returnUrl(request);
+            outNo =alipayService.returnUrl(request);
             request.getRequestDispatcher("").forward(request,response);
         }catch (Exception e){
             e.printStackTrace();
@@ -59,7 +60,7 @@ public class AlipayController {
     public String notifyUrl(HttpServletRequest request){
         try {
             System.out.println("收到异步通知");
-            String result=alipayService.notifyUrl(request, orderInfo,out_no);
+            String result=alipayService.notifyUrl(request, orderInfo, outNo);
             System.out.println(result);
             return result;
         }catch (Exception e){

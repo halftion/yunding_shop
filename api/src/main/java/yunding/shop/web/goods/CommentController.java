@@ -39,11 +39,11 @@ public class CommentController {
     }
 
     /**
-     * 根据商品Id获取商品所有评论
+     * 根据商品Id评论商品
      * @param comment 评论
      */
-    @RequestMapping(value = "/{goodsId}" , method = RequestMethod.POST)
-    public RequestResult commentByGoodsId(@RequestBody Comment comment){
+    @RequestMapping(value = "/" , method = RequestMethod.POST)
+    public RequestResult commentByGoodsId(@RequestBody Comment comment ){
         try {
             ServiceResult serviceResult = commentService.publish(comment);
             if(serviceResult.isSuccess()) {
@@ -52,7 +52,7 @@ public class CommentController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("获取商品评论失败");
+            return RequestResult.failure("商品评论失败");
         }
     }
 }

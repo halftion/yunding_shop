@@ -1,5 +1,6 @@
 package yunding.shop.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.OrderGoods;
 import yunding.shop.entity.OrderInfo;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public interface OrderInfoMapper {
 
     /**
-     * 根据订单Id查询所有订单信息(包含 state = -1)
+     * 根据订单Id查询订单所有信息(包含 state = -1)
      * @param orderId 订单id
      * @return 订单信息
      */
@@ -24,7 +25,7 @@ public interface OrderInfoMapper {
      * @param state 状态
      * @return 订单信息
      */
-    OrderInfo selectByOrderIdAndState(String orderId, Integer state);
+    OrderInfo selectByOrderIdAndState(@Param("orderId") String orderId, @Param("state") Integer state);
 
     /**
      * 根据用户ID查询未删除的订单信息列表(state != -1)

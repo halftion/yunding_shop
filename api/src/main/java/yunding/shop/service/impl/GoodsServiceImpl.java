@@ -12,6 +12,7 @@ import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import static yunding.shop.entity.Constant.HINT_SIZE;
 
@@ -47,21 +48,24 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             Integer goodsId = orderGoods.getGoodsId();
             Goods goods = goodsMapper.selectByGoodsId(goodsId);
+            /*完善订单信息*/
             orderGoods.setGoodsPic(goods.getPicture());
             orderGoods.setGoodsName(goods.getName());
             orderGoods.setUnitPrice(goods.getPrice());
             orderGoods.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(orderGoods.getGoodsNum())));
+
             goods.setStockNum(goods.getStockNum() - orderGoods.getGoodsNum());
             goods.setSales(goods.getSales() + orderGoods.getGoodsNum());
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
             Integer i = goodsMapper.updateStockAndSales(goods);
+
             if (i == 1) {
                 return ServiceResult.success();
             } else {
-                return ServiceResult.failure("修改商品信息失败");
+                return ServiceResult.failure("修改商品库存和销量失败");
             }
         }catch (Exception e){
-            throw new RuntimeException("库存销量修改失败");
+            throw new RuntimeException("处理订单商品信息失败");
         }
     }
 

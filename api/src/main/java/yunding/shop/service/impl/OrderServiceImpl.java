@@ -12,6 +12,7 @@ import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
 import yunding.shop.service.UserService;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -74,13 +75,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String getOrderNo(){
-        String orderNo = "" ;
-        UUID uuid = UUID.randomUUID();
-        String trandNo = String.valueOf((Math.random() * 9 + 1) * 1000000);
-        String sdf = new SimpleDateFormat("yyyyMMddHHMMSS").format(new Date());
-        orderNo = uuid.toString().substring(0, 8);
-        orderNo = orderNo + sdf ;
-        return orderNo ;
+        return UUID.randomUUID().toString().replace("-","").substring(0,10);
     }
 
     @Override
@@ -169,6 +164,7 @@ public class OrderServiceImpl implements OrderService {
         try{
 
             OrderInfo orderInfo = order.getOrderInfo();
+            orderInfo.setUserId(userId);
             List<OrderGoods> orderGoodsList = order.getOrderGoodsList();
 
             List<Order> orderList = new ArrayList<>();
@@ -203,24 +199,47 @@ public class OrderServiceImpl implements OrderService {
             Set<Integer> shopIdSet = orderGoodsMapGroupByShopId.keySet();
 
             for (Integer shopId : shopIdSet){
+                //订单总价
+                BigDecimal totalPirce = new BigDecimal(0);
+                //订单id
+                String orderId = getOrderNo();
+
+                List<OrderGoods> newOrderGoodsList = orderGoodsMapGroupByShopId.get(shopId);
+
+                for (OrderGoods orderGoods : newOrderGoodsList){
+                    /*晚上orderGoods信息*/
+                    orderGoods.setOrderId(orderId);
+                    orderGoods.setCreatedAt(new Date());
+                    orderGoods.setUpdatedAt(new Date());
+
+                    //补全订单商品信息,价格
+                    serviceResult = goodsService.processOrderCreate(orderGoods);
+                    if (!serviceResult.isSuccess()){
+                        return ServiceResult.failure(serviceResult.getMessage());
+                    }
+                    orderGoodsMapper.insert(orderGoods);
+                    //循环加和 计算订单总价
+                    totalPirce = totalPirce.add(orderGoods.getTotalPrice());
+                }
+
                 /*完善orderInfo信息 店铺信息 商品信息 价钱 用户*/
-                orderInfo.setOrderId(getOrderNo());
+                orderInfo.setOrderId(orderId);
                 orderInfo.setShopId(shopId);
                 orderInfo.createAtNow();
                 orderInfo.updateAtNow();
-                orderInfoMapper.insert(orderInfo);
+                orderInfo.setTotalPrice(totalPirce);
+                /*添加店铺信息，增加销量，减少库存*/
+                shopService.processOrderCreate(orderInfo,orderGoodsList);
 
-                List<OrderGoods> newOrderGoodsList = orderGoodsMapGroupByShopId.get(shopId);
-                for (OrderGoods orderGoods : newOrderGoodsList){
-                    orderGoodsMapper.insert(orderGoods);
-                }
+                orderInfoMapper.insert(orderInfo);
 
                 Order newOrder = new Order(orderInfo, newOrderGoodsList);
                 orderList.add(newOrder);
             }
             return ServiceResult.success(orderList);
         }catch (Exception e){
-            throw  new RuntimeException("订单创建失败");
+            e.printStackTrace();
+            throw new RuntimeException("订单创建失败");
         }
     }
 
@@ -259,6 +278,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult deliver(Integer userId, String orderId, String expressCompany, String trackingNum) {
         try{
+
+            System.out.println("!!!!!!!!!!!!"+orderId);
+
             OrderInfo orderInfo = orderInfoMapper.selectByOrderIdAndState(orderId,Constant.HAVE_PAY);
 
             if (orderInfo == null){
@@ -292,6 +314,7 @@ public class OrderServiceImpl implements OrderService {
 
             return ServiceResult.success();
         }catch (Exception e){
+            e.printStackTrace();
             throw new RuntimeException("发货失败");
         }
     }
@@ -345,7 +368,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
             orderGoods.setState(Constant.HAVE_COMMENT);
-            orderGoods.updateAtNow();
+            orderGoods.setUpdatedAt(new Date());
 
             if(orderGoodsMapper.updateState(orderGoods) != 1){
                 return ServiceResult.failure("更新订单商品状态失败");
@@ -353,6 +376,7 @@ public class OrderServiceImpl implements OrderService {
 
             return ServiceResult.success();
         }catch (Exception e){
+            e.printStackTrace();
             throw  new RuntimeException("订单评论失败");
         }
     }
@@ -367,11 +391,17 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("用户信息不匹配");
             }
 
-            List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
-            for (OrderGoods orderGoods : orderGoodsList){
-                ServiceResult serviceResult = goodsService.processOrderDelete(orderGoods);
-                if (! serviceResult.isSuccess()){
-                    return ServiceResult.failure("减少库存失败");
+            if(orderInfo.getState() == -1 ){
+                return ServiceResult.failure("订单状态错误");
+            }
+
+            if (orderInfo.getState() <= Constant.HAVE_PAY ){
+                List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
+                for (OrderGoods orderGoods : orderGoodsList){
+                    ServiceResult serviceResult = goodsService.processOrderDelete(orderGoods);
+                    if (! serviceResult.isSuccess()){
+                        return ServiceResult.failure("减少库存失败");
+                    }
                 }
             }
 

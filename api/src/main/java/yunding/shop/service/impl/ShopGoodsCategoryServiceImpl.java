@@ -43,6 +43,7 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ServiceResult getAllGoods(int shopId, int category) {
         try {
             ServiceResult serviceResult = goodsService.selectByShopCategoryId(shopId , category);
@@ -51,12 +52,7 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
                 return ServiceResult.failure(serviceResult.getMessage());
             }
             List<Goods> goods=(List<Goods>) serviceResult.getData();
-            Collections.sort(goods, new Comparator<Goods>() {
-                @Override
-                public int compare(Goods o1, Goods o2) {
-                    return o2.getSales()-o1.getSales();
-                }
-            });
+            goods.sort((o1, o2) -> o2.getSales() - o1.getSales());
             return ServiceResult.success(goods);
         }catch (Exception e){
             throw new RuntimeException("查询店铺分类商品失败");

@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.OrderGoods;
+import yunding.shop.entity.OrderInfo;
 import yunding.shop.entity.Shop;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
+
+import java.util.List;
 
 /**
  * 店铺
@@ -61,8 +65,34 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ServiceResult updateSales(Integer shopId, Integer goodsNum) {
+    public ServiceResult processOrderCreate(OrderInfo orderInfo, List<OrderGoods> orderGoodsList){
+
+        try {
+            Integer shopId = orderInfo.getShopId();
+            Integer goodsNum = 0;
+            for (OrderGoods orderGoods : orderGoodsList){
+                goodsNum += orderGoods.getGoodsNum();
+            }
+            ServiceResult serviceResult = updateSales(shopId,goodsNum);
+
+            if (!serviceResult.isSuccess()){
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
+            Shop shop = shopMapper.selectById(shopId);
+            orderInfo.setShopName(shop.getName());
+            return ServiceResult.success();
+        } catch (Exception e) {
+            return ServiceResult.failure("处理订单店铺信息失败");
+        }
+    }
+
+    /**
+     * 根据店铺Id修改店铺销量
+     * @param shopId 店铺Id
+     * @param goodsNum 商品总销量
+     */
+    private ServiceResult updateSales(Integer shopId, Integer goodsNum) {
         try{
             Shop shop = shopMapper.selectById(shopId);
             Integer sales = shop.getSales();

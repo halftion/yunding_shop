@@ -65,7 +65,6 @@ public class CommentServiceImpl implements CommentService {
             if(commentMapper.insert(comment) != 1){
                 return ServiceResult.failure("新增评论失败");
             }
-
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("评价失败");

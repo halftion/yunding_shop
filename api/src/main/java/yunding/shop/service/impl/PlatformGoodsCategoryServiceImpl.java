@@ -33,6 +33,7 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ServiceResult getAllGoods(int categoryId) {
         try{
             if(!goodsService.selectByPlatformCategoryId(categoryId).isSuccess()){

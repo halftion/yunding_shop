@@ -1,0 +1,66 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.OrderInfoMapper">
+
+    <select id="selectByOrderId" resultType="yunding.shop.entity.OrderInfo">
+        SELECT * FROM t_order_info WHERE order_id = #{orderId}
+    </select>
+
+    <select id="selectByOrderIdAndState" resultType="yunding.shop.entity.OrderInfo">
+        SELECT * FROM t_order_info WHERE order_id = #{orderId} AND state = #{state}
+    </select>
+
+    <select id="selectByUserId" resultType="yunding.shop.entity.OrderInfo">
+        SELECT * FROM t_order_info WHERE user_id = #{userId} AND state != -1
+    </select>
+
+    <select id="selectByShopId" resultType="yunding.shop.entity.OrderInfo">
+        SELECT * FROM t_order_info WHERE shop_id = #{shopId} AND state != -1
+    </select>
+
+    <insert id="insert" parameterType="yunding.shop.entity.OrderInfo">
+        INSERT INTO t_order_info (
+        order_id,
+        user_id,
+        shop_id,
+        shop_name,
+        total_price,
+        address,
+        phone_number,
+        consignee,
+        remark,
+        created_at,
+        updated_at
+        ) VALUES (
+        #{orderId},
+        #{userId},
+        #{shopId},
+        #{shopName},
+        #{totalPrice},
+        #{address},
+        #{phoneNumber},
+        #{consignee},
+        #{remark},
+        #{createdAt},
+        #{updatedAt}
+        )
+    </insert>
+
+    <update id="updateAlipayNum" parameterType="yunding.shop.entity.OrderInfo">
+        UPDATE t_order_info SET alipay_num = #{alipayNum} , state = #{state} , updated_at = #{updatedAt}
+        WHERE order_id = #{orderId}
+    </update>
+
+    <update id="updateTrackingInfo" parameterType="yunding.shop.entity.OrderInfo">
+        UPDATE t_order_info SET express_company = #{expressCompany} , tracking_num = #{trackingNum},
+                                state = #{state} , updated_at = #{updatedAt}
+                                WHERE order_id = #{orderId}
+    </update>
+
+    <update id="updateState" parameterType="yunding.shop.entity.OrderInfo">
+        UPDATE t_order_info SET state = #{state} , updated_at = #{updatedAt}
+        WHERE order_id = #{orderId}
+    </update>
+
+</mapper>

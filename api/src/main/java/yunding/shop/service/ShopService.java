@@ -1,6 +1,10 @@
 package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.OrderGoods;
+import yunding.shop.entity.OrderInfo;
+
+import java.util.List;
 
 /**
  * 店铺
@@ -35,10 +39,5 @@ public interface ShopService {
      */
     ServiceResult selectShopNameByShopId (Integer shopId);
 
-    /**
-     * 根据店铺Id修改店铺销量
-     * @param shopId 店铺Id
-     * @param goodsNum 商品总销量
-     */
-    ServiceResult updateSales (Integer shopId , Integer goodsNum);
+    ServiceResult processOrderCreate(OrderInfo orderInfo, List<OrderGoods> orderGoodsList);
 }

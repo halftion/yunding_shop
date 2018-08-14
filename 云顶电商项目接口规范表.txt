@@ -720,13 +720,11 @@ form-data传入：
     "code": 200,
     "data": [
         {
-            "userId": 2,
-            "nickName": "测试用户号",
-            "comment": "为什么不给我发绿色的"
-        },
-        {
-            "userId": 2,
-            "nickName": "测试用户号"
+            "userId": 1,
+            "nickName": "测试买家号",
+            "avatar": "https://i.loli.net/2018/08/13/5b70d500eb6db.png",
+            "content": "好用",
+            "updatedAt": 1534236968000
         }
     ],
     "message": "操作成功！"
@@ -789,31 +787,28 @@ form-data传入：
 
 22.创建一个新订单：/api/order/create (POST) √
 JSON传入：
-[
-	{
-    	"goodsId":21,
-	    "goodsName":"日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
-	    "goodsPic":"https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
-    	"goodsNum":10,
-	    "remark" : "用了之后可以天天熬夜到三点还没有黑眼圈吗？",
-    	"address":"金星",
-	    "phoneNumber":"117",
-    	"consigneeName":"郭怡馨"
-	},
-	{
-		"goodsId":22,
-	    "goodsName": "SK-II小灯泡30ml美白保湿精华露护肤套装",
-	    "goodsPic" : "https://img13.360buyimg.com/n1/jfs/t20989/21/1452820745/104418/5d8006a5/5b2a0aa8N990d5bb0.jpg",
-    	"goodsNum": 10,
-	    "remark":"会影响我开法拉利的视角吗",
+{
+    "orderGoodsList":[
+        {
+        	"goodsId":21,
+			"goodsNum":10
+        },
+                {
+        	"goodsId":2,
+			"goodsNum":1
+        }
+    ],
+    "orderInfo":{
+    	"remark":"会影响我开法拉利的视角吗",
     	"address":"冥王星",
 	    "phoneNumber":"118",
-    	"consigneeName":"胡国斌"
-	}
-]
+    	"consignee":"胡国斌"
+    }
+}
 成功返回示例：
 {
     "code": 200,
+    "data": null,
     "message": "操作成功！"
 }
 失败返回示例：
@@ -835,101 +830,82 @@ JSON传入：
     "message": "xxx错误"
 }
 
-24.通过订单id收货：/api/order/receive/{orderId} (PUT) √
-{
-    "code": 200,
-    "message": "操作成功！"
-}
-失败返回示例：
-{
-    "code": 500,
-    "message": "xxx错误"
-}
-
 25.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
 成功返回示例：
 {
     "code": 200,
     "data": [
         {
-            "address": "月球",
-            "comment": "",
-            "consigneeName": "胡国斌",
-            "createdAt": {
-                "date": 6,
-                "day": 1,
-                "hours": 16,
-                "minutes": 26,
-                "month": 7,
-                "seconds": 23,
-                "time": 1533543983000,
-                "timezoneOffset": -480,
-                "year": 118
+            "orderInfo": {
+                "orderId": "c0cbec39fa",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 11990,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 0,
+                "createdAt": 1534233607000,
+                "updatedAt": 1534233607000
             },
-            "goodsId": 2,
-            "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-            "goodsNum": 1,
-            "orderId": 2,
-            "phoneNumber": "111",
-            "remark": "我要不用灌墨水的",
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "state": 1,
-            "totalPrice": 209,
-            "trackingNum": "",
-            "unitPrice": 209,
-            "updatedAt": {
-                "date": 6,
-                "day": 1,
-                "hours": 16,
-                "minutes": 26,
-                "month": 7,
-                "seconds": 26,
-                "time": 1533543986000,
-                "timezoneOffset": -480,
-                "year": 118
-            },
-            "userId": 2
+            "orderGoodsList": [
+                {
+                    "orderId": "c0cbec39fa",
+                    "goodsId": 21,
+                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+                    "goodsNum": 10,
+                    "unitPrice": 1199,
+                    "totalPrice": 11990,
+                    "state": 0,
+                    "createdAt": 1534233607000,
+                    "updatedAt": 1534233607000
+                }
+            ]
         },
         {
-            "address": "水星",
-            "comment": "",
-            "consigneeName": "胡国斌",
-            "createdAt": {
-                "date": 6,
-                "day": 1,
-                "hours": 16,
-                "minutes": 27,
-                "month": 7,
-                "seconds": 43,
-                "time": 1533544063000,
-                "timezoneOffset": -480,
-                "year": 118
+            "orderInfo": {
+                "orderId": "3f2adcda12",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 12199,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 0,
+                "createdAt": 1534233664000,
+                "updatedAt": 1534233664000
             },
-            "goodsId": 3,
-            "goodsName": "凌美LAMY钢笔墨水签字笔钢笔水笔 专用50ml非碳素墨水黑色狩猎者恒星通用 德国原装进口文具",
-            "goodsNum": 3,
-            "orderId": 3,
-            "phoneNumber": "112",
-            "remark": "我要国产的",
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "state": 1,
-            "totalPrice": 207,
-            "trackingNum": "",
-            "unitPrice": 69,
-            "updatedAt": {
-                "date": 6,
-                "day": 1,
-                "hours": 16,
-                "minutes": 27,
-                "month": 7,
-                "seconds": 46,
-                "time": 1533544066000,
-                "timezoneOffset": -480,
-                "year": 118
-            },
-            "userId": 2
+            "orderGoodsList": [
+                {
+                    "orderId": "3f2adcda12",
+                    "goodsId": 21,
+                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+                    "goodsNum": 10,
+                    "unitPrice": 1199,
+                    "totalPrice": 11990,
+                    "state": 0,
+                    "createdAt": 1534233664000,
+                    "updatedAt": 1534233664000
+                },
+                {
+                    "orderId": "3f2adcda12",
+                    "goodsId": 2,
+                    "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
+                    "goodsNum": 1,
+                    "unitPrice": 209,
+                    "totalPrice": 209,
+                    "state": 0,
+                    "createdAt": 1534233664000,
+                    "updatedAt": 1534233664000
+                }
+            ]
         }
     ],
     "message": "操作成功！"
@@ -951,28 +927,53 @@ JSON传入：
 {
     "code": 200,
     "data": {
-        "orderId": 2,
-        "userId": 2,
-        "goodsId": 2,
-        "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-        "goodsNum": 1,
-        "unitPrice": 209,
-        "totalPrice": 209,
-        "shopId": 1,
-        "shopName": "云顶官方旗舰店",
-        "remark": "我要不用灌墨水的",
-        "address": "月球",
-        "phoneNumber": "111",
-        "consigneeName": "胡国斌",
-        "state": 1,
-        "createdAt": 1533543983000,
-        "updatedAt": 1533543986000
+        "orderInfo": {
+            "orderId": "456b167dec",
+            "userId": 2,
+            "shopId": 1,
+            "shopName": "云顶官方旗舰店",
+            "totalPrice": 12199,
+            "address": "冥王星",
+            "phoneNumber": "118",
+            "consignee": "胡国斌",
+            "remark": "会影响我开法拉利的视角吗",
+            "state": 0,
+            "createdAt": 1534234135000,
+            "updatedAt": 1534234135000
+        },
+        "orderGoodsList": [
+            {
+                "orderId": "456b167dec",
+                "goodsId": 21,
+                "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+                "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+                "goodsNum": 10,
+                "unitPrice": 1199,
+                "totalPrice": 11990,
+                "state": 0,
+                "createdAt": 1534234134000,
+                "updatedAt": 1534234134000
+            },
+            {
+                "orderId": "456b167dec",
+                "goodsId": 2,
+                "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
+                "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
+                "goodsNum": 1,
+                "unitPrice": 209,
+                "totalPrice": 209,
+                "state": 0,
+                "createdAt": 1534234135000,
+                "updatedAt": 1534234135000
+            }
+        ]
     },
     "message": "操作成功！"
 }
 为空返回示例：
 {
     "code": 500,
+    "data": null,
     "message": "订单查询失败"
 }
 失败返回示例：
@@ -996,12 +997,15 @@ JSON传入：
 28.评论订单：/api/order/comment (PUT) √
 JSON传入：
 {
-	"orderId" : 8,
-	"comment" : "五星好评！"
+	"userId" : "2",
+	"goodsId" : "21",
+	"orderId" : "3f2adcda12",
+	"content" : "haohaohao"
 }
 成功返回示例：
 {
     "code": 200,
+    "data": null,
     "message": "操作成功！"
 }
 失败返回示例一：
@@ -1020,7 +1024,7 @@ JSON传入：
     "message": "订单评论失败"
 }
 
-29.删除订单：/api/order/id/{orderId} (DELETE) √
+29.删除订单：/api/order/{orderId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -1048,84 +1052,76 @@ JSON传入：
     "code": 200,
     "data": [
         {
-            "address": "地球",
-            "comment": "五星好评！",
-            "consigneeName": "胡国斌",
-            "createdAt": {
-                "date": 6,
-                "day": 1,
-                "hours": 16,
-                "minutes": 24,
-                "month": 7,
-                "seconds": 35,
-                "time": 1533543875000,
-                "timezoneOffset": -480,
-                "year": 118
+            "orderInfo": {
+                "orderId": "c0cbec39fa",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 11990,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 0,
+                "createdAt": 1534233607000,
+                "updatedAt": 1534233607000
             },
-            "goodsId": 1,
-            "goodsName": "红木质中国风古风创意礼物 精美限量版书签 夕情人节 紫光檀 单品",
-            "goodsNum": 2,
-            "orderId": 1,
-            "phoneNumber": "110",
-            "remark": "我要绿色的",
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "state": 3,
-            "totalPrice": 256,
-            "trackingNum": "123456789",
-            "unitPrice": 128,
-            "updatedAt": {
-                "date": 9,
-                "day": 4,
-                "hours": 8,
-                "minutes": 11,
-                "month": 7,
-                "seconds": 59,
-                "time": 1533773519000,
-                "timezoneOffset": -480,
-                "year": 118
-            },
-            "userId": 2
+            "orderGoodsList": [
+                {
+                    "orderId": "c0cbec39fa",
+                    "goodsId": 21,
+                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+                    "goodsNum": 10,
+                    "unitPrice": 1199,
+                    "totalPrice": 11990,
+                    "state": 0,
+                    "createdAt": 1534233607000,
+                    "updatedAt": 1534233607000
+                }
+            ]
         },
         {
-            "address": "土星",
-            "comment": "",
-            "consigneeName": "郭怡馨",
-            "createdAt": {
-                "date": 7,
-                "day": 2,
-                "hours": 21,
-                "minutes": 25,
-                "month": 7,
-                "seconds": 35,
-                "time": 1533648335000,
-                "timezoneOffset": -480,
-                "year": 118
+            "orderInfo": {
+                "orderId": "456b167dec",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 12199,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 0,
+                "createdAt": 1534234135000,
+                "updatedAt": 1534234135000
             },
-            "goodsId": 22,
-            "goodsName": "SK-II小灯泡30ml美白保湿精华露护肤套装",
-            "goodsNum": 1,
-            "orderId": 16,
-            "phoneNumber": "116",
-            "remark": "请发申通快递",
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "state": 0,
-            "totalPrice": 1110,
-            "trackingNum": "",
-            "unitPrice": 1110,
-            "updatedAt": {
-                "date": 7,
-                "day": 2,
-                "hours": 21,
-                "minutes": 25,
-                "month": 7,
-                "seconds": 35,
-                "time": 1533648335000,
-                "timezoneOffset": -480,
-                "year": 118
-            },
-            "userId": 2
+            "orderGoodsList": [
+                {
+                    "orderId": "456b167dec",
+                    "goodsId": 21,
+                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
+                    "goodsNum": 10,
+                    "unitPrice": 1199,
+                    "totalPrice": 11990,
+                    "state": 0,
+                    "createdAt": 1534234134000,
+                    "updatedAt": 1534234134000
+                },
+                {
+                    "orderId": "456b167dec",
+                    "goodsId": 2,
+                    "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
+                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
+                    "goodsNum": 1,
+                    "unitPrice": 209,
+                    "totalPrice": 209,
+                    "state": 0,
+                    "createdAt": 1534234135000,
+                    "updatedAt": 1534234135000
+                }
+            ]
         }
     ],
     "message": "操作成功！"
@@ -1145,13 +1141,14 @@ JSON传入：
 31.卖家发货: /api/order/send (PUT) √
 JSON传入：
 {
-	"orderId" : 2,
-	"trackingNum" :"1111111111111",
-	"expressCompany" :"百世汇通"
+	"orderId" : "c0cbec39fa",
+	"trackingNum": "123456789",
+	"expressCompany" : "顺丰速运"
 }
 成功返回示例：
 {
     "code": 200,
+    "data": null,
     "message": "操作成功！"
 }
 失败返回示例：

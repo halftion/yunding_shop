@@ -106,6 +106,7 @@ public class OrderController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
+            e.printStackTrace();
             return RequestResult.failure("订单创建失败");
         }
     }

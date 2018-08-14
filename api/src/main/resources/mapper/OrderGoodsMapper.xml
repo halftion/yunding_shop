@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.OrderGoodsMapper">
+
+    <select id="selectByOrderId" resultType="yunding.shop.entity.OrderGoods">
+        SELECT * FROM t_order_goods WHERE order_id = #{orderId}
+    </select>
+
+    <select id="selectByOrderIdAndState" resultType="yunding.shop.entity.OrderGoods">
+        SELECT * FROM t_order_goods WHERE order_id = #{orderId} AND state = #{state}
+    </select>
+
+    <select id="selectByOrderIdAndGoodsIdAndState" resultType="yunding.shop.entity.OrderGoods">
+        SELECT * FROM t_order_goods WHERE order_id = #{orderId} AND goods_id = #{goodsId} AND state = #{state}
+    </select>
+
+    <insert id="insert" parameterType="yunding.shop.entity.OrderGoods">
+        INSERT INTO t_order_goods(
+        order_id,
+        goods_id,
+        goods_name,
+        goods_pic,
+        goods_num,
+        unit_price,
+        total_price,
+        created_at,
+        updated_at
+        )VALUES(
+        #{orderId},
+        #{goodsId},
+        #{goodsName},
+        #{goodsPic},
+        #{goodsNum},
+        #{unitPrice},
+        #{totalPrice},
+        #{createdAt},
+        #{updatedAt}
+        )
+    </insert>
+
+    <select id="selectByShopId" resultType="yunding.shop.entity.OrderGoods">
+        SELECT * FROM t_order_goods WHERE shop_id = #{shopId}
+    </select>
+
+    <update id="updateState" parameterType="yunding.shop.entity.OrderGoods">
+        UPDATE t_order_goods SET state = #{state} , updated_at = #{updatedAt}
+        WHERE order_id = #{orderId} AND goods_id = #{goodsId}
+    </update>
+
+</mapper>

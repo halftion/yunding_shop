@@ -1,5 +1,6 @@
 package yunding.shop.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.Comment;
 import yunding.shop.entity.OrderInfo;
 import yunding.shop.entity.OrderGoods;
@@ -24,7 +25,7 @@ public interface OrderGoodsMapper {
      * @param state 状态
      * @return 订单商品列表
      */
-    List<OrderGoods> selectByOrderIdAndState(String orderId, Integer state);
+    List<OrderGoods> selectByOrderIdAndState(@Param("orderId") String orderId, @Param("state") Integer state);
 
     /**
      * 通过订单id和商品id精确搜索订单商品
@@ -33,7 +34,7 @@ public interface OrderGoodsMapper {
      * @param state 状态
      * @return 订单商品
      */
-    OrderGoods selectByOrderIdAndGoodsIdAndState(String orderId, Integer goodsId, Integer state);
+    OrderGoods selectByOrderIdAndGoodsIdAndState(@Param("orderId") String orderId, @Param("goodsId") Integer goodsId, @Param("state") Integer state);
 
     /**
      * 添加订单商品
@@ -48,7 +49,7 @@ public interface OrderGoodsMapper {
      * @param shopId 店铺Id
      * @return 订单信息
      */
-    List<OrderInfo> selectByShopId(Integer shopId);
+    List<OrderGoods> selectByShopId(Integer shopId);
 
     /**
      * 更新state

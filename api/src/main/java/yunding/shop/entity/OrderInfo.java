@@ -2,12 +2,9 @@ package yunding.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
-import javax.persistence.GeneratedValue;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 
 /** 订单
  * @author 齐语冰
@@ -53,7 +50,7 @@ public class OrderInfo {
      * 订单 收货人姓名
      */
     @NotEmpty(message = "收货人不能为空")
-    private String consigneeName;
+    private String consignee;
 
     /**
      * 物流公司
@@ -162,12 +159,12 @@ public class OrderInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getConsigneeName() {
-        return consigneeName;
+    public String getConsignee() {
+        return consignee;
     }
 
-    public void setConsigneeName(String consigneeName) {
-        this.consigneeName = consigneeName;
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
     }
 
     public String getExpressCompany() {
