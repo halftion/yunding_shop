@@ -2,7 +2,8 @@ package yunding.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * @author guo
@@ -11,34 +12,66 @@ import java.sql.Date;
 public class Comment {
 
     /**
-     * 商品 ID
+     * 订单id
+     */
+    private String orderId;
+
+    /**
+     * 商品id
      */
     private Integer goodsId;
 
     /**
-     * 用户 ID
+     * 用户id
      */
     private Integer userId;
 
     /**
-     * 用户 昵称
+     * 用户昵称
      */
     private String nickName;
 
     /**
-     * 用户 头像
+     * 用户头像
      */
     private String avatar;
 
     /**
-     * 商品 评价
+     * 评价内容
      */
-    private String comment;
+    private String content;
 
     /**
-     * 更新 时间
+     * 评价状态：-1-删除, 0-正常(默认)
      */
-    private Date updatedAt;
+    private Integer state;
+
+    /**
+     * 评论创建时间
+     */
+    private Date createdAt;
+
+
+    public void createAtNow(){
+        this.createdAt = new Date();
+    }
+
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -64,12 +97,12 @@ public class Comment {
         this.nickName = nickName;
     }
 
-    public String getComment() {
-        return comment;
+    public String getContent() {
+        return content;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getAvatar() {
@@ -80,21 +113,11 @@ public class Comment {
         this.avatar = avatar;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "goodsId=" + goodsId +
-                ", userId=" + userId +
-                ", nickName='" + nickName + '\'' +
-                ", comment='" + comment + '\'' +
-                '}';
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

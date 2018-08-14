@@ -1,0 +1,40 @@
+package yunding.shop.mapper;
+
+import yunding.shop.entity.Comment;
+
+import java.util.List;
+
+/**
+ * @author 齐语冰
+ */
+public interface CommentMapper {
+
+    /**
+     * 根据商品Id查询商品评价
+     * @param goodsId 商品Id
+     * @return 用户Id和商品评价
+     */
+    List<Comment> selectByGoodsId(Integer goodsId);
+
+    /**
+     * 通过订单id和商品id精确搜索评论
+     * @param orderId 订单id
+     * @param goodsId 商品id
+     * @return 评论
+     */
+    Comment selectByOrderIdAndGoodsId(String orderId, Integer goodsId);
+
+    /**
+     * 添加评论
+     * @param comment 评论的全部信息
+     * @return 影响条数
+     */
+    Integer insert(Comment comment);
+
+    /**
+     * 删除评论 ---> state 置为 -1
+     * @param commentId 评论id
+     * @return 影响条数
+     */
+    Integer drop(Integer commentId);
+}

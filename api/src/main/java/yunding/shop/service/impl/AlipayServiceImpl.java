@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Constant;
-import yunding.shop.entity.Order;
+import yunding.shop.entity.OrderInfo;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
 import yunding.shop.util.AlipayUtil;
@@ -23,10 +23,10 @@ public class AlipayServiceImpl implements AlipayService {
     @Autowired
     private AlipayUtil alipayUtil;
     @Override
-    public ServiceResult purchase(Order order) {
+    public ServiceResult purchase(OrderInfo orderInfo) {
        try{
 
-           String result= (String) alipayUtil.alipayClient(String.valueOf(order.getOrderId()),order.getGoodsName(),"", String.valueOf(order.getTotalPrice()));
+           String result= (String) alipayUtil.alipayClient(String.valueOf(orderInfo.getOrderId()), orderInfo.getShopName(),"", String.valueOf(orderInfo.getTotalPrice()));
            return ServiceResult.success(result);
        }catch (Exception e){
            throw new RuntimeException("支付失败");
@@ -34,13 +34,14 @@ public class AlipayServiceImpl implements AlipayService {
     }
 
     @Override
-    public String notifyUrl(HttpServletRequest request, Order order, String out_no) {
+    public String notifyUrl(HttpServletRequest request, OrderInfo orderInfo, String outNo) {
         try{
             String result=alipayUtil.notifyUrl(request);
-            if (result.equals("success")){
-                if(order.getState() == Constant.WAIT_PAY){
-                    order.setAlipayNum(out_no);
-                    orderService.userPayByOrderId(order.getUserId(),order);
+            String success = "success";
+            if (success.equals(result)){
+                if(orderInfo.getState().equals(Constant.WAIT_PAY)){
+                    orderInfo.setAlipayNum(outNo);
+                    orderService.pay(orderInfo.getUserId(), orderInfo.getOrderId(),orderInfo.getAlipayNum());
                 }else{
                     throw new RuntimeException("订单已经支付");
                 }

@@ -1,29 +1,29 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="yunding.shop.mapper.OrderMapper">
+<mapper namespace="yunding.shop.mapper.OrderInfoMapper">
 
     <select id="selectByOrderId" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.Order">
+            resultType="yunding.shop.entity.OrderInfo">
         SELECT * FROM t_order WHERE order_id = #{orderId} AND state != -1
     </select>
 
     <select id="selectByUserId" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.Order">
+            resultType="yunding.shop.entity.OrderInfo">
         SELECT * FROM t_order WHERE user_id = #{userId} AND state != -1
     </select>
 
     <select id="selectByShopId" parameterType="java.lang.Integer"
-            resultType="yunding.shop.entity.Order">
+            resultType="yunding.shop.entity.OrderInfo">
         SELECT * FROM t_order WHERE shop_id = #{shopId}
     </select>
 
     <select id="selectCommentByGoodsId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Comment">
-        SELECT user_id , `comment`, updated_at FROM t_order WHERE goods_id = #{goodsId} AND state = 4
+        SELECT user_id , `content`, updated_at FROM t_order WHERE goods_id = #{goodsId} AND state = 4
     </select>
 
-    <insert id="insertOrder" parameterType="yunding.shop.entity.Order">
+    <insert id="insertOrder" parameterType="yunding.shop.entity.OrderInfo">
         INSERT INTO t_order (
         user_id,
         goods_id,
@@ -59,15 +59,15 @@
         )
     </insert>
 
-    <update id="updateState" parameterType="yunding.shop.entity.Order">
+    <update id="updateState" parameterType="yunding.shop.entity.OrderInfo">
         UPDATE t_order SET state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
     </update>
 
-    <update id="userPay" parameterType="yunding.shop.entity.Order">
+    <update id="userPay" parameterType="yunding.shop.entity.OrderInfo">
         UPDATE t_order SET alipay_num = #{alipayNum}, state = #{state}, updated_at = #{updatedAt} WHERE order_id = #{orderId}
     </update>
 
-    <update id="sendGoods" parameterType="yunding.shop.entity.Order">
+    <update id="sendGoods" parameterType="yunding.shop.entity.OrderInfo">
         UPDATE t_order SET state = #{state} ,
                             tracking_num = #{trackingNum},
                             express_company = #{expressCompany},
@@ -75,8 +75,8 @@
                             WHERE order_id = #{orderId}
     </update>
 
-    <update id="updateComment" parameterType="yunding.shop.entity.Order">
-        UPDATE t_order SET comment = #{comment},
+    <update id="updateComment" parameterType="yunding.shop.entity.OrderInfo">
+        UPDATE t_order SET content = #{content},
                             state = #{state},
                             updated_at = #{updatedAt}
                             WHERE order_id = #{orderId}

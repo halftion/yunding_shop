@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
+import yunding.shop.service.CommentService;
 import yunding.shop.service.GoodsService;
 import yunding.shop.util.UserUtil;
 
@@ -38,24 +39,6 @@ public class GoodsController {
             }
         }catch (Exception e){
             return RequestResult.failure("获取商品失败");
-        }
-    }
-
-    /**
-     * 根据商品Id获取商品所有评论
-     * @param goodsId 商品id
-     */
-    @RequestMapping(value = "/comment/{goodsId}" , method = RequestMethod.GET)
-    public RequestResult getCommentByGoodsId( @PathVariable("goodsId") Integer goodsId ){
-        try {
-            ServiceResult serviceResult = goodsService.getCommentByGoodsId(goodsId);
-            if(serviceResult.isSuccess()) {
-                return RequestResult.success(serviceResult.getData());
-            }else {
-                return RequestResult.failure(serviceResult.getMessage());
-            }
-        }catch (Exception e){
-            return RequestResult.failure("获取商品评论失败");
         }
     }
 

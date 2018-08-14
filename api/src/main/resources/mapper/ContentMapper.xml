@@ -4,6 +4,6 @@
 <mapper namespace="yunding.shop.mapper.ContentMapper">
 
     <select id="selectByTypeId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Content">
-        SELECT * FROM t_content WHERE type = #{typeId}
+        SELECT * FROM t_content WHERE type = #{type}
     </select>
 </mapper>

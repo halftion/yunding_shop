@@ -2,9 +2,7 @@ package yunding.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Date;
 
 /** 平台商品分类

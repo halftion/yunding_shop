@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
-import yunding.shop.entity.Order;
+import yunding.shop.entity.OrderGoods;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
@@ -43,17 +43,16 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult processOrderCreate(Order order) {
+    public ServiceResult processOrderCreate(OrderGoods orderGoods) {
         try {
-            Integer goodsId = order.getGoodsId();
-            Goods goods = (goodsMapper.selectByGoodsId(goodsId));
-            order.setUnitPrice(goods.getPrice());
-            order.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(order.getGoodsNum())));
-            order.setShopId(goods.getShopId());
-            order.setShopName(goods.getShopName());
-
-            goods.setStockNum(goods.getStockNum() - order.getGoodsNum());
-            goods.setSales(goods.getSales() + order.getGoodsNum());
+            Integer goodsId = orderGoods.getGoodsId();
+            Goods goods = goodsMapper.selectByGoodsId(goodsId);
+            orderGoods.setGoodsPic(goods.getPicture());
+            orderGoods.setGoodsName(goods.getName());
+            orderGoods.setUnitPrice(goods.getPrice());
+            orderGoods.setTotalPrice(goods.getPrice().multiply(BigDecimal.valueOf(orderGoods.getGoodsNum())));
+            goods.setStockNum(goods.getStockNum() - orderGoods.getGoodsNum());
+            goods.setSales(goods.getSales() + orderGoods.getGoodsNum());
             goods.updateAtNow();
             Integer i = goodsMapper.updateStockAndSales(goods);
             if (i == 1) {
@@ -68,21 +67,20 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult processOrderDelete(Order order) {
+    public ServiceResult processOrderDelete(OrderGoods orderGoods) {
         try {
-            Integer goodsId = order.getGoodsId();
-            Goods goods = goodsMapper.selectByGoodsId(goodsId);
+            Goods goods = goodsMapper.selectByGoodsId(orderGoods.getGoodsId());
             Integer stockNum = goods.getStockNum();
             Integer sales = goods.getSales();
-            goods.setStockNum(stockNum+ order.getGoodsNum());
-            goods.setSales(sales- order.getGoodsNum());
+            goods.setStockNum(stockNum + orderGoods.getGoodsNum());
+            goods.setSales(sales - orderGoods.getGoodsNum());
             goods.updateAtNow();
-            Integer i = goodsMapper.updateStockAndSales(goods);
-            if (i == 1) {
-                return ServiceResult.success();
-            } else {
+
+            if (goodsMapper.updateStockAndSales(goods) != 1) {
                 return ServiceResult.failure("修改商品信息失败");
             }
+
+            return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("库存销量修改失败");
         }
@@ -153,20 +151,6 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("商品评价数量修改失败");
-        }
-    }
-
-    @Override
-    public ServiceResult getCommentByGoodsId(Integer goodsId) {
-        try {
-            ServiceResult serviceResult = orderService.selectCommentByGoodsId(goodsId);
-            if(serviceResult.isSuccess()){
-                return ServiceResult.success(serviceResult.getData());
-            }else {
-                return ServiceResult.failure(serviceResult.getMessage());
-            }
-        }catch (Exception e){
-            return ServiceResult.failure("商品评价查询失败");
         }
     }
 

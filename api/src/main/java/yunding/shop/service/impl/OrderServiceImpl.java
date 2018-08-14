@@ -1,30 +1,32 @@
 package yunding.shop.service.impl;
 
-import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.Comment;
-import yunding.shop.entity.Constant;
-import yunding.shop.entity.Order;
-import yunding.shop.entity.UserInfo;
-import yunding.shop.mapper.OrderMapper;
+import yunding.shop.entity.*;
+import yunding.shop.mapper.OrderGoodsMapper;
+import yunding.shop.mapper.OrderInfoMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.OrderService;
 import yunding.shop.service.ShopService;
 import yunding.shop.service.UserService;
-import java.util.List;
-import java.util.Map;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author guo
+ * @author 齐语冰 2018/8/13
  */
 @Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderMapper orderMapper;
+    private OrderInfoMapper orderInfoMapper;
+
+    @Autowired
+    private OrderGoodsMapper orderGoodsMapper;
 
     @Autowired
     private GoodsService goodsService;
@@ -32,45 +34,130 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ShopService shopService;
 
-    @Autowired
-    private UserService userService;
+    private ServiceResult selectOrderByOrderInfo(OrderInfo orderInfo){
+        try {
+            List<Order> orderList = new ArrayList<>();
+            Order order = new Order();
+            List<OrderGoods> orderGoodsList;
+
+            orderGoodsList = orderGoodsMapper.selectByOrderId(orderInfo.getOrderId());
+            order.setOrderInfo(orderInfo);
+            order.setOrderGoodsList(orderGoodsList);
+
+            return ServiceResult.success(order);
+        } catch (Exception e) {
+            return ServiceResult.failure("通过订单信息查询订单失败");
+        }
+
+    }
+
+    private ServiceResult selectOrderListByOrderInfoList(List<OrderInfo> orderInfoList){
+        try {
+            List<Order> orderList = new ArrayList<>();
+
+            ServiceResult serviceResult;
+
+            for (OrderInfo orderInfo : orderInfoList){
+
+                serviceResult = selectOrderByOrderInfo(orderInfo);
+
+                if (!serviceResult.isSuccess()){
+                    return ServiceResult.failure(serviceResult.getMessage());
+                }
+
+                orderList.add((Order) serviceResult.getData());
+            }
+            return ServiceResult.success(orderList);
+        } catch (Exception e) {
+            return ServiceResult.failure("通过订单信息列表查询订单列表失败");
+        }
+    }
+
+    private String getOrderNo(){
+        String orderNo = "" ;
+        UUID uuid = UUID.randomUUID();
+        String trandNo = String.valueOf((Math.random() * 9 + 1) * 1000000);
+        String sdf = new SimpleDateFormat("yyyyMMddHHMMSS").format(new Date());
+        orderNo = uuid.toString().substring(0, 8);
+        orderNo = orderNo + sdf ;
+        return orderNo ;
+    }
 
     @Override
-    public ServiceResult selectByUserId(Integer userId) {
+    public ServiceResult selectOrderListByUserId(Integer userId) {
         try{
-            JSONArray orderList = JSONArray.fromObject(orderMapper.selectByUserId(userId));
-            return ServiceResult.success(orderList);
+            List<OrderInfo> orderInfoList = orderInfoMapper.selectByUserId(userId);
+            ServiceResult serviceResult = selectOrderListByOrderInfoList(orderInfoList);
+            if (serviceResult.isSuccess()) {
+                return ServiceResult.success(serviceResult.getData());
+            } else {
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
         }catch (Exception e){
             return ServiceResult.failure("订单查询失败");
         }
     }
 
     @Override
-    public ServiceResult selectByOrderId(Integer userId , Integer orderId){
+    public ServiceResult selectOrderByOrderId(Integer userId, String orderId){
         try{
-            Order order = orderMapper.selectByOrderId(orderId);
-            if(order.getUserId().equals(userId)){
-                return ServiceResult.success(order);
-            }else{
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderId(orderId);
+
+            if(!orderInfo.getUserId().equals(userId)){
                 return  ServiceResult.failure("用户信息不匹配");
             }
+
+            List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
+
+            return ServiceResult.success(new Order(orderInfo,orderGoodsList));
+
         }catch (Exception e){
             return ServiceResult.failure("订单查询失败");
         }
     }
 
     @Override
-    public ServiceResult selectByShopId(Integer userId, Integer shopId) {
+    public ServiceResult selectOrderByOrderIdAndState(Integer userId, String orderId, Integer state){
         try{
-            if (!shopService.selectUserIdByShopId(shopId).isSuccess()){
-                //获取商户Id失败
-                return ServiceResult.failure(shopService.selectUserIdByShopId(shopId).getMessage());
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderIdAndState(orderId, state);
+
+            if(!orderInfo.getUserId().equals(userId)){
+                return  ServiceResult.failure("用户信息不匹配");
             }
-            if(!shopService.selectUserIdByShopId(shopId).getData().equals(userId)){
+
+            List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
+
+            return ServiceResult.success(new Order(orderInfo,orderGoodsList));
+
+        }catch (Exception e){
+            return ServiceResult.failure("订单查询失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectOrderListByShopId(Integer userId, Integer shopId) {
+        try{
+            ServiceResult serviceResult = shopService.selectUserIdByShopId(shopId);
+
+            if (!serviceResult.isSuccess()){
+                //获取商户Id失败
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
+            if(!serviceResult.getData().equals(userId)){
                 return ServiceResult.failure("用户信息不匹配");
             }
-            JSONArray orderList = JSONArray.fromObject(orderMapper.selectByShopId(shopId));
-            return ServiceResult.success(orderList);
+
+            List<OrderInfo> orderInfoList = orderInfoMapper.selectByShopId(shopId);
+
+            serviceResult = selectOrderListByOrderInfoList(orderInfoList);
+
+            if (serviceResult.isSuccess()){
+                return ServiceResult.success(serviceResult.getData());
+            } else {
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
         }catch (Exception e){
             return ServiceResult.failure("订单查询失败");
         }
@@ -78,21 +165,60 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult createOrder(Integer userId, List<Order> orderList) {
+    public ServiceResult createOrderList(Integer userId, Order order) {
         try{
-            for (Order order : orderList) {
-                order.setUserId(userId);
-                order.createAtNow();
-                order.updateAtNow();
-                if (!goodsService.processOrderCreate(order).isSuccess()) {
-                    //修改商品信息失败
-                    return ServiceResult.failure(goodsService.processOrderCreate(order).getMessage());
+
+            OrderInfo orderInfo = order.getOrderInfo();
+            List<OrderGoods> orderGoodsList = order.getOrderGoodsList();
+
+            List<Order> orderList = new ArrayList<>();
+            Map<Integer,List<OrderGoods>> orderGoodsMapGroupByShopId = new HashMap<>();
+
+            ServiceResult serviceResult;
+
+
+
+            //将订单商品列表按店铺id分组
+            for (OrderGoods orderGoods : orderGoodsList){
+
+                /*完善orderGoods信息*/
+
+                serviceResult = goodsService.selectShopIdByGoodsId(orderGoods.getGoodsId());
+
+                if (!serviceResult.isSuccess()){
+                    return ServiceResult.failure(serviceResult.getMessage());
                 }
-                if (orderMapper.insertOrder(order) != 1) {
-                    return ServiceResult.failure("单个订单创建失败");
+
+                Integer shopId = (Integer) serviceResult.getData();
+
+                if (orderGoodsMapGroupByShopId.containsKey(shopId)){
+                    orderGoodsMapGroupByShopId.get(shopId).add(orderGoods);
+                } else {
+                    List<OrderGoods> tempOrderList = new ArrayList<>();
+                    tempOrderList.add(orderGoods);
+                    orderGoodsMapGroupByShopId.put(shopId,tempOrderList);
                 }
             }
-            return ServiceResult.success();
+
+            Set<Integer> shopIdSet = orderGoodsMapGroupByShopId.keySet();
+
+            for (Integer shopId : shopIdSet){
+                /*完善orderInfo信息 店铺信息 商品信息 价钱 用户*/
+                orderInfo.setOrderId(getOrderNo());
+                orderInfo.setShopId(shopId);
+                orderInfo.createAtNow();
+                orderInfo.updateAtNow();
+                orderInfoMapper.insert(orderInfo);
+
+                List<OrderGoods> newOrderGoodsList = orderGoodsMapGroupByShopId.get(shopId);
+                for (OrderGoods orderGoods : newOrderGoodsList){
+                    orderGoodsMapper.insert(orderGoods);
+                }
+
+                Order newOrder = new Order(orderInfo, newOrderGoodsList);
+                orderList.add(newOrder);
+            }
+            return ServiceResult.success(orderList);
         }catch (Exception e){
             throw  new RuntimeException("订单创建失败");
         }
@@ -100,24 +226,29 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult userPayByOrderId(Integer userId, Order newOrder) {
+    public ServiceResult pay(Integer userId, String orderId, String alipayNum) {
         try{
-            Order order = orderMapper.selectByOrderId(newOrder.getOrderId());
-            if (!order.getUserId().equals(userId)) {
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderIdAndState(orderId,Constant.WAIT_PAY);
+
+            if (orderId == null){
+                return ServiceResult.failure("未查询到该待付款订单");
+            }
+
+            if (!orderInfo.getUserId().equals(userId)) {
                 return ServiceResult.failure("用户信息不匹配");
             }
-            if(newOrder.getAlipayNum() == null){
-                return ServiceResult.failure("支付宝交易号错误");
+            if(alipayNum == null){
+                return ServiceResult.failure("支付宝交易号不能为空");
             }
-            ServiceResult serviceResult =goodsService.processOrderCreate(order);
-            if(order.getState() != Constant.WAIT_PAY) {
-                return ServiceResult.failure("订单状态有误");
+
+            orderInfo.setAlipayNum(alipayNum);
+            orderInfo.updateAtNow();
+            orderInfo.setState(Constant.HAVE_PAY);
+
+            if (orderInfoMapper.updateAlipayNum(orderInfo) != 1){
+                return ServiceResult.failure("更新支付宝交易号失败");
             }
-            newOrder.setState(Constant.WAIT_SEND_GOOD);
-            newOrder.updateAtNow();
-            if(orderMapper.userPay(newOrder) != 1) {
-                return ServiceResult.failure("订单状态修改失败");
-            }
+
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("订单状态修改失败");
@@ -126,29 +257,39 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult sendGoods(Integer userId, Order order) {
+    public ServiceResult deliver(Integer userId, String orderId, String expressCompany, String trackingNum) {
         try{
-            Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
-            Integer shopId = newOrder.getShopId();
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderIdAndState(orderId,Constant.HAVE_PAY);
+
+            if (orderInfo == null){
+                return ServiceResult.failure("未查询到该已付款订单");
+            }
+
+            Integer shopId = orderInfo.getShopId();
+
             ServiceResult serviceResult = shopService.selectUserIdByShopId(shopId);
+
+            if(expressCompany == null || trackingNum == null){
+                return ServiceResult.failure("物流信息不能为空");
+            }
+
             if(!serviceResult.isSuccess()){
                 return ServiceResult.failure(serviceResult.getMessage());
             }
+
             if (!serviceResult.getData().equals(userId)) {
                 return ServiceResult.failure("商户信息不匹配");
             }
-            if(order.getTrackingNum() == null ||
-                    order.getExpressCompany() == null){
-                return ServiceResult.failure("订单物流信息有误");
-            }
-            if(newOrder.getState() != Constant.WAIT_SEND_GOOD) {
-                return ServiceResult.failure("订单状态错误");
-            }
-            order.setState(Constant.WAIT_RECEIVE_GOOD);
-            order.updateAtNow();
-            if(orderMapper.sendGoods(order) != 1) {
+
+            orderInfo.setExpressCompany(expressCompany);
+            orderInfo.setTrackingNum(trackingNum);
+            orderInfo.updateAtNow();
+            orderInfo.setState(Constant.HAVE_DELIVER);
+
+            if(orderInfoMapper.updateTrackingInfo(orderInfo) != 1) {
                 return ServiceResult.failure("订单状态修改失败");
             }
+
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("发货失败");
@@ -157,56 +298,60 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult receiveGoodsByOrderId(Integer userId, Integer orderId) {
+    public ServiceResult receive(Integer userId, String orderId) {
         try{
-            Order order = orderMapper.selectByOrderId(orderId);
-            if (!order.getUserId().equals(userId)) {
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderIdAndState(orderId, Constant.HAVE_DELIVER);
+
+            if (orderInfo == null){
+                return ServiceResult.failure("未查询到已发货订单");
+            }
+
+            if (!orderInfo.getUserId().equals(userId)) {
                 return ServiceResult.failure("用户信息不匹配");
             }
-            if(order.getState() != Constant.WAIT_RECEIVE_GOOD) {
+            if(!orderInfo.getState().equals(Constant.HAVE_DELIVER)) {
                 return ServiceResult.failure("订单状态有误");
             }
-            order.setState(Constant.WAIT_COMMENT);
-            order.updateAtNow();
-            if(orderMapper.updateState(order) != 1){
+
+            orderInfo.setState(Constant.HAVE_RECEIVE_GOOD);
+            orderInfo.updateAtNow();
+
+            if(orderInfoMapper.updateState(orderInfo) != 1){
                 return ServiceResult.failure("订单状态修改失败");
             }
-            if(!shopService.updateSales(order.getShopId(), order.getGoodsNum()).isSuccess())
-            {
-                //店铺销量修改失败
-                return ServiceResult.failure(shopService.updateSales(order.getShopId(), order.getGoodsNum()).getMessage());
-            }
+
             return ServiceResult.success();
         }catch (Exception e){
             e.printStackTrace();
-            throw new RuntimeException("Service 订单状态修改失败");
+            throw new RuntimeException("订单状态修改失败");
         }
     }
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult commentOrder(Integer userId, Order order) {
+    public ServiceResult updateCommentState(Integer userId, String orderId, Integer goodsId) {
         try{
-            Order newOrder = orderMapper.selectByOrderId(order.getOrderId());
-            Integer orderUser = newOrder.getUserId();
-            Integer state = newOrder.getState();
-            Integer num = newOrder.getGoodsNum();
-            if(!orderUser.equals(userId)){
-                return ServiceResult.failure("用户ID和订单不匹配");
+
+            Integer dbUserId = orderInfoMapper.selectByOrderIdAndState(orderId,Constant.HAVE_RECEIVE_GOOD).getUserId();
+
+            if (!userId.equals(dbUserId)){
+                return ServiceResult.failure("用户信息不匹配");
             }
-            if(state.equals(Constant.WAIT_COMMENT) ){
-                order.setState(Constant.OVER_ORDER);
-                order.updateAtNow();
-                orderMapper.updateComment(order);
-            }else {
-                return ServiceResult.failure("订单状态有误");
+
+            OrderGoods orderGoods = orderGoodsMapper.selectByOrderIdAndGoodsIdAndState(orderId,goodsId,Constant.WAIT_COMMENT);
+
+            if (!orderGoods.getState().equals(Constant.WAIT_COMMENT)){
+                return ServiceResult.failure("商品已评价或被删除");
             }
-            if(goodsService.commentGoods(order.getOrderId()).isSuccess()){
-                return ServiceResult.success();
-            }else {
-                //商品评价数量修改失败
-                return ServiceResult.failure(goodsService.commentGoods(order.getOrderId()).getMessage());
+
+            orderGoods.setState(Constant.HAVE_COMMENT);
+            orderGoods.updateAtNow();
+
+            if(orderGoodsMapper.updateState(orderGoods) != 1){
+                return ServiceResult.failure("更新订单商品状态失败");
             }
+
+            return ServiceResult.success();
         }catch (Exception e){
             throw  new RuntimeException("订单评论失败");
         }
@@ -214,43 +359,34 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult deleteByOrderId(Integer userId, Integer orderId) {
+    public ServiceResult dropByOrderId(Integer userId, String orderId) {
         try{
-            Order order = orderMapper.selectByOrderId(orderId);
-            if (!order.getUserId().equals(userId)) {
+            OrderInfo orderInfo = orderInfoMapper.selectByOrderId(orderId);
+
+            if (!orderInfo.getUserId().equals(userId)) {
                 return ServiceResult.failure("用户信息不匹配");
             }
-            if( order.getState()>= Constant.WAIT_RECEIVE_GOOD &&
-                    order.getState() <= Constant.OVER_ORDER){
-                if(!goodsService.processOrderDelete(order).isSuccess()){
-                    //修改商品库存失败
-                    return ServiceResult.failure(goodsService.processOrderDelete(order).getMessage());
+
+            List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
+            for (OrderGoods orderGoods : orderGoodsList){
+                ServiceResult serviceResult = goodsService.processOrderDelete(orderGoods);
+                if (! serviceResult.isSuccess()){
+                    return ServiceResult.failure("减少库存失败");
                 }
             }
-            order.setState(Constant.DELETE_ORDER);
-            order.updateAtNow();
-            if(orderMapper.updateState(order) != 1){
+
+            orderInfo.setState(Constant.DROP_STATE);
+            orderInfo.updateAtNow();
+
+            if(orderInfoMapper.updateState(orderInfo) != 1){
                 return ServiceResult.failure("订单状态修改失败");
             }
+
             return ServiceResult.success();
         }catch (Exception e){
             e.printStackTrace();
-            throw new RuntimeException("Service 错误 删除订单失败");
+            throw new RuntimeException("删除订单失败");
         }
     }
 
-    @Override
-    public ServiceResult selectCommentByGoodsId(Integer goodsId) {
-        try{
-            List<Comment> commentList = orderMapper.selectCommentByGoodsId(goodsId);
-            for (Comment comment : commentList){
-                comment.setGoodsId(goodsId);
-                comment.setNickName((String)userService.getNickNameById(comment.getUserId()).getData());
-                comment.setAvatar((String)userService.getAvatarById(comment.getUserId()).getData());
-            }
-            return ServiceResult.success(commentList);
-        }catch (Exception e){
-            return ServiceResult.failure("查询评论列表失败");
-        }
-    }
 }

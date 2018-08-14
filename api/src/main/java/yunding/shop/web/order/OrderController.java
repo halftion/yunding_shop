@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Order;
+import yunding.shop.entity.OrderInfo;
 import yunding.shop.service.OrderService;
 import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class OrderController {
     public RequestResult selectByUserId(HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.selectByUserId(userId);
+            ServiceResult serviceResult = orderService.selectOrderListByUserId(userId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
@@ -50,10 +51,10 @@ public class OrderController {
      * @return 订单详细信息
      */
     @RequestMapping(value = "/{orderId}" , method = RequestMethod.GET)
-    public RequestResult selectByOrderId(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
+    public RequestResult selectByOrderId(@PathVariable("orderId") String  orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.selectByOrderId(userId,orderId);
+            ServiceResult serviceResult = orderService.selectOrderByOrderId(userId,orderId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
@@ -72,7 +73,7 @@ public class OrderController {
     public RequestResult selectByShopId(@PathVariable("shopId") Integer shopId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.selectByShopId(userId ,shopId);
+            ServiceResult serviceResult = orderService.selectOrderListByShopId(userId ,shopId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
@@ -85,11 +86,11 @@ public class OrderController {
 
     /**
      * 创建一个新订单
-     * @param orderList 订单列表
+     * @param order 订单列表
      * @param request request对象
      */
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
-    public RequestResult createOrder(@RequestBody @Validated List<Order> orderList ,
+    public RequestResult createOrder(@RequestBody @Validated Order order,
                                      HttpServletRequest request, BindingResult bindingResult){
         try {
 
@@ -98,7 +99,7 @@ public class OrderController {
             }
 
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.createOrder(userId,orderList);
+            ServiceResult serviceResult = orderService.createOrderList(userId,order);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(null);
             }else {
@@ -111,14 +112,18 @@ public class OrderController {
 
     /**
      * 订单发货
-     * @param order 订单Id和物流单号
+     * @param orderInfo 订单Id和物流单号
      * @param request request对象
      */
     @RequestMapping(value = "/send" , method = RequestMethod.PUT)
-    public RequestResult sendGoods(@RequestBody Order order , HttpServletRequest request){
+    public RequestResult sendGoods(@RequestBody OrderInfo orderInfo, HttpServletRequest request){
         try {
+
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.sendGoods(userId,order);
+
+            ServiceResult serviceResult = orderService.deliver(
+                    userId, orderInfo.getOrderId(),orderInfo.getExpressCompany(),orderInfo.getTrackingNum());
+
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
@@ -136,10 +141,10 @@ public class OrderController {
      * @param request request对象
      */
     @RequestMapping(value = "/receive/{orderId}" , method = RequestMethod.PUT)
-    public RequestResult receiveGoods( @PathVariable("orderId") Integer orderId , HttpServletRequest request){
+    public RequestResult receiveGoods( @PathVariable("orderId") String orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.receiveGoodsByOrderId(userId , orderId);
+            ServiceResult serviceResult = orderService.receive(userId , orderId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
@@ -151,35 +156,15 @@ public class OrderController {
     }
 
     /**
-     * 评论订单
-     * @param order 用户类（orderID和comment）
-     * @param request request对象
-     */
-    @RequestMapping(value = "/comment" ,method = RequestMethod.PUT)
-    public RequestResult commentOrder(@RequestBody Order order , HttpServletRequest request){
-        try {
-            Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.commentOrder(userId,order);
-            if (serviceResult.isSuccess()){
-                return RequestResult.success(null);
-            }else {
-                return RequestResult.failure(serviceResult.getMessage());
-            }
-        }catch (Exception e){
-            return RequestResult.failure("订单评论失败");
-        }
-    }
-
-    /**
      * 根据订单ID 删除订单
      * @param orderId 订单ID
      * @param request request对象
      */
     @RequestMapping(value = "/{orderId}" , method = RequestMethod.DELETE)
-    public RequestResult deleteOrder(@PathVariable("orderId") Integer orderId , HttpServletRequest request){
+    public RequestResult deleteOrder(@PathVariable("orderId") String orderId , HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = orderService.deleteByOrderId(userId,orderId);
+            ServiceResult serviceResult = orderService.dropByOrderId(userId,orderId);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {

@@ -15,7 +15,7 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/api/user/**"/>
-            <mvc:mapping path="/api/order/**"/>
+            <mvc:mapping path="/api/orderInfo/**"/>
             <mvc:mapping path="/api/aliPay/purchase/**"/>
             <mvc:mapping path="/api/photo/**"/>
             <mvc:mapping path="/api/cartMap/**"/>
@@ -38,7 +38,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
-        <property name="order" value="0"/>
+        <property name="orderInfo" value="0"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

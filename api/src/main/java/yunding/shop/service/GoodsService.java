@@ -1,11 +1,10 @@
 package yunding.shop.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
-import yunding.shop.entity.Order;
-
-import javax.servlet.http.HttpServletRequest;
+import yunding.shop.entity.OrderGoods;
+import yunding.shop.entity.OrderInfo;
 
 /**
  * @author ren
@@ -22,15 +21,17 @@ public interface GoodsService {
 
     /**
      * 为order添加商品信息
-     * @param order 订单
+     * @param orderGoods 订单商品
      */
-    ServiceResult processOrderCreate(Order order);
+    ServiceResult processOrderCreate(OrderGoods orderGoods);
 
     /**
      * 在删除订单时修改商品库存
-     * @param order 订单
+     * @param orderGoods 订单商品
      */
-    ServiceResult processOrderDelete(Order order);
+
+    @Transactional(rollbackFor=Exception.class)
+    ServiceResult processOrderDelete(OrderGoods orderGoods);
 
     /**
      * 根据商品关键词查询商品
@@ -71,16 +72,8 @@ public interface GoodsService {
     ServiceResult commentGoods(Integer goodsId);
 
     /**
-     * 根据商品Id查询用户Id和用户评价
-     * @param goodsId 商品Id
-     * @return 用户Id和用户评价
-     */
-    ServiceResult getCommentByGoodsId(Integer goodsId);
-
-    /**
      * 更改商品信息
-     * @param goods
-     * @return
+     * @param goods 商品
      */
     ServiceResult updategoods(Goods goods);
 

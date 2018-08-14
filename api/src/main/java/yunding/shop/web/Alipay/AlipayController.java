@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.Order;
+import yunding.shop.entity.OrderInfo;
 import yunding.shop.service.AlipayService;
 import yunding.shop.service.OrderService;
 import yunding.shop.util.UserUtil;
@@ -24,7 +24,7 @@ public class AlipayController {
     @Autowired
     OrderService orderService;
 
-    private  Order order;
+    private OrderInfo orderInfo;
     //支付宝交易号
     private String out_no;
 
@@ -32,9 +32,9 @@ public class AlipayController {
     public RequestResult purchase(@PathVariable Integer orderId, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
-            Order order=(Order) orderService.selectByOrderId(userId,orderId).getData();
-            this.order=order;
-            ServiceResult result=alipayService.purchase(order);
+            OrderInfo orderInfo =(OrderInfo) orderService.selectByOrderId(userId,orderId).getData();
+            this.orderInfo = orderInfo;
+            ServiceResult result=alipayService.purchase(orderInfo);
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {
@@ -59,7 +59,7 @@ public class AlipayController {
     public String notifyUrl(HttpServletRequest request){
         try {
             System.out.println("收到异步通知");
-            String result=alipayService.notifyUrl(request,order,out_no);
+            String result=alipayService.notifyUrl(request, orderInfo,out_no);
             System.out.println(result);
             return result;
         }catch (Exception e){

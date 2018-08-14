@@ -109,8 +109,6 @@ public class LoginServiceImpl implements LoginService {
                         Login login = new Login(userId,loginName,password,new Date(),new Date());
                         loginMapper.insert(login);
 
-                        int a = 1/0;
-
                         //登录，返回token
                         serviceResult = login(login);
 
