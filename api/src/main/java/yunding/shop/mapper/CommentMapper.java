@@ -10,7 +10,7 @@ import java.util.List;
 public interface CommentMapper {
 
     /**
-     * 根据商品Id查询商品评价
+     * 根据商品Id查询商品评价(state != -1)
      * @param goodsId 商品Id
      * @return 用户Id和商品评价
      */
@@ -32,9 +32,8 @@ public interface CommentMapper {
     Integer insert(Comment comment);
 
     /**
-     * 删除评论 ---> state 置为 -1
-     * @param commentId 评论id
+     * 删除评论 ---> orderId goodsId updatedAt
      * @return 影响条数
      */
-    Integer drop(Integer commentId);
+    Integer drop(Comment comment);
 }

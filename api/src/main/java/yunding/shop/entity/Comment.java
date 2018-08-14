@@ -51,6 +51,8 @@ public class Comment {
      */
     private Date createdAt;
 
+    private Date updatedAt;
+
 
     public void createAtNow(){
         this.createdAt = new Date();
@@ -119,5 +121,13 @@ public class Comment {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

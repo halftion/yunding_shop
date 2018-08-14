@@ -60,6 +60,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setNickName(userInfo.getNickName());
             comment.setAvatar(userInfo.getAvatar());
             comment.setCreatedAt(new Date());
+            comment.setUpdatedAt(new Date());
 
             if(commentMapper.insert(comment) != 1){
                 return ServiceResult.failure("新增评论失败");
