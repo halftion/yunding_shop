@@ -1,6 +1,7 @@
 package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Content;
 
 /**
  * @author guo
