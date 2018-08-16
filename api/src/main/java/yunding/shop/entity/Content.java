@@ -32,7 +32,7 @@ public class Content {
      */
     private String pic;
     /**
-     * 文章 类型：0-轮播图，1-热卖商品，2-新品首发，3-精选好物
+     * 文章 类型：0-轮播图，1-热卖商品，2-新品首发，3-精选好物小图 ,4精选好物大图，5精选好物长图
      */
     private Integer type;
 
