@@ -339,7 +339,7 @@ JSON传入：
 成功：
 {"code":200,"message":"操作成功！"}
 
-10.根据电话号发送验证码：/api/verificationCode/register/{phoneNumber} (GET) √
+10.根据电话号发送验证码：/api/verificationCode/send/{phoneNumber} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -350,6 +350,11 @@ JSON传入：
     "code": 500,
     "message": "获取验证码失败"
 }
+
+
+验证验证码是否正确 /api/verificationCode/check/{loginName}/{code} (GET)
+
+
 
 11.根据用户ID获取用户信息：/api/user/info (GET) √
 成功返回示例：
