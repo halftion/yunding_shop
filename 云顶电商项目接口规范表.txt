@@ -1266,6 +1266,131 @@ JSON传入：
 
 
 
+||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
+后台管理系统：
+
+36.添加平台分类：/api/admin/platformCategory/{name} (POST) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+37.移除平台分类：/api/admin/platformCategory/{categoryId} (DELETE) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+38.添加首页文章：/api/admin/content (POST) √
+JSON传入：
+{
+	"title1": "nike秋季款Nike Air Max Air Force Sneakers",
+	"title2" : "500人付款",
+	"title3": "￥1130.00",
+	"pic": "https://i.loli.net/2018/08/14/5b72cd5f79452.png",
+	"type" :1
+}
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+39.移除首页文章：/api/admin/content (DELETE) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+40.查看所有用户：/api/admin/user (GET) √
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "userId": 1,
+            "nickName": "云顶官方号",
+            "avatar": "https://i.loli.net/2018/08/13/5b70d500eb6db.png",
+            "gender": 0,
+            "xp": 0,
+            "state": 1,
+            "createdAt": 1533279202000,
+            "updatedAt": 1533783819000
+        },
+        {
+            "userId": 2,
+            "nickName": "测试买家号",
+            "avatar": "https://i.loli.net/2018/08/13/5b70d500eb6db.png",
+            "gender": 1,
+            "birthday": 1533312000000,
+            "phoneNumber": "123",
+            "xp": 0,
+            "state": 0,
+            "createdAt": 1533540206000,
+            "updatedAt": 1534088554000
+        },
+        {
+            "userId": 29,
+            "nickName": "qiyubing",
+            "avatar": "https://i.loli.net/2018/08/13/5b70d500eb6db.png",
+            "gender": 0,
+            "xp": 0,
+            "state": 0,
+            "createdAt": 1534065443000,
+            "updatedAt": 1534065443000
+        }
+    ],
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+41.更改用户状态：/api/admin/user/{userId}/{state} (PUT) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+
+
+
+
+
+
+
+
 
 
 

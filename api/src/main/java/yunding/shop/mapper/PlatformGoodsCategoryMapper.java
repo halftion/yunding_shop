@@ -27,4 +27,17 @@ public interface PlatformGoodsCategoryMapper {
      * @param platformGoodsCategory 待修改分类 更新时间
      */
     Integer updateAndDeleteGoodsNum(PlatformGoodsCategory platformGoodsCategory);
+
+    /**
+     * 添加平台分类
+     * @param platformGoodsCategory 平台分类名称 创建时间 更新时间
+     */
+    Integer insertPlatformCategory(PlatformGoodsCategory platformGoodsCategory);
+
+    /**
+     * 移除平台分类
+     * @param categoryId 平台分类Id
+     * @return
+     */
+    Integer updatePlatformCategory(Integer categoryId);
 }

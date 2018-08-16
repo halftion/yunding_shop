@@ -78,4 +78,34 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
             throw new RuntimeException("在平台分类修改商品个数失败");
         }
     }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult addCategory(String name) {
+        try {
+            PlatformGoodsCategory platformGoodsCategory = new PlatformGoodsCategory();
+            platformGoodsCategory.setName(name);
+            platformGoodsCategory.setCreatedAt(new Date());
+            platformGoodsCategory.setUpdatedAt(new Date());
+            if(platformGoodsCategoryMapper.insertPlatformCategory(platformGoodsCategory) != 1){
+                return ServiceResult.failure("添加失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("添加分类异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult deleteCategory(Integer categoryId) {
+        try {
+            if(platformGoodsCategoryMapper.updatePlatformCategory(categoryId) != 1){
+                return ServiceResult.failure("更新分类失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("更新分类异常");
+        }
+    }
 }

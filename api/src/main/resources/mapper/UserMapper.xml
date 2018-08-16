@@ -37,4 +37,13 @@
         SELECT avatar FROM t_user_info WHERE user_id = #{userId} AND state != -1
     </select>
 
+    <select id="selectAllUser" resultType="yunding.shop.entity.UserInfo">
+        SELECT * FROM t_user_info
+    </select>
+
+    <update id="updateState" parameterType="yunding.shop.entity.UserInfo">
+        UPDATE t_user_info SET state = #{state}, updated_at = #{updatedAt}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

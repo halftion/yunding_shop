@@ -17,6 +17,7 @@ import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
 import yunding.shop.util.JwtUtil;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ren
@@ -97,6 +98,33 @@ public class UserServiceImpl implements UserService {
             return ServiceResult.success(avatar);
         }catch (Exception e){
             return ServiceResult.failure("获取头像失败");
+        }
+    }
+
+    @Override
+    public ServiceResult getAllUser() {
+        try {
+            List<UserInfo> userInfoList = userMapper.selectAllUser();
+            return ServiceResult.success(userInfoList);
+        } catch (Exception e) {
+            return ServiceResult.failure("获取用户信息失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult updateState(Integer userId, Integer state) {
+        try {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId(userId);
+            userInfo.setState(state);
+            userInfo.setUpdatedAt(new Date());
+            if(userMapper.updateState(userInfo) != 1){
+                return ServiceResult.failure("更新用户信息失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("更新用户状态异常");
         }
     }
 }

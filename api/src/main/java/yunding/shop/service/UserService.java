@@ -53,4 +53,17 @@ public interface UserService {
      * @return 用户头像
      */
     ServiceResult getAvatarById (Integer userId);
+
+    /**
+     * 获取所有用户信息
+     * @return 用户信息
+     */
+    ServiceResult getAllUser();
+
+    /**
+     * 更改用户状态
+     * @param userId 用户ID
+     * @param state 用户状态
+     */
+    ServiceResult updateState(Integer userId, Integer state);
 }

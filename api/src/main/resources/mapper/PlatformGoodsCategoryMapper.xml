@@ -18,4 +18,23 @@
         WHERE platform_goods_category_id = #{platformGoodsCategoryId}
     </update>
 
+    <insert id="insertPlatformCategory" parameterType="yunding.shop.entity.PlatformGoodsCategory">
+        INSERT INTO t_platform_goods_category(
+        `name`,
+        created_at,
+        updated_at
+        )VALUES (
+        #{name},
+        #{createdAt},
+        #{updatedAt}
+        )
+    </insert>
+
+    <update id="updatePlatformCategory" parameterType="java.lang.Integer">
+        DELETE FROM t_platform_goods_category
+        WHERE platform_goods_category_id = #{categoryId}
+    </update>
+
+
+
 </mapper>

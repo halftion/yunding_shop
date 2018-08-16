@@ -3,6 +3,8 @@ package yunding.shop.mapper;
 import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.UserInfo;
 
+import java.util.List;
+
 /**
  * 提供用户数据库方法
  * @author 齐语冰
@@ -47,4 +49,16 @@ public interface UserMapper {
      */
     String selectAvatarById(Integer userId);
 
+    /**
+     * 查询所有用户
+     * @return 所有用户信息
+     */
+    List<UserInfo> selectAllUser();
+
+    /**
+     * 更新用户状态
+     * @param userInfo 用户Id 用户状态 更新时间
+     * @return
+     */
+    Integer updateState(UserInfo userInfo);
 }

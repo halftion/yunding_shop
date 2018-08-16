@@ -27,4 +27,16 @@ public interface PlatformGoodsCategoryService {
      * @param identifier 识别添加或删除
      */
     ServiceResult updateGoodsNum(int platformGoodsCategoryId, int identifier);
+
+    /**
+     * 添加平台分类
+     * @param name 分类名称
+     */
+    ServiceResult addCategory(String name);
+
+    /**
+     * 移除平台分类
+     * @param categoryId 分类Id
+     */
+    ServiceResult deleteCategory(Integer categoryId);
 }

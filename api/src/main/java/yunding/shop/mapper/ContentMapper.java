@@ -16,4 +16,16 @@ public interface ContentMapper {
      * @return 文章列表
      */
     List<Content> selectByTypeId (@Param("type") Integer type);
+
+    /**
+     * 添加文章
+     * @param content 文章详细信息
+     */
+    Integer insertContent(Content content);
+
+    /**
+     * 移除文章
+     * @param contentId
+     */
+    Integer updateContentType(Integer contentId);
 }
