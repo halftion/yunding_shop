@@ -9,6 +9,8 @@ import yunding.shop.entity.Content;
 import yunding.shop.mapper.ContentMapper;
 import yunding.shop.service.ContentService;
 
+import java.util.List;
+
 /**
  * 文章获取
  * @author guo
@@ -53,6 +55,16 @@ public class ContentServiceImpl implements ContentService {
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("更新文章类型异常");
+        }
+    }
+
+    @Override
+    public ServiceResult selectAll() {
+        try {
+            List<Content> contentList = contentMapper.selectAll();
+            return ServiceResult.success(contentList);
+        } catch (Exception e) {
+            return ServiceResult.failure("获取文章异常");
         }
     }
 }

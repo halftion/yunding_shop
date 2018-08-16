@@ -26,4 +26,8 @@
     <update id="updateContentType">
         UPDATE t_content SET `type` = -1 WHERE content_id = #{contentId}
     </update>
+
+    <select id="selectAll" resultType="yunding.shop.entity.Content">
+        SELECT * FROM t_content
+    </select>
 </mapper>

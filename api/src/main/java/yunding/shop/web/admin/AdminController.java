@@ -55,6 +55,24 @@ public class AdminController {
     }
 
     /**
+     * 获取所有文章
+     * @return 文章详细信息
+     */
+    @RequestMapping(value = "/content", method = RequestMethod.GET)
+    RequestResult selectAll(){
+        try {
+            ServiceResult result= adminService.allContent();
+            if (result.isSuccess()){
+                return RequestResult.success(result.getData());
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("获取所有文章失败");
+        }
+    }
+
+    /**
      * 添加首页文章
      * @param content 文章详细信息
      */

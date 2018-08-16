@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.service.ContentService;
 import yunding.shop.service.impl.ContentServiceImpl;
 
 /**
@@ -18,7 +19,7 @@ import yunding.shop.service.impl.ContentServiceImpl;
 public class ContentController {
 
     @Autowired
-    private ContentServiceImpl contentService;
+    private ContentService contentService;
 
     /**
      * 根据板块ID获取文章信息

@@ -22,6 +22,12 @@ public interface AdminService {
     public ServiceResult deletePlatformCategory(Integer categoryId);
 
     /**
+     * 获取所有文章
+     * @return 文章详细信息
+     */
+    public ServiceResult allContent();
+
+    /**
      * 添加首页文章
      * @param content 文章详细信息
      */

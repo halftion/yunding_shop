@@ -56,6 +56,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public ServiceResult allContent() {
+        try {
+            ServiceResult sr = contentService.selectAll();
+            if(!sr.isSuccess()){
+                //获取所有文章失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success(sr.getData());
+        } catch (Exception e) {
+            return ServiceResult.failure("查询所有文章异常");
+        }
+    }
+
+    @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult addContent(Content content) {
         try {

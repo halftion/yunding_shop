@@ -27,4 +27,10 @@ public interface ContentService {
      */
     ServiceResult deleteContent(Integer contentId);
 
+    /**
+     * 获取所有文章
+     * @return 文章详细信息
+     */
+    ServiceResult selectAll();
+
 }

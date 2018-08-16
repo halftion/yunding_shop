@@ -28,4 +28,10 @@ public interface ContentMapper {
      * @param contentId
      */
     Integer updateContentType(Integer contentId);
+
+    /**
+     * 获取所有文章
+     * @return 文章详细信息
+     */
+    List<Content> selectAll();
 }
