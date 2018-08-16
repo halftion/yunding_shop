@@ -9,6 +9,7 @@ import yunding.shop.dto.JwtResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.Register;
+import yunding.shop.entity.ResetPwd;
 import yunding.shop.mapper.LoginMapper;
 import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
@@ -107,7 +108,9 @@ public class LoginServiceImpl implements LoginService {
 
                         //创建登录信息
                         Login login = new Login(userId,loginName,password,new Date(),new Date());
-                        loginMapper.insert(login);
+                        if (!loginMapper.insert(login).equals(1)){
+                            throw new RuntimeException("添加用户登录信息失败");
+                        }
 
                         //登录，返回token
                         serviceResult = login(login);
@@ -119,10 +122,10 @@ public class LoginServiceImpl implements LoginService {
                             return ServiceResult.failure(serviceResult.getMessage());
                         }
                     } else {
-                        return ServiceResult.failure(serviceResult.getMessage());
+                        throw new RuntimeException(serviceResult.getMessage());
                     }
                 } else {
-                    return ServiceResult.failure(serviceResult.getMessage());
+                    throw new RuntimeException(serviceResult.getMessage());
                 }
             } else {
                 return ServiceResult.failure(serviceResult.getMessage());
@@ -130,6 +133,41 @@ public class LoginServiceImpl implements LoginService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("注册失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult resetPwd(ResetPwd resetPwd){
+        try {
+            String loginName = resetPwd.getLoginName();
+            String password = resetPwd.getPassword();
+            String code = resetPwd.getCode();
+
+            //验证验证码，并使验证码失效
+            ServiceResult serviceResult = verificationCodeService.verify(loginName,code);
+
+            //验证码正确
+            if (serviceResult.isSuccess()){
+                //验证码正确，注销验证码
+                verificationCodeService.dropCode(loginName);
+
+                Login login = new Login();
+                login.setLoginName(loginName);
+                login.setPassword(password);
+                login.setUpdatedAt(new Date());
+
+                if (!loginMapper.updatePwd(login).equals(1)){
+                    throw new RuntimeException("更新用户密码失败");
+                }
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("重置密码失败");
         }
     }
 }

@@ -20,4 +20,15 @@
         #{updatedAt}
         )
     </insert>
+
+    <update id="updateGoodsNum">
+        UPDATE t_shop_goods_category SET goods_num = goods_num + 1, updated_at = #{updatedAt}
+        WHERE shop_goods_category_id = #{shopGoodsCategoryId}
+    </update>
+
+    <update id="updateAndDeleteGoodsNum">
+        UPDATE t_shop_goods_category SET goods_num = goods_num - 1, updated_at = #{updatedAt}
+        WHERE shop_goods_category_id = #{shopGoodsCategoryId}
+    </update>
+
 </mapper>

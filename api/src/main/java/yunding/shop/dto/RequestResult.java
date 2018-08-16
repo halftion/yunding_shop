@@ -1,9 +1,12 @@
 package yunding.shop.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Controller层返回的统一对象
  * @author 齐语冰
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RequestResult {
 
     /**

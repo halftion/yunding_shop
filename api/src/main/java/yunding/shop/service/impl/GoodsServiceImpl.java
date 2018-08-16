@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.OrderGoods;
 import yunding.shop.mapper.GoodsMapper;
-import yunding.shop.service.GoodsService;
-import yunding.shop.service.OrderService;
-import yunding.shop.service.ShopService;
+import yunding.shop.service.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +27,13 @@ public class GoodsServiceImpl implements GoodsService{
     private GoodsMapper goodsMapper;
 
     @Autowired
-    private OrderService orderService;
+    private ShopService shopService;
 
     @Autowired
-    private ShopService shopService;
+    private PlatformGoodsCategoryService platformGoodsCategoryService;
+
+    @Autowired
+    private ShopGoodsCategoryService shopGoodsCategoryService;
 
     @Override
     public ServiceResult selectById(Integer id) {
@@ -204,13 +207,27 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             ServiceResult sr1 = shopService.selectShopIdByUserId(userId);
             if (!sr1.isSuccess()) {
+                //获取店铺Id失败
                 return ServiceResult.failure(sr1.getMessage());
             }
             Integer shopId = (Integer) sr1.getData();
+
             ServiceResult sr2 = shopService.selectShopNameByShopId(shopId);
             if (!sr2.isSuccess()) {
+                //获取店铺名称失败
                 return ServiceResult.failure(sr2.getMessage());
             }
+            ServiceResult sr3 = platformGoodsCategoryService.updateGoodsNum(goods.getPlatformGoodsCategoryId(), Constant.UPDATE_ADD);
+            if (!sr3.isSuccess()) {
+                //更新平台分类中的商品数量失败
+                return ServiceResult.failure(sr3.getMessage());
+            }
+            ServiceResult sr4 = shopGoodsCategoryService.updateGoodsNum(goods.getShopGoodsCategoryId(),Constant.UPDATE_ADD);
+            if (!sr4.isSuccess()) {
+                //更新平台分类中的商品数量失败
+                return ServiceResult.failure(sr4.getMessage());
+            }
+
             String shopName = (String) sr2.getData();
             goods.setShopId(shopId);
             goods.setShopName(shopName);
@@ -247,6 +264,18 @@ public class GoodsServiceImpl implements GoodsService{
             if (goodsMapper.deleteGoods(goods) != 1) {
                 return ServiceResult.failure("删除商品失败");
             }
+
+            ServiceResult sr2 = platformGoodsCategoryService.updateGoodsNum(goods.getPlatformGoodsCategoryId(),Constant.UPDATE_DEL);
+            if (!sr2.isSuccess()) {
+                //更新平台分类中的商品数量失败
+                return ServiceResult.failure(sr2.getMessage());
+            }
+            ServiceResult sr3 = shopGoodsCategoryService.updateGoodsNum(goods.getShopGoodsCategoryId(),Constant.UPDATE_DEL);
+            if (!sr3.isSuccess()) {
+                //更新平台分类中的商品数量失败
+                return ServiceResult.failure(sr3.getMessage());
+            }
+
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("发货失败");

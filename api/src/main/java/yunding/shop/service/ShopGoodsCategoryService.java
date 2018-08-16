@@ -30,4 +30,11 @@ public interface ShopGoodsCategoryService {
      * @param name 分类名称
      */
     ServiceResult insertShopCategory (Integer userId ,String name);
+
+    /**
+     * 在店铺分类修改商品个数
+     * @param shopGoodsCategoryId 店铺商品类别
+     * @param identifier 识别添加或删除
+     */
+    ServiceResult updateGoodsNum(int shopGoodsCategoryId, int identifier);
 }

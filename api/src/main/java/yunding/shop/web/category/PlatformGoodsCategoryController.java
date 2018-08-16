@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.service.impl.PlatformGoodsCategoryServiceImpl;
+import yunding.shop.service.PlatformGoodsCategoryService;
 
 /**
  * 平台商品分类Controller
@@ -16,7 +16,7 @@ import yunding.shop.service.impl.PlatformGoodsCategoryServiceImpl;
 public class PlatformGoodsCategoryController {
 
     @Autowired
-    private PlatformGoodsCategoryServiceImpl platformGoodsCategoryService;
+    private PlatformGoodsCategoryService platformGoodsCategoryService;
 
     /**
      * 获取平台分类列表

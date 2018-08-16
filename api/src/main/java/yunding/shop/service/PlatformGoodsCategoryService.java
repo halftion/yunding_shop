@@ -20,4 +20,11 @@ public interface PlatformGoodsCategoryService {
      * @return 商品列表
      */
     ServiceResult getAllGoods(int categoryId);
+
+    /**
+     * 在平台分类修改商品个数
+     * @param platformGoodsCategoryId 平台商品类别
+     * @param identifier 识别添加或删除
+     */
+    ServiceResult updateGoodsNum(int platformGoodsCategoryId, int identifier);
 }

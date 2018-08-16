@@ -12,8 +12,9 @@ public interface LoginMapper {
     /**
      * 插入登录信息到login表
      * @param login 登录信息
+     * @return 影响条数
      */
-    void insert(Login login);
+    Integer insert(Login login);
 
     /**
      * 通过登录名获取登录信息
@@ -21,4 +22,11 @@ public interface LoginMapper {
      * @return 登录信息
      */
     Login selectByLoginName(String loginName);
+
+    /**
+     * 修改登录信息
+     * @param login loginName password updated
+     * @return 影响条数
+     */
+    Integer updatePwd(Login login);
 }

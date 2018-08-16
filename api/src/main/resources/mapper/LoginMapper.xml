@@ -11,4 +11,8 @@
         SELECT * FROM t_login WHERE login_name = #{loginName}  AND state = 0
     </select>
 
+    <update id="updatePwd" parameterType="yunding.shop.entity.Login">
+        UPDATE t_login SET password = #{password}, updated_at = #{updatedAt} WHERE login_name = #{loginName}
+    </update>
+
 </mapper>

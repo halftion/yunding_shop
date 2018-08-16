@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.ShopGoodsCategory;
 import yunding.shop.mapper.ShopGoodsCategoryMapper;
@@ -13,6 +14,7 @@ import yunding.shop.service.ShopService;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,6 +83,27 @@ public class ShopGoodsCategoryServiceImpl implements ShopGoodsCategoryService {
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("添加店铺分类异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult updateGoodsNum(int shopGoodsCategoryId, int identifier) {
+        try {
+            ShopGoodsCategory shopGoodsCategory = new ShopGoodsCategory();
+            shopGoodsCategory.setShopGoodsCategoryId(shopGoodsCategoryId);
+            shopGoodsCategory.setUpdatedAt(new Date());
+            //添加
+            if(identifier == Constant.UPDATE_ADD && shopGoodsCategoryMapper.updateGoodsNum(shopGoodsCategory) != 1){
+                return ServiceResult.failure("在店铺分类添加商品个数失败");
+            }
+            //删除
+            if(identifier == Constant.UPDATE_DEL && shopGoodsCategoryMapper.updateAndDeleteGoodsNum(shopGoodsCategory) != 1){
+                return ServiceResult.failure("在店铺分类减少商品个数失败");
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("在店铺分类修改商品个数失败");
         }
     }
 }

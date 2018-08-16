@@ -1,8 +1,10 @@
 package yunding.shop.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Login;
 import yunding.shop.entity.Register;
+import yunding.shop.entity.ResetPwd;
 
 /**
  * @author 齐语冰
@@ -27,4 +29,7 @@ public interface LoginService {
      * @return 用户id
      */
     ServiceResult register(Register register);
+
+    @Transactional(rollbackFor=Exception.class)
+    ServiceResult resetPwd(ResetPwd resetPwd);
 }

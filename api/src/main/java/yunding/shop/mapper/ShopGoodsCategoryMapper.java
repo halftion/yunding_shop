@@ -22,4 +22,17 @@ public interface ShopGoodsCategoryMapper {
      * @param shopGoodsCategory ShopGoodsCategory类
      */
     Integer insertShopCategory(ShopGoodsCategory shopGoodsCategory);
+
+
+    /**
+     * 在店铺分类中修改对应的商品数量
+     * @param shopGoodsCategory 待修改分类 更新时间
+     */
+    Integer updateGoodsNum(ShopGoodsCategory shopGoodsCategory);
+
+    /**
+     * 在店铺分类中减少对应的商品数量
+     * @param shopGoodsCategory 待修改分类 更新时间
+     */
+    Integer updateAndDeleteGoodsNum(ShopGoodsCategory shopGoodsCategory);
 }

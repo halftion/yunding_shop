@@ -2,12 +2,16 @@ package yunding.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
+import yunding.shop.entity.PlatformGoodsCategory;
 import yunding.shop.mapper.PlatformGoodsCategoryMapper;
 import yunding.shop.service.GoodsService;
 import yunding.shop.service.PlatformGoodsCategoryService;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,6 +55,27 @@ public class PlatformGoodsCategoryServiceImpl implements PlatformGoodsCategorySe
             return ServiceResult.success(goods);
         }catch (Exception e){
             throw new RuntimeException("根据Id查询平台商品分类异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult updateGoodsNum( int platformGoodsCategoryId, int identifier) {
+        try{
+            PlatformGoodsCategory platformGoodsCategory = new PlatformGoodsCategory();
+            platformGoodsCategory.setPlatformGoodsCategoryId(platformGoodsCategoryId);
+            platformGoodsCategory.setUpdatedAt(new Date());
+            //添加
+            if(identifier == Constant.UPDATE_ADD && platformGoodsCategoryMapper.updateGoodsNum(platformGoodsCategory) != 1){
+                return ServiceResult.failure("在平台分类添加商品个数失败");
+            }
+            //删除
+            if(identifier == Constant.UPDATE_DEL && platformGoodsCategoryMapper.updateAndDeleteGoodsNum(platformGoodsCategory) != 1){
+                return ServiceResult.failure("在平台分类减少商品个数失败");
+            }
+            return ServiceResult.success();
+        }catch (Exception e){
+            throw new RuntimeException("在平台分类修改商品个数失败");
         }
     }
 }

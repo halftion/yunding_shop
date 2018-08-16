@@ -19,7 +19,7 @@ import java.util.Map;
  * @author 齐语冰
  */
 @RestController
-@RequestMapping("/api/cartMap")
+@RequestMapping("/api/cart")
 @Scope("singleton")
 public class CartController {
 

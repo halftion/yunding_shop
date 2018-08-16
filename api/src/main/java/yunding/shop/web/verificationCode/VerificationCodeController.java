@@ -23,12 +23,12 @@ public class VerificationCodeController {
     /**
      * 接收电话号发送验证码
      *
-     * @param phoneNumber 电话号
+     * @param loginName 登录名(电话号)
      */
-    @RequestMapping(value = "/register/{phoneNumber}", method = RequestMethod.GET)
-    public RequestResult register(@PathVariable String phoneNumber) {
+    @RequestMapping(value = "/send/{loginName}", method = RequestMethod.GET)
+    public RequestResult register(@PathVariable String loginName) {
         try {
-            ServiceResult serviceResult = verificationCodeService.sendAndSave(phoneNumber);
+            ServiceResult serviceResult = verificationCodeService.sendAndSave(loginName);
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
             } else {

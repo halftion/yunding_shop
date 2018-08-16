@@ -33,4 +33,10 @@ public class Constant {
      */
     public static final String IP_ADDRESS = "http://localhost:8080";
 
+    /**
+     * goodsService标识符
+     */
+    public static final Integer UPDATE_ADD = 1;
+    public static final Integer UPDATE_DEL = 2;
+
 }
