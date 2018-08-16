@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Content;
 import yunding.shop.mapper.ContentMapper;
 import yunding.shop.service.ContentService;
 
@@ -25,5 +26,15 @@ public class ContentServiceImpl implements ContentService {
         }catch (Exception e){
             return ServiceResult.failure("获取文章列表失败");
         }
+    }
+
+    @Override
+    public ServiceResult addContent(Content content) {
+        return null;
+    }
+
+    @Override
+    public ServiceResult deleteContent(Integer contentId) {
+        return null;
     }
 }
