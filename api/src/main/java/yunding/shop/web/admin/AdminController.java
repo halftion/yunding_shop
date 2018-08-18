@@ -1,10 +1,13 @@
 package yunding.shop.web.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Content;
+import yunding.shop.entity.Login;
 import yunding.shop.service.AdminService;
 
 /**
@@ -17,6 +20,25 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    /**
+     * 登录
+     * @param login 登录对象
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public RequestResult login(@RequestBody Login login) {
+        try {
+            ServiceResult serviceResult = adminService.login(login);
+            if (serviceResult.isSuccess()) {
+                return RequestResult.success(serviceResult.getData());
+            } else {
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return RequestResult.failure("登录失败");
+        }
+    }
 
     /**
      * 添加平台分类

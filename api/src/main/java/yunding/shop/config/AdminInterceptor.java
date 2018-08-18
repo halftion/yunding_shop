@@ -7,6 +7,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import yunding.shop.util.JwtUtil;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -14,13 +15,12 @@ import java.io.PrintWriter;
 /**
  * @author 齐语冰
  */
-public class ApiInterceptor implements HandlerInterceptor {
+public class AdminInterceptor implements HandlerInterceptor {
 
     private static final String TOKEN_HEADER= "Bearer ";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         String authorization = request.getHeader("Authorization");
 
         if(null == authorization){
@@ -34,10 +34,11 @@ public class ApiInterceptor implements HandlerInterceptor {
 
             try {
                 Claims claims = JwtUtil.verifyToken(token);
-                if (claims.get("admin") != null){
-                    return true;
+                Integer adminId = (Integer) claims.get("adminId");
+
+                if (adminId == null || !adminId.equals(2018)){
+                    return false;
                 }
-                request.setAttribute("currentUserId", claims.get("userId"));
             } catch (ExpiredJwtException e) {
                 response.reset();
                 PrintWriter pw = response.getWriter();

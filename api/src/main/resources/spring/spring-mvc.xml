@@ -7,12 +7,13 @@
 
     <mvc:interceptors>
         <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
-        <!--解决跨域-->
+        <!--解决跨域,定义在最前面-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="yunding.shop.config.AjaxInterceptor"/>
         </mvc:interceptor>
 
+        <!--API拦截器-->
         <mvc:interceptor>
             <mvc:mapping path="/api/user/**"/>
             <mvc:mapping path="/api/order/**"/>
@@ -27,6 +28,13 @@
             <mvc:exclude-mapping path="/api/verificationCode"/>
             <!-- 定义在mvc:interceptor下面的Interceptor表示是对特定的请求才进行拦截的 -->
             <bean class="yunding.shop.config.ApiInterceptor"/>
+        </mvc:interceptor>
+
+        <!--超级权限拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/api/admin/**"/>
+            <mvc:exclude-mapping path="/api/admin/login/**"/>
+            <bean class="yunding.shop.config.AdminInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

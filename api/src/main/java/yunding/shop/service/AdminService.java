@@ -3,11 +3,14 @@ package yunding.shop.service;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Content;
+import yunding.shop.entity.Login;
 
 /**
  * @author guo
  */
 public interface AdminService {
+
+    ServiceResult login(Login login);
 
     /**
      * 添加平台分类
