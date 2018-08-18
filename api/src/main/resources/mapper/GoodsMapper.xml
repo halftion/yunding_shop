@@ -90,7 +90,7 @@
         )
     </insert>
 
-    <update id="deleteGoods" parameterType="yunding.shop.entity.Goods">
+    <update id="updateGoodsState" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET state = #{state},
                             updated_at = #{updatedAt}
                             WHERE goods_id = #{goodsId}
@@ -98,6 +98,10 @@
 
     <select id="selectGoodsProperty" resultType="yunding.shop.entity.Goods">
         SELECT property, goods_id FROM t_goods WHERE `name` = #{name} AND shop_id = #{shopId} AND state = 0
+    </select>
+
+    <select id="selectAllGoods" resultType="yunding.shop.entity.Goods">
+        SELECT * FROM t_goods
     </select>
 
 </mapper>

@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.JwtResult;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Content;
 import yunding.shop.entity.Login;
-import yunding.shop.service.AdminService;
-import yunding.shop.service.ContentService;
-import yunding.shop.service.PlatformGoodsCategoryService;
-import yunding.shop.service.UserService;
+import yunding.shop.service.*;
 import yunding.shop.util.JwtUtil;
 
 /**
@@ -34,6 +32,12 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private GoodsService goodsService;
+
     @Override
     public ServiceResult login(Login login) {
         try {
@@ -54,8 +58,7 @@ public class AdminServiceImpl implements AdminService {
                 return ServiceResult.failure("用户名和密码不匹配");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return ServiceResult.failure("登录失败");
+            return ServiceResult.failure("登录异常");
         }
     }
 
@@ -70,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            throw new RuntimeException("平台分类创建失败");
+            throw new RuntimeException("平台分类创建异常");
         }
     }
 
@@ -85,7 +88,7 @@ public class AdminServiceImpl implements AdminService {
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            throw new RuntimeException("移除平台分类失败");
+            throw new RuntimeException("移除平台分类异常");
         }
     }
 
@@ -114,7 +117,7 @@ public class AdminServiceImpl implements AdminService {
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            throw new RuntimeException("文章创建失败");
+            throw new RuntimeException("文章创建异常");
         }
     }
 
@@ -129,12 +132,12 @@ public class AdminServiceImpl implements AdminService {
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            throw new RuntimeException("文章移除失败");
+            throw new RuntimeException("文章移除异常");
         }
     }
 
     @Override
-    public ServiceResult Alluser() {
+    public ServiceResult alluser() {
         try {
             ServiceResult sr = userService.getAllUser();
             if(!sr.isSuccess()){
@@ -159,6 +162,64 @@ public class AdminServiceImpl implements AdminService {
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("更新用户状态异常");
+        }
+    }
+
+    @Override
+    public ServiceResult allShop() {
+        try {
+            ServiceResult sr = shopService.selectAllShop();
+            if(!sr.isSuccess()){
+                //获取所有店铺失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success(sr.getData());
+        } catch (Exception e) {
+            return ServiceResult.failure("获取店铺异常");
+        }
+    }
+
+    @Override
+    public ServiceResult allGoods() {
+        try {
+            ServiceResult sr = goodsService.selectAllGoods();
+            if(!sr.isSuccess()){
+                //获取所有商品失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success(sr.getData());
+        } catch (Exception e) {
+            return ServiceResult.failure("获取所有商品异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult pullOffShelves(Integer goodsId) {
+        try {
+            ServiceResult sr = goodsService.updateGoodsState(goodsId, Constant.UPDATE_DEL);
+            if(!sr.isSuccess()){
+                //修改商品状态失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success(sr.getData());
+        } catch (Exception e) {
+            return ServiceResult.failure("下架商品异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult pullOnSales(Integer goodsId) {
+        try {
+            ServiceResult sr = goodsService.updateGoodsState(goodsId, Constant.UPDATE_ADD);
+            if(!sr.isSuccess()){
+                //修改商品状态失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success(sr.getData());
+        } catch (Exception e) {
+            throw new RuntimeException("上架商品异常");
         }
     }
 }

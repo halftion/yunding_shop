@@ -50,4 +50,10 @@ public interface ShopMapper {
      */
     Integer updateSales (Shop shop);
 
+    /**
+     * 查询所有店铺
+     * @return 店铺详细信息
+     */
+    List<Shop> selectAllShop();
+
 }

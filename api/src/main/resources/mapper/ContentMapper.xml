@@ -9,12 +9,14 @@
 
     <insert id="insertContent" parameterType="yunding.shop.entity.Content">
         INSERT INTO t_content(
+        goods_id,
         title1,
         title2,
         title3,
         pic,
         `type`
         )VALUES (
+        #{goodsId},
         #{title1},
         #{title2},
         #{title3},

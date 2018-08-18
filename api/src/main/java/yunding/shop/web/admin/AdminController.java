@@ -137,7 +137,7 @@ public class AdminController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public RequestResult user(){
         try {
-            ServiceResult result= adminService.Alluser();
+            ServiceResult result= adminService.alluser();
             if (result.isSuccess()){
                 return RequestResult.success(result.getData());
             }else {
@@ -167,4 +167,77 @@ public class AdminController {
             return RequestResult.failure("更新用户状态失败");
         }
     }
+
+    /**
+     * 查询所有店铺
+     * @return 所有店铺信息
+     */
+    @RequestMapping(value = "/shop", method = RequestMethod.GET)
+    public RequestResult allShop(){
+        try {
+            ServiceResult result= adminService.allShop();
+            if (result.isSuccess()){
+                return RequestResult.success();
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("查询所有店铺失败");
+        }
+    }
+
+    /**
+     * 查询所有商品
+     * @return 商品详细信息
+     */
+    @RequestMapping(value = "/goods", method = RequestMethod.GET)
+    public RequestResult allGoods(){
+        try {
+            ServiceResult result= adminService.allGoods();
+            if (result.isSuccess()){
+                return RequestResult.success();
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("查询所有是商品失败");
+        }
+    }
+
+    /**
+     * 下架商品
+     * @param goodsId 商品ID
+     */
+    @RequestMapping(value = "/goods/{goodsId}", method = RequestMethod.DELETE)
+    public RequestResult pullOffShelves(@PathVariable("goodsId") Integer goodsId){
+        try {
+            ServiceResult result= adminService.pullOffShelves(goodsId);
+            if (result.isSuccess()){
+                return RequestResult.success();
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("下架商品失败");
+        }
+    }
+
+    /**
+     * 上架商品
+     * @param goodsId 商品Id
+     */
+    @RequestMapping(value = "/goods/{goodsId", method = RequestMethod.PUT)
+    public RequestResult putOnSales(@PathVariable("goodsId") Integer goodsId){
+        try {
+            ServiceResult result= adminService.pullOnSales(goodsId);
+            if (result.isSuccess()){
+                return RequestResult.success();
+            }else {
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("上架商品失败");
+        }
+    }
+
 }

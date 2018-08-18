@@ -46,7 +46,7 @@ public interface AdminService {
      * 查看所有用户
      * @return 所有用户信息
      */
-    public ServiceResult Alluser();
+    public ServiceResult alluser();
 
     /**
      * 修改用户状态
@@ -54,5 +54,29 @@ public interface AdminService {
      * @param state 用户状态
      */
     public ServiceResult updateUserState(Integer userId, Integer state);
+
+    /**
+     * 查看所有店铺
+     * @return 店铺详细信息
+     */
+    public ServiceResult allShop();
+
+    /**
+     * 查看所有商品
+     * @return 商品详细信息
+     */
+    public ServiceResult allGoods();
+
+    /**
+     * 下架商品
+     * @param goodsId 商品Id
+     */
+    public ServiceResult pullOffShelves(Integer goodsId);
+
+    /**
+     * 上架商品
+     * @param goodsId 商品Id
+     */
+    public ServiceResult pullOnSales(Integer goodsId);
 }
 

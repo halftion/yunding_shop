@@ -21,11 +21,15 @@
 
     <select id="selectShopNameByShopId" parameterType="java.lang.Integer"
             resultType="java.lang.String">
-        SELECT name FROM t_shop WHERE shop_id = #{shopId}
+        SELECT `name` FROM t_shop WHERE shop_id = #{shopId}
     </select>
 
     <update id="updateSales" parameterType="yunding.shop.entity.Shop">
         UPDATE t_shop SET sales = #{sales}, updated_at = #{updatedAt} WHERE shop_id = #{shopId} AND state = 0
     </update>
+    
+    <select id="selectAllShop" resultType="yunding.shop.entity.Shop">
+        SELECT * FROM t_shop
+    </select>
 
 </mapper>

@@ -73,6 +73,7 @@
     "data": [
         {
             "contentId": 1,
+            "goodsId" : 133,
             "pic": "",
             "title1": "限时促销",
             "title2": "女装",
@@ -329,7 +330,7 @@ JSON传入：
     "message": "检测用户名失败"
 }
 
- 重置密码 /api/account/resetPwd 
+ 10.重置密码 /api/account/resetPwd 
  发送json：
  {
 	"loginName" : "17635357422",
@@ -339,7 +340,7 @@ JSON传入：
 成功：
 {"code":200,"message":"操作成功！"}
 
-10.根据电话号发送验证码：/api/verificationCode/send/{phoneNumber} (GET) √
+11.根据电话号发送验证码：/api/verificationCode/send/{phoneNumber} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -352,11 +353,11 @@ JSON传入：
 }
 
 
-验证验证码是否正确 /api/verificationCode/check/{loginName}/{code} (GET)
+12.验证验证码是否正确 /api/verificationCode/check/{loginName}/{code} (GET)
 
 
 
-11.根据用户ID获取用户信息：/api/user/info (GET) √
+13.根据用户ID获取用户信息：/api/user/info (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -380,7 +381,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-12.根据用户类修改用户信息：/api/user/update (PUT) √
+14.根据用户类修改用户信息：/api/user/update (PUT) √
 JSON传入：
 {
 	"nickName" : "qyb",
@@ -413,7 +414,7 @@ JSON传入：
     "message": "xxx失败"
 }
 
-13.上传用户头像：/api/photo/avatar (POST)
+15.上传用户头像：/api/photo/avatar (POST)
 form-data传入：
 	"key": pic (file)
 	"value": 文件路径
@@ -439,7 +440,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 固定页面：导航栏搜索 （购物车）
 
-14.根据商品关键词获取对应的店铺和商品：/api/search/platform/{keyword} (GET) √
+16.根据商品关键词获取对应的店铺和商品：/api/search/platform/{keyword} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -534,7 +535,7 @@ form-data传入：
     "message" : "xxx错误"
 }
 
-15.根据关键词获取对应提示（最多五个）：/api/hint/platform/{keyword} (GET) √
+17.根据关键词获取对应提示（最多五个）：/api/hint/platform/{keyword} (GET) √
 成功返回示例：
 {
   "code": 200,
@@ -566,7 +567,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 固定页面：导航栏搜索 （购物车）
 
-16.获取用户购物车：/api/cart/ (GET) √
+18.获取用户购物车：/api/cart/ (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -603,7 +604,7 @@ form-data传入：
     "message" : "xxx错误"
 }
 
-17.根据商品id在购物车中添加商品:/api/cartMap/{goodsId} (PUT) √
+19.根据商品id在购物车中添加商品:/api/cartMap/{goodsId} (PUT) √
 成功返回示例：
 {
     "code": 200,
@@ -652,7 +653,7 @@ form-data传入：
     "message" : "xxx错误"
 }
 
-18.根据商品id从购物车中移除商品:/api/cartMap/{goodsId} (DELETE) √
+20.根据商品id从购物车中移除商品:/api/cartMap/{goodsId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -694,7 +695,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 商品详情：
 
-19.根据商品id查询商品：/api/goods/id/{id} (GET) √
+21.根据商品id查询商品：/api/goods/id/{id} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -729,7 +730,7 @@ form-data传入：
     "message" : "xxx错误"
 }
 
-20.根据商品Id获取商品所有评论：/api/goods/comment/{goodsId} (GET) √
+22.根据商品Id获取商品所有评论：/api/goods/comment/{goodsId} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -756,7 +757,7 @@ form-data传入：
     "message" : "xxx错误"
 }
 
-21.根据商品Id查找同类商品规格：/api/goods/property/{goodsId} (GET)
+23.根据商品Id查找同类商品规格：/api/goods/property/{goodsId} (GET)
 成功返回示例：
 {
     "code": 200,
@@ -800,7 +801,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 订单：买家
 
-22.创建一个新订单：/api/order/create (POST) √
+24.创建一个新订单：/api/order/create (POST) √
 JSON传入：
 {
     "orderGoodsList":[
@@ -832,7 +833,7 @@ JSON传入：
     "message": "创建订单失败 "
 }
 
-23.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
+25.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
 成功返回示例：
 {
     "code": 200,
@@ -845,7 +846,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-25.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
+26.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -1274,7 +1275,7 @@ JSON传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 后台管理系统：
 
-36.添加平台分类：/api/admin/platformCategory/{name} (POST) √
+38.添加平台分类：/api/admin/platformCategory/{name} (POST) √
 成功返回示例：
 {
     "code": 200,
@@ -1286,7 +1287,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-37.移除平台分类：/api/admin/platformCategory/{categoryId} (DELETE) √
+39.移除平台分类：/api/admin/platformCategory/{categoryId} (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -1298,9 +1299,10 @@ JSON传入：
     "message": "xxx错误"
 }
 
-38.添加首页文章：/api/admin/content (POST) √
+40.添加首页文章：/api/admin/content (POST) √
 JSON传入：
 {
+	"goodsId" : 10,
 	"title1": "nike秋季款Nike Air Max Air Force Sneakers",
 	"title2" : "500人付款",
 	"title3": "￥1130.00",
@@ -1318,7 +1320,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-39.移除首页文章：/api/admin/content (DELETE) √
+41.移除首页文章：/api/admin/content (DELETE) √
 成功返回示例：
 {
     "code": 200,
@@ -1330,7 +1332,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-40.查看所有用户：/api/admin/user (GET) √
+42.查看所有用户：/api/admin/user (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -1376,7 +1378,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-41.更改用户状态：/api/admin/user/{userId}/{state} (PUT) √
+43.更改用户状态：/api/admin/user/{userId}/{state} (PUT) √
 成功返回示例：
 {
     "code": 200,
@@ -1388,7 +1390,15 @@ JSON传入：
     "message": "xxx错误"
 }
 
-42.查看所有文章：/api/admin/content (GET) √
+44.查看所有文章：/api/admin/content (GET) √
+
+45.查看所有店铺：/api/admin/shop (GET)
+
+46.查看所有商品：/api/admin/goods (GET)
+
+47.下架商品：/api/admin/goods (DELETE)
+
+48.上架商品：/api/admin/goods (POST)
 
 
 

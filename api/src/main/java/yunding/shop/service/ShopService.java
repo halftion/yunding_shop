@@ -39,5 +39,17 @@ public interface ShopService {
      */
     ServiceResult selectShopNameByShopId (Integer shopId);
 
+    /**
+     * 修改订单创建时的店铺信息
+     * @param orderInfo 订单信息
+     * @param orderGoodsList 订单商品列表
+     * @return
+     */
     ServiceResult processOrderCreate(OrderInfo orderInfo, List<OrderGoods> orderGoodsList);
+
+    /**
+     * 查询所有店铺
+     * @return 店铺详情
+     */
+    ServiceResult selectAllShop();
 }

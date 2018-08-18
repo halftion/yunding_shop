@@ -95,7 +95,7 @@ public interface GoodsMapper {
      * 删除商品
      * @param goods 商品Id
      */
-    Integer deleteGoods(Goods goods);
+    Integer updateGoodsState(Goods goods);
 
     /**
      * 获取同类商品属性
@@ -105,5 +105,10 @@ public interface GoodsMapper {
      */
     List<Goods> selectGoodsProperty(@Param("name") String name, @Param("shopId") Integer shopId);
 
+    /**
+     * 查询所有商品
+     * @return 商品详细信息
+     */
+    List<Goods> selectAllGoods();
 
 }

@@ -16,6 +16,10 @@ public class Content {
     @GeneratedValue(generator = "JDBC")
     private Integer contentId;
     /**
+     * 文章 商品Id
+     */
+    private Integer goodsId;
+    /**
      * 文章 标题1
      */
     private String title1;
@@ -42,6 +46,14 @@ public class Content {
 
     public void setContentId(Integer contentId) {
         this.contentId = contentId;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getTitle1() {

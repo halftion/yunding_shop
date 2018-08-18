@@ -87,6 +87,16 @@ public class ShopServiceImpl implements ShopService {
         }
     }
 
+    @Override
+    public ServiceResult selectAllShop() {
+        try {
+            List<Shop> shopList = shopMapper.selectAllShop();
+            return ServiceResult.success(shopList);
+        }catch (Exception e){
+            throw new RuntimeException("获取所有店铺失败");
+        }
+    }
+
     /**
      * 根据店铺Id修改店铺销量
      * @param shopId 店铺Id

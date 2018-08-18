@@ -19,6 +19,10 @@ public class Shop {
     @GeneratedValue(generator = "JDBC")
     private Integer shopId;
     /**
+     * 店铺 logo
+     */
+    private String logo;
+    /**
      * 店铺 所属用户id
      */
     private Integer userId;
@@ -59,6 +63,14 @@ public class Shop {
 
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public Integer getUserId() {

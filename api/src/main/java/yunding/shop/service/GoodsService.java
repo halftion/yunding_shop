@@ -112,5 +112,17 @@ public interface GoodsService {
      */
     ServiceResult selectGoodsProperty(Integer goodsId);
 
+    /**
+     * 查询所有商品
+     * @return 所有商品信息
+     */
+    ServiceResult selectAllGoods();
+
+    /**
+     * 根据商品Id上架或下架商品
+     * @param goodsId 商品Id
+     * @param identifier 标识符
+     */
+    ServiceResult updateGoodsState(Integer goodsId, Integer identifier);
 
 }

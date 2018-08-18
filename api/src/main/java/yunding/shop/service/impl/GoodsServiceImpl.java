@@ -261,7 +261,7 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setGoodsId(goodsId);
             goods.setState(-1);
             goods.updateAtNow();
-            if (goodsMapper.deleteGoods(goods) != 1) {
+            if (goodsMapper.updateGoodsState(goods) != 1) {
                 return ServiceResult.failure("删除商品失败");
             }
 
@@ -292,6 +292,36 @@ public class GoodsServiceImpl implements GoodsService{
         }catch (Exception e){
             e.printStackTrace();
             return ServiceResult.failure("查找异常");
+        }
+    }
+
+    @Override
+    public ServiceResult selectAllGoods() {
+        try{
+            List<Goods> goodsList = goodsMapper.selectAllGoods();
+            return ServiceResult.success(goodsList);
+        }catch (Exception e){
+            return ServiceResult.failure("查找所有用户异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ServiceResult updateGoodsState(Integer goodsId, Integer identifier) {
+        try{
+            Goods goods = new Goods();
+            goods.setGoodsId(goodsId);
+            goods.setUpdatedAt(new Date());
+            if(identifier.equals(Constant.UPDATE_ADD)){
+                goods.setState(1);
+            }else if(identifier.equals(Constant.UPDATE_DEL)){
+                goods.setState(-1);
+            }else {
+                return ServiceResult.failure("标识符错误");
+            }
+            return ServiceResult.success();
+        }catch (Exception e){
+            throw new RuntimeException("修改商品状态失败");
         }
     }
 }
