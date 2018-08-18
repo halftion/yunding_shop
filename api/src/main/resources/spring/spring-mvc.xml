@@ -19,13 +19,9 @@
             <mvc:mapping path="/api/order/**"/>
             <mvc:mapping path="/api/aliPay/purchase/**"/>
             <mvc:mapping path="/api/photo/**"/>
-            <mvc:mapping path="/api/cartMap/**"/>
+            <mvc:mapping path="/api/cart/**"/>
             <mvc:mapping path="/api/shopCategory/*"/>
             <mvc:mapping path="/api/goods/*"/>
-            <mvc:exclude-mapping path="/api/user/checkLoginName/**"/>
-            <mvc:exclude-mapping path="/api/user/login/**"/>
-            <mvc:exclude-mapping path="/api/user/register/**"/>
-            <mvc:exclude-mapping path="/api/verificationCode"/>
             <!-- 定义在mvc:interceptor下面的Interceptor表示是对特定的请求才进行拦截的 -->
             <bean class="yunding.shop.config.ApiInterceptor"/>
         </mvc:interceptor>
