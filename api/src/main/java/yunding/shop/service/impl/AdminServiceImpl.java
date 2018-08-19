@@ -202,9 +202,9 @@ public class AdminServiceImpl implements AdminService {
                 //修改商品状态失败
                 return ServiceResult.failure(sr.getMessage());
             }
-            return ServiceResult.success(sr.getData());
+            return ServiceResult.success();
         } catch (Exception e) {
-            return ServiceResult.failure("下架商品异常");
+            throw new RuntimeException("下架商品异常");
         }
     }
 

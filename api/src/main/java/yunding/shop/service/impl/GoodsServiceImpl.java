@@ -319,6 +319,7 @@ public class GoodsServiceImpl implements GoodsService{
             }else {
                 return ServiceResult.failure("标识符错误");
             }
+            goodsMapper.updateGoodsState(goods);
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("修改商品状态失败");

@@ -47,11 +47,11 @@ public class AdminController {
     @RequestMapping(value = "/platformCategory/{name}", method = RequestMethod.POST)
     public RequestResult addPlatformCategory(@PathVariable("name") String name){
         try {
-            ServiceResult result= adminService.addPlatformCategory(name);
-            if (result.isSuccess()){
+            ServiceResult serviceResult= adminService.addPlatformCategory(name);
+            if (serviceResult.isSuccess()){
                 return RequestResult.success();
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("添加平台分类失败");
@@ -65,11 +65,11 @@ public class AdminController {
     @RequestMapping(value = "/platformCategory/{categoryId}", method = RequestMethod.DELETE)
     public RequestResult deletePlatformCategory(@PathVariable("categoryId") Integer categoryId){
         try {
-            ServiceResult result= adminService.deletePlatformCategory(categoryId);
-            if (result.isSuccess()){
+            ServiceResult serviceResult= adminService.deletePlatformCategory(categoryId);
+            if (serviceResult.isSuccess()){
                 return RequestResult.success();
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("移除平台分类失败");
@@ -83,11 +83,11 @@ public class AdminController {
     @RequestMapping(value = "/content", method = RequestMethod.GET)
     RequestResult selectAll(){
         try {
-            ServiceResult result= adminService.allContent();
-            if (result.isSuccess()){
-                return RequestResult.success(result.getData());
+            ServiceResult serviceResult= adminService.allContent();
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("获取所有文章失败");
@@ -137,11 +137,11 @@ public class AdminController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public RequestResult user(){
         try {
-            ServiceResult result= adminService.alluser();
-            if (result.isSuccess()){
-                return RequestResult.success(result.getData());
+            ServiceResult serviceResult= adminService.alluser();
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("查询所有用户失败");
@@ -175,11 +175,11 @@ public class AdminController {
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
     public RequestResult allShop(){
         try {
-            ServiceResult result= adminService.allShop();
-            if (result.isSuccess()){
-                return RequestResult.success();
+            ServiceResult serviceResult= adminService.allShop();
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
             return RequestResult.failure("查询所有店铺失败");
@@ -193,14 +193,14 @@ public class AdminController {
     @RequestMapping(value = "/goods", method = RequestMethod.GET)
     public RequestResult allGoods(){
         try {
-            ServiceResult result= adminService.allGoods();
-            if (result.isSuccess()){
-                return RequestResult.success();
+            ServiceResult serviceResult= adminService.allGoods();
+            if (serviceResult.isSuccess()){
+                return RequestResult.success(serviceResult.getData());
             }else {
-                return RequestResult.failure(result.getMessage());
+                return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
-            return RequestResult.failure("查询所有是商品失败");
+            return RequestResult.failure("查询所有商品失败");
         }
     }
 
@@ -226,7 +226,7 @@ public class AdminController {
      * 上架商品
      * @param goodsId 商品Id
      */
-    @RequestMapping(value = "/goods/{goodsId", method = RequestMethod.PUT)
+    @RequestMapping(value = "/goods/{goodsId}", method = RequestMethod.PUT)
     public RequestResult putOnSales(@PathVariable("goodsId") Integer goodsId){
         try {
             ServiceResult result= adminService.pullOnSales(goodsId);
