@@ -125,14 +125,29 @@ public class AdminServiceImpl implements AdminService {
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult deleteContent(Integer contentId) {
         try {
-            ServiceResult sr = contentService.deleteContent(contentId);
+            ServiceResult sr = contentService.updateContentState(contentId, Constant.UPDATE_DEL);
             if(!sr.isSuccess()){
-                //更新文章类型失败
+                //更新文章状态失败
                 return ServiceResult.failure(sr.getMessage());
             }
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("文章移除异常");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult recoverContent(Integer contentId) {
+        try {
+            ServiceResult sr = contentService.updateContentState( contentId, Constant.UPDATE_ADD);
+            if(!sr.isSuccess()){
+                //更新文章状态失败
+                return ServiceResult.failure(sr.getMessage());
+            }
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("文章恢复异常");
         }
     }
 

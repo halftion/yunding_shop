@@ -4,7 +4,7 @@
 <mapper namespace="yunding.shop.mapper.ContentMapper">
 
     <select id="selectByTypeId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Content">
-        SELECT * FROM t_content WHERE type = #{type}
+        SELECT * FROM t_content WHERE type = #{type} AND state = 0
     </select>
 
     <insert id="insertContent" parameterType="yunding.shop.entity.Content">
@@ -25,8 +25,8 @@
         )
     </insert>
 
-    <update id="updateContentType">
-        UPDATE t_content SET `type` = -1 WHERE content_id = #{contentId}
+    <update id="updateContentType" parameterType="yunding.shop.entity.Content">
+        UPDATE t_content SET state = #{state} WHERE content_id = #{contentId}
     </update>
 
     <select id="selectAll" resultType="yunding.shop.entity.Content">

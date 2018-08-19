@@ -24,10 +24,10 @@ public interface ContentMapper {
     Integer insertContent(Content content);
 
     /**
-     * 移除文章
-     * @param contentId
+     * 修改文章状态
+     * @param content 文章Id 文章状态
      */
-    Integer updateContentType(Integer contentId);
+    Integer updateContentState(Content content);
 
     /**
      * 获取所有文章

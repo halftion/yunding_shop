@@ -21,11 +21,11 @@ public interface ContentService {
     ServiceResult addContent(Content content);
 
     /**
-     * 根据文章Id移除文章
+     * 根据文章Id移除或恢复文章
      * @param contentId 文章Id
-     * @return
+     * @param identifier 标识符
      */
-    ServiceResult deleteContent(Integer contentId);
+    ServiceResult updateContentState(Integer contentId, Integer identifier);
 
     /**
      * 获取所有文章

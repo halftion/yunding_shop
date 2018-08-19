@@ -39,6 +39,10 @@ public class Content {
      * 文章 类型：0-轮播图，1-热卖商品，2-新品首发，3-精选好物小图 ,4精选好物大图，5精选好物长图
      */
     private Integer type;
+    /**
+     * 文章 状态：0-正常，-1-删除
+     */
+    private Integer state;
 
     public Integer getContentId() {
         return contentId;
@@ -94,5 +98,13 @@ public class Content {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

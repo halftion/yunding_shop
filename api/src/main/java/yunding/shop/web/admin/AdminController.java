@@ -1,8 +1,6 @@
 package yunding.shop.web.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
@@ -123,6 +121,7 @@ public class AdminController {
             if (result.isSuccess()){
                 return RequestResult.success();
             }else {
+                //文章移除异常
                 return RequestResult.failure(result.getMessage());
             }
         } catch (Exception e) {
@@ -130,6 +129,24 @@ public class AdminController {
         }
     }
 
+    /**
+     * 恢复首页文章
+     * @param contendId 文章Id
+     */
+    @RequestMapping(value = "/content/{contentId}", method = RequestMethod.PUT)
+    public RequestResult recoverContent(@PathVariable("contentId") Integer contendId){
+        try {
+            ServiceResult result= adminService.recoverContent(contendId);
+            if (result.isSuccess()){
+                return RequestResult.success();
+            }else {
+                //文章恢复异常
+                return RequestResult.failure(result.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("恢复首页文章失败");
+        }
+    }
     /**
      * 查看所有用户
      * @return 所有用户信息

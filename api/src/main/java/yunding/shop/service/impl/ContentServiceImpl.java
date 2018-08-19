@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
+import yunding.shop.entity.Constant;
 import yunding.shop.entity.Content;
 import yunding.shop.mapper.ContentMapper;
 import yunding.shop.service.ContentService;
@@ -47,14 +48,20 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult deleteContent(Integer contentId) {
+    public ServiceResult updateContentState(Integer contentId, Integer identifier) {
         try {
-            if(contentMapper.updateContentType(contentId) != 1){
-                return ServiceResult.failure("更新文章类型失败");
+            Content content = new Content();
+            content.setContentId(contentId);
+            if(identifier.equals(Constant.UPDATE_ADD)){
+                content.setState(0);
+            }else if(identifier.equals(Constant.UPDATE_DEL)) {
+                content.setState(-1);
+            }else {
+                return ServiceResult.failure("更新文章状态失败");
             }
             return ServiceResult.success();
         } catch (Exception e) {
-            throw new RuntimeException("更新文章类型异常");
+            throw new RuntimeException("更新文章状态异常");
         }
     }
 

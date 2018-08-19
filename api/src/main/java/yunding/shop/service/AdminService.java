@@ -43,6 +43,12 @@ public interface AdminService {
     public ServiceResult deleteContent(Integer contentId);
 
     /**
+     * 恢复首页文章
+     * @param contentId 文章Id
+     */
+    public ServiceResult recoverContent(Integer contentId);
+
+    /**
      * 查看所有用户
      * @return 所有用户信息
      */

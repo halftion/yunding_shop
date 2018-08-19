@@ -313,7 +313,7 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setGoodsId(goodsId);
             goods.setUpdatedAt(new Date());
             if(identifier.equals(Constant.UPDATE_ADD)){
-                goods.setState(1);
+                goods.setState(0);
             }else if(identifier.equals(Constant.UPDATE_DEL)){
                 goods.setState(-1);
             }else {

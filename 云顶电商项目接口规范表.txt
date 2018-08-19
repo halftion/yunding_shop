@@ -1332,7 +1332,21 @@ JSON传入：
     "message": "xxx错误"
 }
 
-42.查看所有用户：/api/admin/user (GET) √
+42.恢复文章：/api/admin/content/{contentId} (PUT)
+
+43.更改用户状态：/api/admin/user/{userId}/{state} (PUT) √
+成功返回示例：
+{
+    "code": 200,
+    "message": "操作成功！"
+}
+失败返回示例：
+{
+    "code": 500,
+    "message": "xxx错误"
+}
+
+44.查看所有用户：/api/admin/user (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -1377,28 +1391,17 @@ JSON传入：
     "code": 500,
     "message": "xxx错误"
 }
+45.查看所有文章：/api/admin/content (GET) √
 
-43.更改用户状态：/api/admin/user/{userId}/{state} (PUT) √
-成功返回示例：
-{
-    "code": 200,
-    "message": "操作成功！"
-}
-失败返回示例：
-{
-    "code": 500,
-    "message": "xxx错误"
-}
+46.查看所有店铺：/api/admin/shop (GET)
 
-44.查看所有文章：/api/admin/content (GET) √
+47.查看所有商品：/api/admin/goods (GET)
 
-45.查看所有店铺：/api/admin/shop (GET)
+48.下架商品：/api/admin/goods (DELETE)
 
-46.查看所有商品：/api/admin/goods (GET)
+49.上架商品：/api/admin/goods (POST)
 
-47.下架商品：/api/admin/goods (DELETE)
-
-48.上架商品：/api/admin/goods (POST)
+50.查看服务器参数：/api/ecs (GET)
 
 
 
