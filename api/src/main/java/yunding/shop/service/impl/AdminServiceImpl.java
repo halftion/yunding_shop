@@ -132,6 +132,7 @@ public class AdminServiceImpl implements AdminService {
             }
             return ServiceResult.success();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("文章移除异常");
         }
     }

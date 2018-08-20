@@ -1,5 +1,6 @@
 package yunding.shop.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -302,6 +303,17 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success(goodsList);
         }catch (Exception e){
             return ServiceResult.failure("查找所有用户异常");
+        }
+    }
+
+    @Override
+    public ServiceResult selectAllGoods(int currentPage, int pageSize){
+        try {
+            PageHelper.startPage(currentPage, pageSize);
+            List<Goods> goodsList = goodsMapper.selectAllGoods();
+            return ServiceResult.success(goodsList);
+        } catch (Exception e) {
+            return ServiceResult.failure("分页查找全部商品失败");
         }
     }
 

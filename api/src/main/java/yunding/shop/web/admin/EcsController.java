@@ -30,7 +30,7 @@ public class EcsController {
      * @param request request对象
      * @return 服务器信息
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     public RequestResult ecsController(HttpServletRequest request){
         try{
             ServiceResult sr = ecsService.ecsMessage(request);

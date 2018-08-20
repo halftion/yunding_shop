@@ -25,7 +25,7 @@
         )
     </insert>
 
-    <update id="updateContentType" parameterType="yunding.shop.entity.Content">
+    <update id="updateContentState" parameterType="yunding.shop.entity.Content">
         UPDATE t_content SET state = #{state} WHERE content_id = #{contentId}
     </update>
 

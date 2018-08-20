@@ -14,31 +14,7 @@
         <property name="initialSize" value="10" />
         <property name="maxActive" value="20" />
     </bean>
-    
-    <bean id="alipay" class="yunding.shop.util.AlipayUtil">
-        <property name="appId" value="${appId}"/>
-        <property name="privateKey" value="${privateKey}"/>
-        <property name="format" value="${format}"/>
-        <property name="publicKey" value="${publicKey}"/>
-        <property name="signType" value="${signType}"/>
-        <property name="charset" value="${charset}"/>
-        <property name="gatewayUrl"  value="${gatewayUrl}"/>
-        <property name="returnUrl" value="${returnUrl}"/>
-        <property name="notifyUrl" value="${notifyUrl}"/>
-        <property name="logPath" value="${logPath}"/>
-    </bean>
 
-    <bean id="sMSUtil" class="yunding.shop.util.SmsUtil">
-        <property name="product" value="${SMS.product}"/>
-        <property name="domain" value="${SMS.domain}"/>
-        <property name="accessKeyId" value="${SMS.accessKeyId}"/>
-        <property name="accessKeySecret" value="${SMS.accessKeySecret}"/>
-        <property name="templateCode" value="${SMS.templateCode}"/>
-        <property name="outTime" value="${SMS.outTime}"/>
-    </bean>
-
-
-   
     <bean id="sessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis/configuration.xml"/>

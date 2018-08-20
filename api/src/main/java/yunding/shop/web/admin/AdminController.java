@@ -7,6 +7,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Content;
 import yunding.shop.entity.Login;
 import yunding.shop.service.AdminService;
+import yunding.shop.service.GoodsService;
 
 /**
  * 后台管理系统
@@ -18,6 +19,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     /**
      * 登录
@@ -125,6 +129,7 @@ public class AdminController {
                 return RequestResult.failure(result.getMessage());
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return RequestResult.failure("移除首页文章失败");
         }
     }
@@ -207,17 +212,18 @@ public class AdminController {
      * 查询所有商品
      * @return 商品详细信息
      */
-    @RequestMapping(value = "/goods", method = RequestMethod.GET)
-    public RequestResult allGoods(){
+    @RequestMapping(value = "/goods/{currentPage}/{pageSize}", method = RequestMethod.GET)
+    public RequestResult pageAllGoods(@PathVariable Integer currentPage, @PathVariable Integer pageSize){
         try {
-            ServiceResult serviceResult= adminService.allGoods();
+            ServiceResult serviceResult= goodsService.selectAllGoods(currentPage,pageSize);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
-            return RequestResult.failure("查询所有商品失败");
+            e.printStackTrace();
+            return RequestResult.failure("分页查询所有商品失败");
         }
     }
 

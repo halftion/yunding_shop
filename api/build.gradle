@@ -98,4 +98,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
     compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.10'
 
+    /*分页插件*/
+    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper
+    compile group: 'com.github.pagehelper', name: 'pagehelper', version: '5.1.4'
+
 }

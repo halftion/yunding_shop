@@ -118,6 +118,8 @@ public interface GoodsService {
      */
     ServiceResult selectAllGoods();
 
+    ServiceResult selectAllGoods(int currentPage, int pageSize);
+
     /**
      * 根据商品Id上架或下架商品
      * @param goodsId 商品Id

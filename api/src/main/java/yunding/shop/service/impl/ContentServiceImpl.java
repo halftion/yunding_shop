@@ -59,8 +59,10 @@ public class ContentServiceImpl implements ContentService {
             }else {
                 return ServiceResult.failure("更新文章状态失败");
             }
+            contentMapper.updateContentState(content);
             return ServiceResult.success();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("更新文章状态异常");
         }
     }
