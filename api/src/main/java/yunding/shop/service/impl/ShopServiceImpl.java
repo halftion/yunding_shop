@@ -8,6 +8,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.OrderGoods;
 import yunding.shop.entity.OrderInfo;
 import yunding.shop.entity.Shop;
+import yunding.shop.mapper.ShopIndexMapper;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
 
@@ -22,6 +23,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopMapper shopMapper;
+
+    @Autowired
+    private ShopIndexMapper shopIndexMapper;
 
     @Override
     public ServiceResult selectByName(String keyword) {
@@ -94,6 +98,16 @@ public class ShopServiceImpl implements ShopService {
             return ServiceResult.success(shopList);
         }catch (Exception e){
             throw new RuntimeException("获取所有店铺失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectShopHtml(Integer shopId, Integer type) {
+        try {
+            String html = shopIndexMapper.selectShopHtml(shopId, type);
+            return ServiceResult.success(html);
+        }catch (Exception e){
+            throw new RuntimeException("获取html异常");
         }
     }
 

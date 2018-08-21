@@ -9,6 +9,7 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.OrderGoods;
+import yunding.shop.mapper.GoodsIndexMapper;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.*;
 
@@ -26,6 +27,9 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Autowired
     private GoodsMapper goodsMapper;
+
+    @Autowired
+    private GoodsIndexMapper goodsIndexMapper;
 
     @Autowired
     private ShopService shopService;
@@ -336,6 +340,16 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("修改商品状态失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectGoodsHtml(Integer goodsId) {
+        try {
+            String html = goodsIndexMapper.selectGoodsHtml(goodsId);
+            return ServiceResult.success(html);
+        } catch (Exception e) {
+            return ServiceResult.failure("获取html异常");
         }
     }
 }
