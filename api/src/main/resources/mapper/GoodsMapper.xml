@@ -32,11 +32,11 @@
     
     <update id="updateStockAndSales" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales} ,updated_at = #{updatedAt}
-        WHERE goods_id = #{goodsId}  AND state = 0
+        WHERE goods_id = #{url}  AND state = 0
     </update>
 
     <update id="commentGoods">
-        UPDATE t_goods SET comment_num = comment_num+1 , updated_at = #{updatedAt} WHERE goods_id = #{goodsId}
+        UPDATE t_goods SET comment_num = comment_num+1 , updated_at = #{updatedAt} WHERE goods_id = #{url}
     </update>
 
 
@@ -49,19 +49,19 @@
         price = #{price},
         introduction = #{introduction},
         updated_at = #{updatedAt}
-         WHERE goods_id = #{goodsId}
+         WHERE goods_id = #{url}
 
     </update>
 
     <select id="selectShopIdByGoodsId" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
-        SELECT shop_id FROM t_goods WHERE goods_id = #{goodsId}
+        SELECT shop_id FROM t_goods WHERE goods_id = #{url}
     </select>
 
     <update id="saveGoodsPhoto" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET picture = #{picture} ,
                             updated_at = #{updatedAt}
-                            WHERE goods_id = #{goodsId}
+                            WHERE goods_id = #{url}
     </update>
 
     <insert id="insertGoods" parameterType="yunding.shop.entity.Goods">
@@ -93,7 +93,7 @@
     <update id="updateGoodsState" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET state = #{state},
                             updated_at = #{updatedAt}
-                            WHERE goods_id = #{goodsId}
+                            WHERE goods_id = #{url}
     </update>
 
     <select id="selectGoodsProperty" resultType="yunding.shop.entity.Goods">

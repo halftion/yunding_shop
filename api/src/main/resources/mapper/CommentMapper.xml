@@ -5,11 +5,11 @@
 
     <select id="selectByGoodsId" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Comment">
-        SELECT user_id, avatar, nick_name, content, updated_at FROM t_comment WHERE goods_id = #{goodsId} AND state = 0
+        SELECT user_id, avatar, nick_name, content, updated_at FROM t_comment WHERE goods_id = #{url} AND state = 0
     </select>
 
     <select id="selectByOrderIdAndGoodsId">
-        SELECT * FROM t_comment WHERE order_id = #{orderId} AND goods_id = #{goodsId} AND state = 0
+        SELECT * FROM t_comment WHERE order_id = #{orderId} AND goods_id = #{url} AND state = 0
     </select>
 
     <insert id="insert" parameterType="yunding.shop.entity.Comment">
@@ -23,7 +23,7 @@
         created_at,
         updated_at
         ) VALUES (
-        #{goodsId},
+        #{url},
         #{orderId},
         #{userId},
         #{nickName},
@@ -39,7 +39,7 @@
         SET
         updated_at = #{updatedAt},
         state = -1
-        WHERE order_id = #{orderId} AND goods_id = #{goodsId}
+        WHERE order_id = #{orderId} AND goods_id = #{url}
     </update>
 
 </mapper>

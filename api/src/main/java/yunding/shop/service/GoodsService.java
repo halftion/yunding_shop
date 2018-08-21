@@ -118,7 +118,7 @@ public interface GoodsService {
      */
     ServiceResult selectAllGoods();
 
-    ServiceResult selectAllGoods(int currentPage, int pageSize);
+    ServiceResult selectAllGoods(Integer currentPage);
 
     /**
      * 根据商品Id上架或下架商品

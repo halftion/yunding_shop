@@ -16,6 +16,7 @@ public interface PhotoService {
      * @return 是否成功
      */
     ServiceResult saveAvatarUrl(Integer userId, String url);
+
     /**
      * 保存头像
      * @param userId 用户id
@@ -23,7 +24,7 @@ public interface PhotoService {
      * @param realPath 保存路径
      * @return 保存后的头像地址
      */
-    ServiceResult saveAvatar(Integer userId,MultipartFile pic,String realPath);
+    /*ServiceResult saveAvatar(Integer userId,MultipartFile pic,String realPath);*/
 
     /**
      * 保存商品图片

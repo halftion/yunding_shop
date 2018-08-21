@@ -42,7 +42,7 @@ public class PhotoServiceImpl implements PhotoService{
         }
     }
 
-    @Override
+    /*@Override
     public ServiceResult saveAvatar(Integer userId, MultipartFile pic, String realPath) {
 
         try {
@@ -59,7 +59,7 @@ public class PhotoServiceImpl implements PhotoService{
             e.printStackTrace();
             return ServiceResult.failure("作品上传失败"+e.getMessage());
         }
-    }
+    }*/
 
     @Override
     public ServiceResult saveGoodsPhoto(Integer userId, Integer goodsId, MultipartFile pic, String realPath) {

@@ -212,10 +212,10 @@ public class AdminController {
      * 查询所有商品
      * @return 商品详细信息
      */
-    @RequestMapping(value = "/goods/{currentPage}/{pageSize}", method = RequestMethod.GET)
-    public RequestResult pageAllGoods(@PathVariable Integer currentPage, @PathVariable Integer pageSize){
+    @RequestMapping(value = "/goods/{currentPage}", method = RequestMethod.GET)
+    public RequestResult pageAllGoods(@PathVariable Integer currentPage){
         try {
-            ServiceResult serviceResult= goodsService.selectAllGoods(currentPage,pageSize);
+            ServiceResult serviceResult= goodsService.selectAllGoods(currentPage);
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
             }else {

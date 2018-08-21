@@ -1,18 +1,13 @@
 package yunding.shop.web.admin;
 
-import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import yunding.shop.config.CountSessionListener;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.service.EcsService;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 服务器

@@ -18,7 +18,7 @@ public class Content {
     /**
      * 文章 商品Id
      */
-    private Integer goodsId;
+    private String url;
     /**
      * 文章 标题1
      */
@@ -52,12 +52,12 @@ public class Content {
         this.contentId = contentId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public String getUrl() {
+        return url;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getTitle1() {

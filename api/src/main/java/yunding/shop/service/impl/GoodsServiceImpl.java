@@ -307,8 +307,9 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public ServiceResult selectAllGoods(int currentPage, int pageSize){
+    public ServiceResult selectAllGoods(Integer currentPage){
         try {
+            int pageSize = 10;
             PageHelper.startPage(currentPage, pageSize);
             List<Goods> goodsList = goodsMapper.selectAllGoods();
             return ServiceResult.success(goodsList);

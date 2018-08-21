@@ -23,12 +23,12 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
-    @RequestMapping(value = "/avatarUrl", method = RequestMethod.POST)
-    public RequestResult saveAvatarUrl(@RequestBody JSONObject url, HttpServletRequest request){
+    @RequestMapping(value = "/avatar/{url}", method = RequestMethod.PUT)
+    public RequestResult saveAvatarUrl(@PathVariable String url, HttpServletRequest request){
 
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = photoService.saveAvatarUrl(userId,url.getString("url"));
+            ServiceResult serviceResult = photoService.saveAvatarUrl(userId,url);
 
             if(serviceResult.isSuccess()){
                 return RequestResult.success();
@@ -45,7 +45,7 @@ public class PhotoController {
      * @param pic 图片
      * @param request request对象
      */
-    @RequestMapping(value = "/avatar", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/avatar", method = RequestMethod.POST)
     public RequestResult saveAvatar(@RequestParam("pic") MultipartFile pic, HttpServletRequest request){
         try{
             Integer userId = UserUtil.getCurrentUserId(request);
@@ -60,7 +60,7 @@ public class PhotoController {
             e.printStackTrace();
             return RequestResult.failure("头像上传失败");
         }
-    }
+    }*/
 
     /**
      * 上传/修改 商品图片
