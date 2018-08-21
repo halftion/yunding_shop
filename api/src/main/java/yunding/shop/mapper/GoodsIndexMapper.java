@@ -1,5 +1,8 @@
 package yunding.shop.mapper;
 
+/**
+ * @author guo
+ */
 public interface GoodsIndexMapper {
 
     /**

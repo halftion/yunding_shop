@@ -2,6 +2,9 @@ package yunding.shop.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author guo
+ */
 public interface ShopIndexMapper {
 
     /**
