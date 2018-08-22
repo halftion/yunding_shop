@@ -9,6 +9,8 @@ import yunding.shop.entity.Login;
 import yunding.shop.service.AdminService;
 import yunding.shop.service.GoodsService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 后台管理系统
  * @author guo
@@ -260,6 +262,25 @@ public class AdminController {
             }
         } catch (Exception e) {
             return RequestResult.failure("上架商品失败");
+        }
+    }
+
+    /**
+     * 获取服务器信息
+     * @param request request对象
+     * @return 服务器信息
+     */
+    @RequestMapping(value = "/ecsInfo", method = RequestMethod.GET)
+    public RequestResult ecsController(HttpServletRequest request){
+        try{
+            ServiceResult sr = adminService.ecsMessage(request);
+            if(sr.isSuccess()){
+                return RequestResult.success(sr.getData());
+            }else {
+                return RequestResult.failure(sr.getMessage());
+            }
+        }catch (Exception e){
+            return RequestResult.failure("获取服务器端异常");
         }
     }
 

@@ -1,21 +1,12 @@
 package yunding.shop.service.impl;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.impl.DefaultClaims;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yunding.shop.dto.JwtResult;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.Login;
-import yunding.shop.entity.Register;
 import yunding.shop.entity.UserInfo;
-import yunding.shop.mapper.LoginMapper;
 import yunding.shop.mapper.UserMapper;
-import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
-import yunding.shop.util.JwtUtil;
 import java.util.Date;
 import java.util.List;
 
@@ -69,11 +60,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult updateAvatar(Integer userId, String avatar) {
-        UserInfo userInfo = userMapper.selectById(userId);
+    public ServiceResult updateAvatar(Integer userId, String avatarUrl) {
+        UserInfo userInfo = new UserInfo();
+
         userInfo.setUserId(userId);
-        userInfo.setAvatar(avatar);
+        userInfo.setAvatar(avatarUrl);
         userInfo.updateAtNow();
+
         if(userMapper.updateAvatar(userInfo) == 1){
             return ServiceResult.success();
         }else {

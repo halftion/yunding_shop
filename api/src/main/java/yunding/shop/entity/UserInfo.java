@@ -2,12 +2,9 @@ package yunding.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**

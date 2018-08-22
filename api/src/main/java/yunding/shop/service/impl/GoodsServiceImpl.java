@@ -11,7 +11,6 @@ import yunding.shop.entity.Goods;
 import yunding.shop.entity.OrderGoods;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.*;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -37,11 +36,56 @@ public class GoodsServiceImpl implements GoodsService{
     private ShopGoodsCategoryService shopGoodsCategoryService;
 
     @Override
-    public ServiceResult selectById(Integer id) {
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult saveGoodsPicture(Integer userId, Goods goods) {
         try {
-          Goods goods= goodsMapper.selectByGoodsId(id);
+
+            ServiceResult serviceResult = shopService.selectShopIdByUserId(userId);
+
+            if (!serviceResult.isSuccess()) {
+                //获取店铺Id失败
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
+            Integer shopId = (Integer) serviceResult.getData();
+
+            serviceResult = selectShopIdByGoodsId(goods.getGoodsId());
+            if (!serviceResult.isSuccess()){
+                //获取店铺Id失败
+                return ServiceResult.failure(serviceResult.getMessage());
+            }
+
+            Integer shopId2 = (Integer) serviceResult.getData();
+
+            if(!shopId.equals(shopId2)){
+                return ServiceResult.failure("用户信息不匹配");
+            }
+
+            goods.updateAtNow();
+            goodsMapper.saveGoodsPhoto(goods);
+
+            return ServiceResult.success();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("作品上传失败");
+        }
+    }
+
+    @Override
+    public ServiceResult selectById(Integer goodsId) {
+        try {
+            Goods goods= goodsMapper.selectByGoodsId(goodsId);
+            if (goods == null){
+                return ServiceResult.failure("无此商品");
+            }
+            Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
+            List<Goods> linkGoodsList = goodsMapper.selectGoodsProperty(goods.getName(), shopId);
+            System.out.println(linkGoodsList);
+            goods.setLinkGoodsList(linkGoodsList);
           return ServiceResult.success(goods);
         }catch (Exception e){
+            e.printStackTrace();
             return ServiceResult.failure("获取商品失败");
         }
     }
@@ -150,12 +194,12 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     @Transactional(rollbackFor=Exception.class)
-    public ServiceResult commentGoods(Integer goodsId) {
+    public ServiceResult changeCommentNum(Integer goodsId) {
         try {
             Goods goods = new Goods();
             goods.setGoodsId(goodsId);
             goods.updateAtNow();
-            goodsMapper.commentGoods(goods);
+            goodsMapper.changeCommentNum(goods);
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("商品评价数量修改失败");
@@ -181,24 +225,6 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success(shopId);
         } catch (Exception e) {
             return ServiceResult.failure("获取店铺ID失败");
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ServiceResult saveGoodsPhoto(Integer goodsId, String picture) {
-        try {
-            Goods goods = new Goods();
-            goods.setGoodsId(goodsId);
-            goods.setPicture(picture);
-            goods.updateAtNow();
-            if (goodsMapper.saveGoodsPhoto(goods) == 1) {
-                return ServiceResult.success();
-            } else {
-                return ServiceResult.failure("保存图片失败");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("获取店铺ID失败");
         }
     }
 
@@ -280,19 +306,6 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         } catch (Exception e) {
             throw new RuntimeException("发货失败");
-        }
-    }
-
-    @Override
-    public ServiceResult selectGoodsProperty(Integer goodsId) {
-        try{
-            Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
-            String name = goodsMapper.selectByGoodsId(goodsId).getName();
-            List<Goods> propertyList = goodsMapper.selectGoodsProperty(name, shopId);
-            return ServiceResult.success(propertyList);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ServiceResult.failure("查找异常");
         }
     }
 

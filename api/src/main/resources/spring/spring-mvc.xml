@@ -18,10 +18,10 @@
             <mvc:mapping path="/api/user/**"/>
             <mvc:mapping path="/api/order/**"/>
             <mvc:mapping path="/api/aliPay/purchase/**"/>
-            <mvc:mapping path="/api/photo/**"/>
             <mvc:mapping path="/api/cart/**"/>
             <mvc:mapping path="/api/shopCategory/*"/>
-            <mvc:mapping path="/api/goods/*"/>
+            <mvc:mapping path="/api/goods/**"/>
+            <mvc:exclude-mapping path="/api/goods/info/**"/>
             <!-- 定义在mvc:interceptor下面的Interceptor表示是对特定的请求才进行拦截的 -->
             <bean class="yunding.shop.config.ApiInterceptor"/>
         </mvc:interceptor>

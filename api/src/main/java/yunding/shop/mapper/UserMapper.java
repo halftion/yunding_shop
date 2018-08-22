@@ -2,7 +2,6 @@ package yunding.shop.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import yunding.shop.entity.UserInfo;
-
 import java.util.List;
 
 /**

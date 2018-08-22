@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -87,7 +88,7 @@ public class Goods implements Comparator {
     /**
      * 商品 状态：0-正常(默认)，-1-下架
      */
-    private int state;
+    private Integer state;
     /**
      * 商品 创建时间
      */
@@ -97,9 +98,18 @@ public class Goods implements Comparator {
      */
     private Date updatedAt;
 
+    /**
+     * 于该商品不同属性的商品列表 goodsId property
+     */
+    private List<Goods> linkGoodsList;
 
+    public List<Goods> getLinkGoodsList() {
+        return linkGoodsList;
+    }
 
-
+    public void setLinkGoodsList(List<Goods> linkGoodsList) {
+        this.linkGoodsList = linkGoodsList;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -213,11 +223,11 @@ public class Goods implements Comparator {
         this.collectionNum = collectionNum;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -246,6 +256,29 @@ public class Goods implements Comparator {
     }
 
 
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "goodsId=" + goodsId +
+                ", shopId=" + shopId +
+                ", shopName='" + shopName + '\'' +
+                ", platformGoodsCategoryId=" + platformGoodsCategoryId +
+                ", shopGoodsCategoryId=" + shopGoodsCategoryId +
+                ", name='" + name + '\'' +
+                ", property='" + property + '\'' +
+                ", stockNum=" + stockNum +
+                ", price=" + price +
+                ", picture='" + picture + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", sales=" + sales +
+                ", commentNum=" + commentNum +
+                ", collectionNum=" + collectionNum +
+                ", state=" + state +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", linkGoodsList=" + linkGoodsList +
+                '}';
+    }
 
     @Override
     public int compare(Object o1, Object o2) {

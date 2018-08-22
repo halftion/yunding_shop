@@ -2,16 +2,11 @@ package yunding.shop.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.Login;
-import yunding.shop.entity.Register;
 import yunding.shop.entity.UserInfo;
-import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
-import yunding.shop.service.VerificationCodeService;
 import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +21,23 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/avatar/{avatarUrl}", method = RequestMethod.PUT)
+    public RequestResult saveAvatarUrl(@PathVariable String avatarUrl, HttpServletRequest request){
+
+        try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            ServiceResult serviceResult = userService.updateAvatar(userId,avatarUrl);
+
+            if(serviceResult.isSuccess()){
+                return RequestResult.success();
+            } else{
+                return RequestResult.failure(serviceResult.getMessage());
+            }
+        } catch (Exception e) {
+            return RequestResult.failure("保存头像url失败");
+        }
+    }
 
     /**
      * 根据用户ID获取用户信息
@@ -74,7 +86,6 @@ public class UserController {
             return RequestResult.failure("更新用户信息失败");
         }
     }
-
 }
 
 

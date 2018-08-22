@@ -8,6 +8,7 @@ import java.util.List;
  * @author 齐语冰
  */
 public interface GoodsMapper {
+
     /**
      * 根据商品名称查询商品
      * @param name 商品名称
@@ -62,7 +63,7 @@ public interface GoodsMapper {
      * 根据用户ID添加商品评论
      * @param goods 商品类
      */
-    Integer commentGoods(Goods goods);
+    Integer changeCommentNum(Goods goods);
 
 
 

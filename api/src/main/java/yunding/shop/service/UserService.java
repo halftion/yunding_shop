@@ -1,8 +1,6 @@
 package yunding.shop.service;
 
 import yunding.shop.dto.ServiceResult;
-import yunding.shop.entity.Login;
-import yunding.shop.entity.Register;
 import yunding.shop.entity.UserInfo;
 
 /**
@@ -10,6 +8,7 @@ import yunding.shop.entity.UserInfo;
  * @author guo
  */
 public interface UserService {
+
     /**
      * 创建新用户信息
      * @param nickName 昵称
@@ -35,10 +34,10 @@ public interface UserService {
     /**
      * 更新用户头像地址
      * @param userId 用户id
-     * @param avatar 头像地址
+     * @param avatarUrl 头像地址
      * @return 是否成功
      */
-    ServiceResult updateAvatar(Integer userId, String avatar);
+    ServiceResult updateAvatar(Integer userId, String avatarUrl);
 
     /**
      * 根据用户ID获取用户昵称

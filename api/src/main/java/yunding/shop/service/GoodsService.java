@@ -4,7 +4,6 @@ import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.OrderGoods;
-import yunding.shop.entity.OrderInfo;
 
 /**
  * @author ren
@@ -13,7 +12,7 @@ import yunding.shop.entity.OrderInfo;
 public interface GoodsService {
 
     /**
-     * 根据商品id查询商品
+     * 根据商品id查询商品信息 + 不同属性商品的 goodsId+property
      * @param id 商品id
      * @return ServiceResult
      */
@@ -66,10 +65,10 @@ public interface GoodsService {
     ServiceResult selectByShopCategoryId(Integer shopId, Integer category);
 
     /**
-     * 根据商品ID评论商品
+     * 根据商品ID修改评论数量
      * @param goodsId 商品Id
      */
-    ServiceResult commentGoods(Integer goodsId);
+    ServiceResult changeCommentNum(Integer goodsId);
 
     /**
      * 更改商品信息
@@ -86,10 +85,10 @@ public interface GoodsService {
 
     /**
      * 保存商品图片
-     * @param goodsId 商品ID
-     * @param picture 商品图片
+     * @param userId 用户id
+     * @param goods goodsId + picture
      */
-    ServiceResult saveGoodsPhoto(Integer goodsId , String picture);
+    ServiceResult saveGoodsPicture(Integer userId, Goods goods);
 
     /**
      * 新建商品
@@ -104,13 +103,6 @@ public interface GoodsService {
      * @param goodsId 商品Id
      */
     ServiceResult deleteGoods(Integer userId , Integer goodsId);
-
-    /**
-     * 根据商品Id获取同类商品属性
-     * @param goodsId 商品ID
-     * @return 商品属性列表
-     */
-    ServiceResult selectGoodsProperty(Integer goodsId);
 
     /**
      * 查询所有商品

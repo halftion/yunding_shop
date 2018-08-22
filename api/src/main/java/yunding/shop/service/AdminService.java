@@ -5,6 +5,8 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Content;
 import yunding.shop.entity.Login;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author guo
  */
@@ -84,5 +86,12 @@ public interface AdminService {
      * @param goodsId 商品Id
      */
     public ServiceResult pullOnSales(Integer goodsId);
+
+    /**
+     * 获取服务器信息
+     * @param request request参数
+     * @return 服务器信息
+     */
+    ServiceResult ecsMessage(HttpServletRequest request);
 }
 
