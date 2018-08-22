@@ -765,22 +765,18 @@ form-data传入：
         {
             "goodsId": 54,
             "property": "红色",
-            "state": 0
         },
         {
             "goodsId": 55,
             "property": "蓝色",
-            "state": 0
         },
         {
             "goodsId": 56,
             "property": "黄色",
-            "state": 0
         },
         {
             "goodsId": 57,
             "property": "紫色",
-            "state": 0
         }
     ],
     "message": "操作成功！"
@@ -1402,6 +1398,10 @@ JSON传入：
 49.上架商品：/api/admin/goods (POST)
 
 50.查看服务器参数：/api/ecs (GET)
+
+51.获取对应的店铺html：/api/shop/index/{shopId}/{type} (GET)
+
+52.获取对应的商品html:/api/goods/index/{goodsId} (GET)
 
 
 
