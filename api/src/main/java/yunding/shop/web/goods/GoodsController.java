@@ -161,18 +161,4 @@ public class GoodsController {
             return RequestResult.failure("删除商品失败");
         }
     }
-
-    @RequestMapping(value = "/index/{goodsId}", method = RequestMethod.GET)
-    RequestResult getGoodsHtml(@PathVariable("goodsId") Integer goodsId){
-        try {
-            ServiceResult sr = goodsService.selectGoodsHtml(goodsId);
-            if(sr.isSuccess()){
-                return RequestResult.success(sr.getData());
-            }else {
-                return RequestResult.failure(sr.getMessage());
-            }
-        } catch (Exception e) {
-            return RequestResult.failure("获取html异常");
-        }
-    }
 }

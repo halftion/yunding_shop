@@ -118,12 +118,4 @@ public interface GoodsService {
      * @param identifier 标识符
      */
     ServiceResult updateGoodsState(Integer goodsId, Integer identifier);
-
-    /**
-     * 根据商品Id获取商品html
-     * @param goodsId 商品Id
-     * @return html信息
-     */
-    ServiceResult selectGoodsHtml(Integer goodsId);
-
 }

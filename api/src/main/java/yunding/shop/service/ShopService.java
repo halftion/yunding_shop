@@ -52,12 +52,4 @@ public interface ShopService {
      * @return 店铺详情
      */
     ServiceResult selectAllShop();
-
-    /**
-     * 根据店铺Id和类型获取对应html
-     * @param shopId 店铺Id
-     * @param type 类型
-     * @return html信息
-     */
-    ServiceResult selectShopHtml(Integer shopId, Integer type);
 }

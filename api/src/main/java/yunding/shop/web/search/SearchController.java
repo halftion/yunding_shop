@@ -35,7 +35,7 @@ public class SearchController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("Controlle错误");
+            return RequestResult.failure("搜索失败");
         }
     }
 
@@ -56,7 +56,7 @@ public class SearchController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         }catch (Exception e){
-            return RequestResult.failure("Controller错误");
+            return RequestResult.failure("搜索失败");
         }
     }
 }

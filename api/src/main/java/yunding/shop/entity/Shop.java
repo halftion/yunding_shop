@@ -53,9 +53,18 @@ public class Shop {
      */
     private Date updatedAt;
 
+    /**
+     * 店铺主页HTML
+     */
+    private String introduction;
 
+    public String getIntroduction() {
+        return introduction;
+    }
 
-
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public Integer getShopId() {
         return shopId;

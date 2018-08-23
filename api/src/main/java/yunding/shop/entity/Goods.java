@@ -1,10 +1,19 @@
 package yunding.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.gson.JsonObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONString;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
@@ -70,7 +79,7 @@ public class Goods implements Comparator {
      */
     private String picture;
     /**
-     * 商品 介绍图片地址
+     * 商品 介绍HTML
      */
     private String introduction;
     /**
@@ -103,13 +112,6 @@ public class Goods implements Comparator {
      */
     private List<Goods> linkGoodsList;
 
-    public List<Goods> getLinkGoodsList() {
-        return linkGoodsList;
-    }
-
-    public void setLinkGoodsList(List<Goods> linkGoodsList) {
-        this.linkGoodsList = linkGoodsList;
-    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -247,14 +249,13 @@ public class Goods implements Comparator {
         this.updatedAt = updatedAt;
     }
 
-    public void createAtNow(){
-        this.createdAt = new Date();
+    public List<Goods> getLinkGoodsList() {
+        return linkGoodsList;
     }
 
-    public void updateAtNow(){
-        this.updatedAt = new Date();
+    public void setLinkGoodsList(List<Goods> linkGoodsList) {
+        this.linkGoodsList = linkGoodsList;
     }
-
 
     @Override
     public String toString() {

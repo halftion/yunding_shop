@@ -1,6 +1,8 @@
 package yunding.shop.service.impl;
 
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yunding.shop.dto.ServiceResult;
@@ -9,6 +11,9 @@ import yunding.shop.service.SearchService;
 import yunding.shop.service.ShopService;
 import yunding.shop.util.Separator;
 import yunding.shop.util.StringFilter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author guo
@@ -31,21 +36,30 @@ public class SearchServiceImpl implements SearchService {
             }
             else{
                 String newKeyword = Separator.percent(keyword1);
-                if(!shopService.selectByName(newKeyword).isSuccess()){
+                ServiceResult serviceResult = shopService.selectByName(newKeyword);
+
+                if(!serviceResult.isSuccess()){
                     //获取店铺失败
-                    return ServiceResult.failure(shopService.selectByName(newKeyword).getMessage());
+                    return ServiceResult.failure(serviceResult.getMessage());
                 }
-                if(!goodsService.selectByName(newKeyword).isSuccess()){
+
+                Map<String,Object> resultMap = new HashMap();
+                resultMap.put("shop",serviceResult.getData());
+
+                serviceResult = goodsService.selectByName(newKeyword);
+
+                if(!serviceResult.isSuccess()){
                     //获取商品失败
-                    return ServiceResult.failure(goodsService.selectByName(newKeyword).getMessage());
+                    return ServiceResult.failure(serviceResult.getMessage());
                 }
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("shop",shopService.selectByName(newKeyword).getData());
-                jsonObject.put("goods",goodsService.selectByName(newKeyword).getData());
-                return ServiceResult.success(jsonObject);
+
+                resultMap.put("goods",serviceResult.getData());
+
+                return ServiceResult.success(resultMap);
             }
         }catch (Exception e){
-            return ServiceResult.failure("Service错误");
+            e.printStackTrace();
+            return ServiceResult.failure("搜索失败");
         }
     }
 

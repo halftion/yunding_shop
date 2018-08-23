@@ -9,7 +9,6 @@ import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Constant;
 import yunding.shop.entity.Goods;
 import yunding.shop.entity.OrderGoods;
-import yunding.shop.mapper.GoodsIndexMapper;
 import yunding.shop.mapper.GoodsMapper;
 import yunding.shop.service.*;
 import java.math.BigDecimal;
@@ -26,9 +25,6 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Autowired
     private GoodsMapper goodsMapper;
-
-    @Autowired
-    private GoodsIndexMapper goodsIndexMapper;
 
     @Autowired
     private ShopService shopService;
@@ -54,18 +50,19 @@ public class GoodsServiceImpl implements GoodsService{
             Integer shopId = (Integer) serviceResult.getData();
 
             serviceResult = selectShopIdByGoodsId(goods.getGoodsId());
+
             if (!serviceResult.isSuccess()){
                 //获取店铺Id失败
                 return ServiceResult.failure(serviceResult.getMessage());
             }
 
-            Integer shopId2 = (Integer) serviceResult.getData();
+            Integer realShopId = (Integer) serviceResult.getData();
 
-            if(!shopId.equals(shopId2)){
+            if(!shopId.equals(realShopId)){
                 return ServiceResult.failure("用户信息不匹配");
             }
 
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
             goodsMapper.saveGoodsPhoto(goods);
 
             return ServiceResult.success();
@@ -85,7 +82,6 @@ public class GoodsServiceImpl implements GoodsService{
             }
             Integer shopId = goodsMapper.selectShopIdByGoodsId(goodsId);
             List<Goods> linkGoodsList = goodsMapper.selectGoodsProperty(goods.getName(), shopId);
-            System.out.println(linkGoodsList);
             goods.setLinkGoodsList(linkGoodsList);
           return ServiceResult.success(goods);
         }catch (Exception e){
@@ -126,11 +122,12 @@ public class GoodsServiceImpl implements GoodsService{
     public ServiceResult processOrderDelete(OrderGoods orderGoods) {
         try {
             Goods goods = goodsMapper.selectByGoodsId(orderGoods.getGoodsId());
+
             Integer stockNum = goods.getStockNum();
             Integer sales = goods.getSales();
             goods.setStockNum(stockNum + orderGoods.getGoodsNum());
             goods.setSales(sales - orderGoods.getGoodsNum());
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
 
             if (goodsMapper.updateStockAndSales(goods) != 1) {
                 return ServiceResult.failure("修改商品信息失败");
@@ -145,9 +142,10 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectByName(String keyword) {
         try {
-            JSONArray goodsList = JSONArray.fromObject(goodsMapper.selectByName(keyword));
+            List<Goods> goodsList = goodsMapper.selectByName(keyword);
             return ServiceResult.success(goodsList);
         }catch (Exception e){
+            e.printStackTrace();
             return ServiceResult.failure("获取商品失败");
         }
     }
@@ -202,7 +200,7 @@ public class GoodsServiceImpl implements GoodsService{
         try {
             Goods goods = new Goods();
             goods.setGoodsId(goodsId);
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
             goodsMapper.changeCommentNum(goods);
             return ServiceResult.success();
         }catch (Exception e){
@@ -214,7 +212,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult updategoods(Goods goods) {
         try {
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
             goodsMapper.updateGoodsInfo(goods);
             return ServiceResult.success();
         }catch (Exception e){
@@ -262,8 +260,8 @@ public class GoodsServiceImpl implements GoodsService{
             String shopName = (String) sr2.getData();
             goods.setShopId(shopId);
             goods.setShopName(shopName);
-            goods.createAtNow();
-            goods.updateAtNow();
+            goods.setCreatedAt(new Date());
+            goods.setUpdatedAt(new Date());
             if (goodsMapper.insertGoods(goods) != 1) {
                 return ServiceResult.failure("保存失败");
             }
@@ -291,7 +289,7 @@ public class GoodsServiceImpl implements GoodsService{
             Goods goods = new Goods();
             goods.setGoodsId(goodsId);
             goods.setState(-1);
-            goods.updateAtNow();
+            goods.setUpdatedAt(new Date());
             if (goodsMapper.updateGoodsState(goods) != 1) {
                 return ServiceResult.failure("删除商品失败");
             }
@@ -353,16 +351,6 @@ public class GoodsServiceImpl implements GoodsService{
             return ServiceResult.success();
         }catch (Exception e){
             throw new RuntimeException("修改商品状态失败");
-        }
-    }
-
-    @Override
-    public ServiceResult selectGoodsHtml(Integer goodsId) {
-        try {
-            String html = goodsIndexMapper.selectGoodsHtml(goodsId);
-            return ServiceResult.success(html);
-        } catch (Exception e) {
-            return ServiceResult.failure("获取html异常");
         }
     }
 }

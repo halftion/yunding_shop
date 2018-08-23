@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -21,6 +22,8 @@ public class UserInfo {
     /**
      * 用户 昵称
      */
+    @NotEmpty(message = "用户昵称不能为空")
+    @Size(min = 3, max = 15, message = "用户昵称应介于3位至15位之间")
     private String nickName;
     /**
      * 用户 头像链接

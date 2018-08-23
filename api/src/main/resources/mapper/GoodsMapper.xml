@@ -4,7 +4,7 @@
 <mapper namespace="yunding.shop.mapper.GoodsMapper">
 
     <select id="selectByName" parameterType="java.lang.String" resultType="yunding.shop.entity.Goods">
-        SELECT * FROM t_goods WHERE `name` LIKE #{name} AND state = 0
+        SELECT `goods_id`, `name`, `picture`, `sales`,  `price` FROM t_goods WHERE `name` LIKE #{name} AND state = 0
     </select>
 
     <select id="selectByPlatformCategoryId" parameterType="java.lang.Integer"
@@ -14,7 +14,7 @@
     </select>
 
     <select id="selectByShopCategoryId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Goods">
-        SELECT  * FROM  t_goods WHERE  shop_id =#{shopId,jdbcType=INTEGER} AND  shop_goods_category_id = #{categoryId,jdbcType=INTEGER}
+        SELECT  * FROM  t_goods WHERE  shop_id =#{shopId} AND  shop_goods_category_id = #{categoryId,jdbcType=INTEGER}
          AND state = 0
     </select>
 
@@ -32,11 +32,11 @@
     
     <update id="updateStockAndSales" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET stock_num = #{stockNum} ,sales = #{sales} ,updated_at = #{updatedAt}
-        WHERE goods_id = #{url}  AND state = 0
+        WHERE goods_id = #{goodsId}  AND state = 0
     </update>
 
     <update id="changeCommentNum">
-        UPDATE t_goods SET comment_num = comment_num + 1 , updated_at = #{updatedAt} WHERE goods_id = #{url}
+        UPDATE t_goods SET comment_num = comment_num + 1 , updated_at = #{updatedAt} WHERE goods_id = #{goodsId}
     </update>
 
 
@@ -49,19 +49,19 @@
         price = #{price},
         introduction = #{introduction},
         updated_at = #{updatedAt}
-         WHERE goods_id = #{url}
+         WHERE goods_id = #{goodsId}
 
     </update>
 
     <select id="selectShopIdByGoodsId" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
-        SELECT shop_id FROM t_goods WHERE goods_id = #{url}
+        SELECT shop_id FROM t_goods WHERE goods_id = #{goodsId}
     </select>
 
     <update id="saveGoodsPhoto" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET picture = #{picture} ,
                             updated_at = #{updatedAt}
-                            WHERE goods_id = #{url}
+                            WHERE goods_id = #{goodsId}
     </update>
 
     <insert id="insertGoods" parameterType="yunding.shop.entity.Goods">
@@ -75,7 +75,8 @@
         stock_num,
         price,
         created_at,
-        updated_at
+        updated_at,
+        introduction
         ) VALUES (
         #{shopId},
         #{shopName},
@@ -86,14 +87,15 @@
         #{stockNum},
         #{price},
         #{createdAt},
-        #{updatedAt}
+        #{updatedAt},
+        #{introduction}
         )
     </insert>
 
     <update id="updateGoodsState" parameterType="yunding.shop.entity.Goods">
         UPDATE t_goods SET state = #{state},
                             updated_at = #{updatedAt}
-                            WHERE goods_id = #{url}
+                            WHERE goods_id = #{goodsId}
     </update>
 
     <select id="selectGoodsProperty" resultType="yunding.shop.entity.Goods">

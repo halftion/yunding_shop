@@ -1,5 +1,6 @@
 package yunding.shop.web.user;
 
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/avatar/{avatarUrl}", method = RequestMethod.PUT)
-    public RequestResult saveAvatarUrl(@PathVariable String avatarUrl, HttpServletRequest request){
+    @RequestMapping(value = "/avatar", method = RequestMethod.PUT)
+    public RequestResult saveAvatarUrl(@RequestBody JSONObject avatar, HttpServletRequest request){
 
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = userService.updateAvatar(userId,avatarUrl);
+            ServiceResult serviceResult = userService.updateAvatar(userId,avatar.getString("url"));
 
             if(serviceResult.isSuccess()){
                 return RequestResult.success();

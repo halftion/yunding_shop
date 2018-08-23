@@ -363,15 +363,15 @@ JSON传入：
     "code": 200,
     "data": {
         "userId": 2,
-        "nickName": "测试用户号",
-        "avatar": "http://localhost:8080/static/upload/avatar/c9ec10f135b046a9989fce7e7d314dc3.png",
-        "gender": 0,
-        "birthday": 1533571200000,
-        "phoneNumber": "12345678910",
+        "nickName": "测试买家号",
+        "avatar": "https://i.loli.net/2018/08/18/5b778f98ab299.png",
+        "gender": 1,
+        "birthday": 1533312000000,
+        "phoneNumber": "123",
         "xp": 0,
         "state": 0,
         "createdAt": 1533540206000,
-        "updatedAt": 1533778415000
+        "updatedAt": 1534905364000
     },
     "message": "操作成功！"
 }
@@ -381,7 +381,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-14.根据用户类修改用户信息：/api/user/update (PUT) √
+14.根据用户类修改用户信息：/api/user/info(PUT) √
 JSON传入：
 {
 	"nickName" : "qyb",
@@ -414,16 +414,13 @@ JSON传入：
     "message": "xxx失败"
 }
 
-15.上传用户头像：/api/photo/avatar (POST)
-form-data传入：
-	"key": pic (file)
-	"value": 文件路径
-成功返回示例：
+15.上传用户头像：/api/user/avatar (PUT)
+发送JSON:
 {
-    "code": 200,
-    "data": "http://localhost:8080/static/upload/avatar/ee958f584b2b4d96800930e226013907.jpg",
-    "message": "操作成功！"
+	"url" : "https://i.loli.net/2018/08/18/5b778f98ab299.png"
 }
+成功返回示例：
+{"code":200,"message":"操作成功！"}
 失败返回示例：
 {
     "code": 500,
@@ -695,7 +692,7 @@ form-data传入：
 ||||||||||||||||||||||||||||||||||||||||||||||||||********************||||||||||||||||||||||||||||||||||||||||||||||||||
 商品详情：
 
-21.根据商品id查询商品：/api/goods/{id} (GET) √
+21.根据商品id查询商品：/api/goods/info/{id} (GET) √
 成功返回示例：
 {
     "code": 200,
@@ -765,18 +762,22 @@ form-data传入：
         {
             "goodsId": 54,
             "property": "红色",
+            "state": 0
         },
         {
             "goodsId": 55,
             "property": "蓝色",
+            "state": 0
         },
         {
             "goodsId": 56,
             "property": "黄色",
+            "state": 0
         },
         {
             "goodsId": 57,
             "property": "紫色",
+            "state": 0
         }
     ],
     "message": "操作成功！"
@@ -1006,7 +1007,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-28.评论订单：/api/order/comment (PUT) √
+28.评论商品：/api/goods/comment (PUT) √
 JSON传入：
 {
 	"userId" : "2",
@@ -1398,10 +1399,6 @@ JSON传入：
 49.上架商品：/api/admin/goods (POST)
 
 50.查看服务器参数：/api/ecs (GET)
-
-51.获取对应的店铺html：/api/shop/index/{shopId}/{type} (GET)
-
-52.获取对应的商品html:/api/goods/index/{goodsId} (GET)
 
 
 

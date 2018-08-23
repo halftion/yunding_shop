@@ -1,6 +1,5 @@
 package yunding.shop.service.impl;
 
-import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,6 @@ import yunding.shop.entity.Shop;
 import yunding.shop.mapper.ShopIndexMapper;
 import yunding.shop.mapper.ShopMapper;
 import yunding.shop.service.ShopService;
-
 import java.util.List;
 
 /**
@@ -24,13 +22,10 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopMapper shopMapper;
 
-    @Autowired
-    private ShopIndexMapper shopIndexMapper;
-
     @Override
     public ServiceResult selectByName(String keyword) {
         try {
-            JSONArray shopList = JSONArray.fromObject(shopMapper.selectByName(keyword));
+            List<Shop> shopList = shopMapper.selectByName(keyword);
             return ServiceResult.success(shopList);
         }catch (Exception e){
             return ServiceResult.failure("获取店铺失败");
@@ -52,7 +47,11 @@ public class ShopServiceImpl implements ShopService {
     public ServiceResult selectShopIdByUserId(Integer userId) {
         try {
             Integer shopId = shopMapper.selectShopIdByUserId(userId);
-            return ServiceResult.success(shopId);
+            if (shopId != null){
+                return ServiceResult.success(shopId);
+            } else {
+                return ServiceResult.failure("此用户无对应店铺");
+            }
         }catch (Exception e){
             throw new RuntimeException("获取店铺ID失败");
         }
@@ -98,16 +97,6 @@ public class ShopServiceImpl implements ShopService {
             return ServiceResult.success(shopList);
         }catch (Exception e){
             throw new RuntimeException("获取所有店铺失败");
-        }
-    }
-
-    @Override
-    public ServiceResult selectShopHtml(Integer shopId, Integer type) {
-        try {
-            String html = shopIndexMapper.selectShopHtml(shopId, type);
-            return ServiceResult.success(html);
-        }catch (Exception e){
-            throw new RuntimeException("获取html异常");
         }
     }
 
