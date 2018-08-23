@@ -208,6 +208,7 @@
             success: function (response) {
                 if (response.code === 200) {
                     let data = response.data;
+                    console.log(data)
                     let nowTime = new Date(data.date).toLocaleString();
                     $("#ecsIP").text(data.ecsIP);
                     $("#ecsPort").text(data.ecsPort);
