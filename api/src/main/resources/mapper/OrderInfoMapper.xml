@@ -12,7 +12,7 @@
     </select>
 
     <select id="selectByUserId" resultType="yunding.shop.entity.OrderInfo">
-        SELECT * FROM t_order_info WHERE user_id = #{userId} AND state != -1
+        SELECT order_id, created_at FROM t_order_info WHERE user_id = #{userId} AND state != -1
     </select>
 
     <select id="selectByShopId" resultType="yunding.shop.entity.OrderInfo">

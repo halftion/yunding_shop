@@ -444,79 +444,39 @@ JSON传入：
     "data": {
         "shop": [
             {
-                "collectionNum": 0,
-                "createdAt": {
-                    "date": 31,
-                    "day": 2,
-                    "hours": 2,
-                    "minutes": 40,
-                    "month": 6,
-                    "seconds": 12,
-                    "time": 1532976012000,
-                    "timezoneOffset": -480,
-                    "year": 118
-                },
-                "name": "篮球店铺",
-                "sales": 0,
                 "shopId": 1,
+                "logo": "https://i.loli.net/2018/08/18/5b778f98ab299.png",
+                "userId": 1,
+                "name": "云顶官方旗舰店",
+                "sales": 2371,
+                "collectionNum": 20000,
                 "state": 0,
-                "updatedAt": {
-                    "date": 31,
-                    "day": 2,
-                    "hours": 2,
-                    "minutes": 40,
-                    "month": 6,
-                    "seconds": 17,
-                    "time": 1532976017000,
-                    "timezoneOffset": -480,
-                    "year": 118
-                },
-                "userId": 3
+                "createdAt": 1533279944000,
+                "updatedAt": 1534234135000,
+                "introduction": "<html>"
             }
         ],
         "goods": [
- 			{
-                "collectionNum": 0,
-                "commentNum": 0,
-                "createdAt": {
-                    "date": 1,
-                    "day": 3,
-                    "hours": 8,
-                    "minutes": 48,
-                    "month": 7,
-                    "seconds": 18,
-                    "time": 1533084498000,
-                    "timezoneOffset": -480,
-                    "year": 118
-                },
-                "goodsId": 4,
-                "introduction": "",
-                "name": "超级绿色篮球",
-                "picture": "",
-                "platformGoodsCateGoryId": 1,
-                "price": 150,
-                "sales": 10,
-                "shopGoodsCateGoryId": 1,
-                "shopId": 1,
-                "shopName": "篮球店铺",
-                "state": 0,
-                "stockNum": 100,
-                "updatedAt": {
-                    "date": 1,
-                    "day": 3,
-                    "hours": 8,
-                    "minutes": 48,
-                    "month": 7,
-                    "seconds": 20,
-                    "time": 1533084500000,
-                    "timezoneOffset": -480,
-                    "year": 118
-                }
+            {
+                "goodsId": 69,
+                "name": "云南白药牙膏留兰香型180g减轻牙龈出血去牙渍去口臭口气清新",
+                "price": 28.3,
+                "picture": "https://img.alicdn.com/imgextra/i1/725677994/TB2VuotdRsmBKNjSZFsXXaXSVXa_!!725677994.jpg_430x430q90.jpg",
+                "sales": 0
+            },
+            {
+                "goodsId": 143,
+                "name": "HEFANG Jewelry/何方珠宝云朵锁骨链 纯银女ins短项链吊坠颈链",
+                "price": 980,
+                "picture": "https://img.alicdn.com/imgextra/i2/2895013616/TB1rNl4dgoQMeJjy0FoXXcShVXa_!!0-item_pic.jpg_430x430q90.jpg",
+                "sales": 0
             }
         ]
     },
     "message": "操作成功！"
 }
+
+
 为空返回示例：
 {
     "code": 200,
@@ -532,15 +492,16 @@ JSON传入：
     "message" : "xxx错误"
 }
 
+
 17.根据关键词获取对应提示（最多五个）：/api/hint/platform/{keyword} (GET) √
 成功返回示例：
 {
-  "code": 200,
-  "data": [
-    "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-    "凌美LAMY钢笔墨水签字笔钢笔水笔 专用50ml非碳素墨水黑色狩猎者恒星通用 德国原装进口文具"
-  ],
-  "message": "操作成功！"
+    "code": 200,
+    "data": [
+        "云南白药牙膏留兰香型180g减轻牙龈出血去牙渍去口臭口气清新",
+        "HEFANG Jewelry/何方珠宝云朵锁骨链 纯银女ins短项链吊坠颈链"
+    ],
+    "message": "操作成功！"
 }
 为空返回示例：
 {
@@ -850,36 +811,6 @@ JSON传入：
     "data": [
         {
             "orderInfo": {
-                "orderId": "c0cbec39fa",
-                "userId": 2,
-                "shopId": 1,
-                "shopName": "云顶官方旗舰店",
-                "totalPrice": 11990,
-                "address": "冥王星",
-                "phoneNumber": "118",
-                "consignee": "胡国斌",
-                "remark": "会影响我开法拉利的视角吗",
-                "state": 0,
-                "createdAt": 1534233607000,
-                "updatedAt": 1534233607000
-            },
-            "orderGoodsList": [
-                {
-                    "orderId": "c0cbec39fa",
-                    "goodsId": 21,
-                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
-                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
-                    "goodsNum": 10,
-                    "unitPrice": 1199,
-                    "totalPrice": 11990,
-                    "state": 0,
-                    "createdAt": 1534233607000,
-                    "updatedAt": 1534233607000
-                }
-            ]
-        },
-        {
-            "orderInfo": {
                 "orderId": "3f2adcda12",
                 "userId": 2,
                 "shopId": 1,
@@ -889,34 +820,70 @@ JSON传入：
                 "phoneNumber": "118",
                 "consignee": "胡国斌",
                 "remark": "会影响我开法拉利的视角吗",
-                "state": 0,
+                "state": 3,
                 "createdAt": 1534233664000,
-                "updatedAt": 1534233664000
+                "updatedAt": 1534236631000
+            },
+            "orderGoodsList": []
+        },
+        {
+            "orderInfo": {
+                "orderId": "456b167dec",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 12199,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 0,
+                "createdAt": 1534234135000,
+                "updatedAt": 1534234135000
+            },
+            "orderGoodsList": []
+        },
+        {
+            "orderInfo": {
+                "orderId": "c0cbec39fa",
+                "userId": 2,
+                "shopId": 1,
+                "shopName": "云顶官方旗舰店",
+                "totalPrice": 11990,
+                "address": "冥王星",
+                "phoneNumber": "118",
+                "consignee": "胡国斌",
+                "expressCompany": "顺丰速运",
+                "trackingNum": "123456789",
+                "remark": "会影响我开法拉利的视角吗",
+                "state": 3,
+                "createdAt": 1534233607000,
+                "updatedAt": 1534236605000
             },
             "orderGoodsList": [
                 {
-                    "orderId": "3f2adcda12",
-                    "goodsId": 21,
-                    "goodsName": "日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml",
-                    "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t20035/76/1792779616/49899/a97c337d/5b3d7f99N9c162d14.jpg",
-                    "goodsNum": 10,
-                    "unitPrice": 1199,
-                    "totalPrice": 11990,
+                    "orderId": "c0cbec39fa",
+                    "goodsId": 1,
+                    "goodsName": "红木质中国风古风创意礼物 精美限量版书签 夕情人节 紫光檀 单品",
+                    "goodsPic": "https://img10.360buyimg.com/n1/jfs/t8485/362/1492082332/301096/c6474e80/59ba4b47N1833841f.jpg",
+                    "goodsNum": 1,
+                    "unitPrice": 128,
+                    "totalPrice": 128,
                     "state": 0,
-                    "createdAt": 1534233664000,
-                    "updatedAt": 1534233664000
+                    "createdAt": 1534771100000,
+                    "updatedAt": 1534771103000
                 },
                 {
-                    "orderId": "3f2adcda12",
+                    "orderId": "c0cbec39fa",
                     "goodsId": 2,
                     "goodsName": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
                     "goodsPic": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
-                    "goodsNum": 1,
+                    "goodsNum": 2,
                     "unitPrice": 209,
                     "totalPrice": 209,
                     "state": 0,
-                    "createdAt": 1534233664000,
-                    "updatedAt": 1534233664000
+                    "createdAt": 1534771180000,
+                    "updatedAt": 1534771183000
                 }
             ]
         }

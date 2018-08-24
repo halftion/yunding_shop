@@ -37,11 +37,10 @@ public class OrderServiceImpl implements OrderService {
 
     private ServiceResult selectOrderByOrderInfo(OrderInfo orderInfo){
         try {
-            List<Order> orderList = new ArrayList<>();
             Order order = new Order();
             List<OrderGoods> orderGoodsList;
 
-            orderGoodsList = orderGoodsMapper.selectByOrderId(orderInfo.getOrderId());
+            orderGoodsList = orderGoodsMapper.selectByOrderId((orderInfo.getOrderId()));
             order.setOrderInfo(orderInfo);
             order.setOrderGoodsList(orderGoodsList);
 
@@ -74,8 +73,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private String getOrderNo(){
-        return UUID.randomUUID().toString().replace("-","").substring(0,10);
+    private String getOrderNo(Integer userId){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+        String date = sdf.format(new Date());
+        int uuid = (int) (Math.random() * 100);
+        return date + userId + uuid;
     }
 
     @Override
@@ -83,11 +85,12 @@ public class OrderServiceImpl implements OrderService {
         try{
             List<OrderInfo> orderInfoList = orderInfoMapper.selectByUserId(userId);
             ServiceResult serviceResult = selectOrderListByOrderInfoList(orderInfoList);
-            if (serviceResult.isSuccess()) {
-                return ServiceResult.success(serviceResult.getData());
-            } else {
+
+            if (!serviceResult.isSuccess()) {
                 return ServiceResult.failure(serviceResult.getMessage());
             }
+
+            return ServiceResult.success(serviceResult.getData());
         }catch (Exception e){
             return ServiceResult.failure("订单查询失败");
         }
@@ -98,6 +101,10 @@ public class OrderServiceImpl implements OrderService {
         try{
             OrderInfo orderInfo = orderInfoMapper.selectByOrderId(orderId);
 
+            if (orderId == null){
+                return ServiceResult.failure("没有此订单");
+            }
+
             if(!orderInfo.getUserId().equals(userId)){
                 return  ServiceResult.failure("用户信息不匹配");
             }
@@ -107,6 +114,7 @@ public class OrderServiceImpl implements OrderService {
             return ServiceResult.success(new Order(orderInfo,orderGoodsList));
 
         }catch (Exception e){
+            e.printStackTrace();
             return ServiceResult.failure("订单查询失败");
         }
     }
@@ -202,7 +210,7 @@ public class OrderServiceImpl implements OrderService {
                 //订单总价
                 BigDecimal totalPirce = new BigDecimal(0);
                 //订单id
-                String orderId = getOrderNo();
+                String orderId = getOrderNo(userId);
 
                 List<OrderGoods> newOrderGoodsList = orderGoodsMapGroupByShopId.get(shopId);
 

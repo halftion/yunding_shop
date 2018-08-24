@@ -43,7 +43,7 @@ public class SearchServiceImpl implements SearchService {
                     return ServiceResult.failure(serviceResult.getMessage());
                 }
 
-                Map<String,Object> resultMap = new HashMap();
+                HashMap resultMap = new HashMap();
                 resultMap.put("shop",serviceResult.getData());
 
                 serviceResult = goodsService.selectByName(newKeyword);
