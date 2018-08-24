@@ -74,6 +74,7 @@ public class CommentServiceImpl implements CommentService {
 
             return ServiceResult.success();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("评价失败");
         }
     }

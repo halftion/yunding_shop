@@ -12,7 +12,7 @@
     </select>
 
     <select id="selectByOrderIdAndGoodsIdAndState" resultType="yunding.shop.entity.OrderGoods">
-        SELECT * FROM t_order_goods WHERE order_id = #{orderId} AND goods_id = #{url} AND state = #{state}
+        SELECT * FROM t_order_goods WHERE order_id = #{orderId} AND goods_id = #{goodsId} AND state = #{state}
     </select>
 
     <insert id="insert" parameterType="yunding.shop.entity.OrderGoods">
@@ -28,7 +28,7 @@
         updated_at
         )VALUES(
         #{orderId},
-        #{url},
+        #{goodsId},
         #{goodsName},
         #{goodsPic},
         #{goodsNum},
@@ -45,7 +45,7 @@
 
     <update id="updateState" parameterType="yunding.shop.entity.OrderGoods">
         UPDATE t_order_goods SET state = #{state} , updated_at = #{updatedAt}
-        WHERE order_id = #{orderId} AND goods_id = #{url}
+        WHERE order_id = #{orderId} AND goods_id = #{goodsId}
     </update>
 
 </mapper>
