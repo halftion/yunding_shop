@@ -15,7 +15,7 @@ public interface CommentMapper {
      * @param goodsId 商品Id
      * @return 用户Id 用户头像 用户昵称 商品评价 创建时间
      */
-    List<Comment> selectByGoodsId(Integer goodsId);
+    List<Comment> selectByGoodsIdSortByTime(Integer goodsId);
 
     /**
      * 通过订单id和商品id精确搜索评论(state = 0)

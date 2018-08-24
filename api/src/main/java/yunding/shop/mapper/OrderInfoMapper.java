@@ -32,14 +32,14 @@ public interface OrderInfoMapper {
      * @param userId 用户ID
      * @return 订单信息列表
      */
-    List<OrderInfo> selectByUserId(Integer userId);
+    List<OrderInfo> selectByUserIdSortByTime(Integer userId);
 
     /**
      * 通过店铺id查询所有订单信息列表(包括 state = -1)
      * @param shopId 店铺id
      * @return 订单信息列表
      */
-    List<OrderInfo> selectByShopId(Integer shopId);
+    List<OrderInfo> selectByShopIdSortByTime(Integer shopId);
 
     /**
      * 创建 订单

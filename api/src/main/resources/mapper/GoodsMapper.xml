@@ -3,31 +3,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.GoodsMapper">
 
-    <select id="selectByName" parameterType="java.lang.String" resultType="yunding.shop.entity.Goods">
+    <select id="selectByNameSortBySales" parameterType="java.lang.String" resultType="yunding.shop.entity.Goods">
         SELECT `goods_id`, `name`, `picture`, `sales`,  `price` FROM t_goods WHERE `name` LIKE #{name} AND state = 0
+        ORDER BY sales DESC
     </select>
 
-    <select id="selectByPlatformCategoryId" parameterType="java.lang.Integer"
+    <select id="selectByPlatformCategoryIdSortBySales" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Goods">
         SELECT  * FROM  t_goods
         WHERE  platform_goods_category_id = #{categoryId} AND state = 0
+        ORDER BY sales DESC
     </select>
 
-    <select id="selectByShopCategoryId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Goods">
+    <select id="selectByShopCategoryIdSortBySales" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Goods">
         SELECT  * FROM  t_goods WHERE  shop_id =#{shopId} AND  shop_goods_category_id = #{categoryId,jdbcType=INTEGER}
          AND state = 0
+         ORDER BY sales DESC
     </select>
 
     <select id="selectByGoodsId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.Goods">
         SELECT * FROM t_goods WHERE goods_id = #{id}  AND state = 0
     </select>
 
-    <select id="selectNameByKeyword" parameterType="java.lang.String" resultType="java.lang.String">
+    <select id="selectNameByKeywordSortBySales" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT `name` FROM t_goods WHERE `name` LIKE #{goodsName}  AND state = 0
+        ORDER BY sales DESC
     </select>
 
-    <select id="selectByShopIdAndGoodsName" resultType="yunding.shop.entity.Goods">
+    <select id="selectByShopIdAndGoodsNameSortBySales" resultType="yunding.shop.entity.Goods">
         SELECT * FROM t_goods WHERE shop_id = #{shopId} AND `name` LIKE #{goodsName}  AND state = 0
+        ORDER BY sales DESC
     </select>
     
     <update id="updateStockAndSales" parameterType="yunding.shop.entity.Goods">

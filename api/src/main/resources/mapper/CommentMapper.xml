@@ -3,9 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yunding.shop.mapper.CommentMapper">
 
-    <select id="selectByGoodsId" parameterType="java.lang.Integer"
+    <select id="selectByGoodsIdSortByTime" parameterType="java.lang.Integer"
             resultType="yunding.shop.entity.Comment">
         SELECT user_id, avatar, nick_name, content, updated_at FROM t_comment WHERE goods_id = #{goodsId} AND state = 0
+        ORDER BY created_at DESC
     </select>
 
     <select id="selectByOrderIdAndGoodsId">

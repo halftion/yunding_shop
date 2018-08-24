@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ServiceResult selectOrderListByUserId(Integer userId) {
         try{
-            List<OrderInfo> orderInfoList = orderInfoMapper.selectByUserId(userId);
+            List<OrderInfo> orderInfoList = orderInfoMapper.selectByUserIdSortByTime(userId);
             ServiceResult serviceResult = selectOrderListByOrderInfoList(orderInfoList);
 
             if (!serviceResult.isSuccess()) {
@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
                 return ServiceResult.failure("用户信息不匹配");
             }
 
-            List<OrderInfo> orderInfoList = orderInfoMapper.selectByShopId(shopId);
+            List<OrderInfo> orderInfoList = orderInfoMapper.selectByShopIdSortByTime(shopId);
 
             serviceResult = selectOrderListByOrderInfoList(orderInfoList);
 

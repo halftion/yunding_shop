@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ServiceResult getByGoodsId(Integer goodsId){
         try {
-            List<Comment> commentList = commentMapper.selectByGoodsId(goodsId);
+            List<Comment> commentList = commentMapper.selectByGoodsIdSortByTime(goodsId);
             return ServiceResult.success(commentList);
         } catch (Exception e) {
             return ServiceResult.failure("获取商品评论失败");
