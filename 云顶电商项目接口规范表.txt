@@ -974,7 +974,7 @@ JSON传入：
     "message": "xxx错误"
 }
 
-28.评论商品：/api/goods/comment (PUT) √
+28.评论商品：/api/goods/comment (POST) √
 JSON传入：
 {
 	"userId" : "2",
