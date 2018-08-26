@@ -530,30 +530,17 @@ JSON传入：
 {
     "code": 200,
     "data": [
-        null,
         {
-            "goodsId": 2,
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "platformGoodsCategoryId": 7,
-            "shopGoodsCategoryId": 7,
-            "name": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-            "stockNum": 100,
-            "price": 209,
-            "picture": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
-            "sales": 0,
-            "commentNum": 0,
-            "collectionNum": 0,
-            "state": 0,
-            "createdAt": 1533294602000,
-            "updatedAt": 1533294608000
+            "goodsId": 1,
+            "name": "红木质中国风古风创意礼物 精美限量版书签 夕情人节 紫光檀 单品",
+            "picture": "https://img10.360buyimg.com/n1/jfs/t8485/362/1492082332/301096/c6474e80/59ba4b47N1833841f.jpg"
         }
     ],
     "message": "操作成功！"
 }
-为空返回示例：
 {
     "code": 200,
+    "data": [],
     "message": "操作成功！"
 }
 失败返回示例：
@@ -562,47 +549,16 @@ JSON传入：
     "message" : "xxx错误"
 }
 
-19.根据商品id在购物车中添加商品:/api/cartMap/{goodsId} (PUT) √
+19.根据商品id在购物车中添加商品:/api/cartMap/ (PUT) √
+发送JSON:
+{
+	"goodsId" : "2",
+	"name" : "红木质中国风古风创意礼物 精美限量版书签 夕情人节 紫光檀 单品",
+	"picture" : "https://img10.360buyimg.com/n1/jfs/t8485/362/1492082332/301096/c6474e80/59ba4b47N1833841f.jpg"
+}
 成功返回示例：
 {
     "code": 200,
-    "data": [
-        null,
-        {
-            "goodsId": 2,
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "platformGoodsCategoryId": 7,
-            "shopGoodsCategoryId": 7,
-            "name": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-            "stockNum": 100,
-            "price": 209,
-            "picture": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
-            "sales": 0,
-            "commentNum": 0,
-            "collectionNum": 0,
-            "state": 0,
-            "createdAt": 1533294602000,
-            "updatedAt": 1533294608000
-        },
-        {
-            "goodsId": 3,
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "platformGoodsCategoryId": 7,
-            "shopGoodsCategoryId": 7,
-            "name": "凌美LAMY钢笔墨水签字笔钢笔水笔 专用50ml非碳素墨水黑色狩猎者恒星通用 德国原装进口文具",
-            "stockNum": 100,
-            "price": 69,
-            "picture": "https://img14.360buyimg.com/n5/s450x450_jfs/t2791/362/1338321164/205768/609dd157/573b3607N8fe46ee9.jpg",
-            "sales": 0,
-            "commentNum": 0,
-            "collectionNum": 0,
-            "state": 0,
-            "createdAt": 1533294911000,
-            "updatedAt": 1533294921000
-        }
-    ],
     "message": "操作成功！"
 }
 失败返回示例：
@@ -615,26 +571,6 @@ JSON传入：
 成功返回示例：
 {
     "code": 200,
-    "data": [
-        null,
-        {
-            "goodsId": 2,
-            "shopId": 1,
-            "shopName": "云顶官方旗舰店",
-            "platformGoodsCategoryId": 7,
-            "shopGoodsCategoryId": 7,
-            "name": "凌美LAMY钢笔签字笔水笔Safari狩猎者男女商务办公礼品笔",
-            "stockNum": 100,
-            "price": 209,
-            "picture": "https://img13.360buyimg.com/n5/s450x450_jfs/t5137/19/1668282377/157656/53fe3116/5912f208N8fa82c1b.jpg",
-            "sales": 0,
-            "commentNum": 0,
-            "collectionNum": 0,
-            "state": 0,
-            "createdAt": 1533294602000,
-            "updatedAt": 1533294608000
-        }
-    ],
     "message": "操作成功！"
 }
 失败返回示例：
