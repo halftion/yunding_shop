@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yunding.shop.mapper.ShopContentMapper">
+
+    <select id="selectByTypeId" parameterType="java.lang.Integer" resultType="yunding.shop.entity.ShopContent">
+        SELECT * FROM t_shop_content WHERE type = #{type} AND state = 0
+    </select>
+    
+</mapper>

@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/api/aliPay")
-public class AliPayController {
+public class AlipayController {
 
     /*@Autowired
     AlipayService alipayService;

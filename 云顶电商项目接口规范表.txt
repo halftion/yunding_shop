@@ -1365,9 +1365,12 @@ JSON传入：
 
 49.上架商品：/api/admin/goods (POST)
 
-50.查看服务器参数：/api/ecs (GET)
+50.查看服务器参数：/api/admin/ecs (GET)
 
 
+
+//店铺文章搜索
+51.根据店铺ID和类型查找对应文章：/api/shopContent/{shopId}/{typeId} (GET)
 
 
 
