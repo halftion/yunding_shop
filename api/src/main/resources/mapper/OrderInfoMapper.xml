@@ -12,7 +12,7 @@
     </select>
 
     <select id="selectByUserIdSortByTime" resultType="yunding.shop.entity.OrderInfo">
-        SELECT order_id, created_at shop_name FROM t_order_info
+        SELECT order_id, created_at, shop_name, state FROM t_order_info
         WHERE user_id = #{userId} AND state != -1
         ORDER BY created_at DESC
     </select>

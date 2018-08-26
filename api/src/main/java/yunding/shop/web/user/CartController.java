@@ -20,11 +20,11 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/cart")
-@Scope("singleton")
+
 public class CartController {
 
-    @Autowired
-    Map<Integer, List<Goods>> cartMap;
+/*    @Autowired
+    Map<Integer, List<Goods>> cartMap;*/
 
     @Autowired
     CartService cartService;
@@ -36,7 +36,7 @@ public class CartController {
     public RequestResult getGoods(HttpServletRequest request){
         Integer userId = UserUtil.getCurrentUserId(request);
         try {
-            ServiceResult serviceResult = cartService.getGoodsFromCart(userId,cartMap);
+            ServiceResult serviceResult = cartService.getGoods(userId);
 
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
@@ -57,7 +57,7 @@ public class CartController {
                                   HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = cartService.addGoodsFromCart(userId,goodsId,cartMap);
+            ServiceResult serviceResult = cartService.addGoods(userId,goodsId);
 
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());
@@ -65,6 +65,7 @@ public class CartController {
                 return RequestResult.failure(serviceResult.getMessage());
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return RequestResult.failure("添加商品失败");
         }
     }
@@ -79,7 +80,7 @@ public class CartController {
 
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = cartService.dropGoodsFromCart(userId,goodsId,cartMap);
+            ServiceResult serviceResult = cartService.dropGoods(userId,goodsId);
 
             if (serviceResult.isSuccess()){
                 return RequestResult.success(serviceResult.getData());

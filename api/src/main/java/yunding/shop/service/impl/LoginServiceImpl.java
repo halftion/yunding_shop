@@ -14,7 +14,7 @@ import yunding.shop.mapper.LoginMapper;
 import yunding.shop.service.LoginService;
 import yunding.shop.service.UserService;
 import yunding.shop.service.VerificationCodeService;
-import yunding.shop.util.CheckUtils;
+import yunding.shop.util.CheckUtil;
 import yunding.shop.util.JwtUtil;
 import java.util.Date;
 
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public ServiceResult checkLoginName(String loginName) {
         try{
-            if (CheckUtils.checkPhoneNumberFormat(loginName)) {
+            if (CheckUtil.checkPhoneNumberFormat(loginName)) {
                 Login dbLogin = loginMapper.selectByLoginName(loginName);
                 if(dbLogin == null){
                     return ServiceResult.success();

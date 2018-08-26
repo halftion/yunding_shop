@@ -3,18 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="alipay" class="yunding.shop.util.AlipayUtil">
-<!--        <property name="appId" value="${appId}"/>
-        <property name="privateKey" value="${privateKey}"/>
-        <property name="format" value="${format}"/>
-        <property name="publicKey" value="${publicKey}"/>
-        <property name="signType" value="${signType}"/>
-        <property name="charset" value="${charset}"/>
-        <property name="gatewayUrl"  value="${gatewayUrl}"/>
-        <property name="returnUrl" value="${returnUrl}"/>
-        <property name="notifyUrl" value="${notifyUrl}"/>
-        <property name="logPath" value="${logPath}"/>-->
-    </bean>
+        <bean id="alipay" class="yunding.shop.util.AlipayUtil"/>
 
         <bean id="sMSUtil" class="yunding.shop.util.SmsUtil">
 <!--            <property name="product" value="${SMS.product}"/>
@@ -24,4 +13,6 @@
             <property name="templateCode" value="${SMS.templateCode}"/>
             <property name="outTime" value="${SMS.outTime}"/>-->
         </bean>
+
+        <bean class="yunding.shop.config.SpringConfig"/>
 </beans>

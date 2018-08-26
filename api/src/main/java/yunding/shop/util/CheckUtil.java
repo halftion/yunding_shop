@@ -7,7 +7,7 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author 齐语冰
  */
-public class CheckUtils {
+public class CheckUtil {
     public static boolean checkPhoneNumberFormat(String phoneNumber) throws PatternSyntaxException {
         return isChinaPhoneLegal(phoneNumber) || isHKPhoneLegal(phoneNumber);
     }

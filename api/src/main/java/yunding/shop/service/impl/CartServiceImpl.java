@@ -1,15 +1,17 @@
 package yunding.shop.service.impl;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.CartService;
 import yunding.shop.service.GoodsService;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 齐语冰
@@ -18,75 +20,68 @@ import java.util.Map;
 public class CartServiceImpl implements CartService {
 
     @Autowired
-    GoodsService goodsService;
+    private GoodsService goodsService;
+
+    @Autowired
+    private JedisPool jedisPool;
+
+    private Jedis jedis = null;
 
     @Override
-    public ServiceResult getGoodsFromCart(Integer userId, Map<Integer, List<Goods>> cartMap) {
+    public ServiceResult getGoods(Integer userId) {
         try {
-            return ServiceResult.success(cartMap.get(userId));
+            jedis  = jedisPool.getResource();
+
+            Long length = jedis.llen("cart_"+userId);
+            List<String> jsonStrList = jedis.lrange("cart_"+userId,0,length);
+            List<Goods> goodsList = new ArrayList<>();
+
+            for (String jsonStr : jsonStrList){
+                Goods goods = new Gson().fromJson(jsonStr,Goods.class);
+                goodsList.add(goods);
+            }
+
+            return ServiceResult.success(goodsList);
         } catch (Exception e) {
             return ServiceResult.failure("获取购物车列表失败");
         }
     }
 
     @Override
-    public ServiceResult addGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult addGoods(Integer userId, Integer goodsId) {
 
-        List<Goods> goodsList;
+        try {
+            System.out.println(jedisPool);
+            jedis  = jedisPool.getResource();
+            jedis.select(0);
 
-        ServiceResult serviceResult = goodsService.selectById(goodsId);
-        Goods goods = (Goods) serviceResult.getData();
+            ServiceResult serviceResult = goodsService.selectById(goodsId);
+            Goods goods = (Goods) serviceResult.getData();
 
-        //此商品是否存在
-        if (serviceResult.isSuccess()){
+            //此商品是否存在
+            if (serviceResult.isSuccess()){
 
-            //此用户是否创建了购物车
-            if (cartMap.containsKey(userId)){
-                goodsList = cartMap.get(userId);
+                String goodsJsonStr = new Gson().toJson(goods);
+                jedis.lpushx("cart_"+userId,goodsJsonStr);
 
-                //购物车中是否有此商品
-                if(goodsList.contains(goods)){
-                    return ServiceResult.success(goodsList);
-                }
+                return ServiceResult.success();
             } else {
-                goodsList = new ArrayList<>();
+                return ServiceResult.failure("该商品不存在");
             }
-            goodsList.add(goods);
-            cartMap.put(userId,goodsList);
-            return ServiceResult.success(goodsList);
-        } else {
-            return ServiceResult.failure("该商品不存在");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw  new RuntimeException("购物车添加商品失败");
         }
     }
 
     @Override
-    public ServiceResult dropGoodsFromCart(Integer userId, Integer goodsId, Map<Integer, List<Goods>> cartMap) {
-
-        List<Goods> goodsList;
+    @Transactional(rollbackFor=Exception.class)
+    public ServiceResult dropGoods(Integer userId, Integer goodsId) {
+        jedis  = jedisPool.getResource();
 
         ServiceResult serviceResult = goodsService.selectById(goodsId);
         Goods goods = (Goods) serviceResult.getData();
-
-        //此商品是否存在
-        if (serviceResult.isSuccess()){
-
-            //此用户是否创建了购物车
-            if (cartMap.containsKey(userId)){
-                goodsList = cartMap.get(userId);
-
-                //购物车中是否有此商品
-                if(goodsList.contains(goods)){
-                    goodsList.remove(goods);
-                    cartMap.put(userId,goodsList);
-                    return ServiceResult.success(goodsList);
-                } else {
-                    return ServiceResult.failure("购物车中无此商品");
-                }
-            } else {
-                return ServiceResult.failure("该用户尚未创建购物车");
-            }
-        } else {
-            return ServiceResult.failure("该商品不存在");
-        }
+        return null;
     }
 }

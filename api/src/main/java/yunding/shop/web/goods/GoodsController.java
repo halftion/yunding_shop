@@ -68,9 +68,11 @@ public class GoodsController {
      * 根据商品Id评论商品
      * @param comment 评论
      */
-    @RequestMapping(value = "/comment" , method = RequestMethod.POST)
-    public RequestResult commentByGoodsId(@RequestBody Comment comment ){
+    @RequestMapping(value = "/comment" , method = RequestMethod.PUT)
+    public RequestResult commentByGoodsId(@RequestBody Comment comment, HttpServletRequest request){
         try {
+            Integer userId = UserUtil.getCurrentUserId(request);
+            comment.setUserId(userId);
             ServiceResult serviceResult = commentService.publish(comment);
             if(serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());

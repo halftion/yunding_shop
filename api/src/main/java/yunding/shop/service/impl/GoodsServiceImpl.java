@@ -142,7 +142,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectByName(String keyword) {
         try {
-            List<Goods> goodsList = goodsMapper.selectByName(keyword);
+            List<Goods> goodsList = goodsMapper.selectByNameSortBySales(keyword);
             return ServiceResult.success(goodsList);
         }catch (Exception e){
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectNameByKeyword(String keyword) {
         try {
-            List<String> hintList = goodsMapper.selectNameByKeyword(keyword);
+            List<String> hintList = goodsMapper.selectNameByKeywordSortBySales(keyword);
             if(hintList.size() > HINT_SIZE){
                 hintList = hintList.subList(0,5);
             }
@@ -167,7 +167,7 @@ public class GoodsServiceImpl implements GoodsService{
     public ServiceResult selectByShopIdAndGoodsName(Integer shopId, String keyword) {
         try {
             JSONArray goodsList = JSONArray.fromObject(
-                    goodsMapper.selectByShopIdAndGoodsName(shopId,keyword));
+                    goodsMapper.selectByShopIdAndGoodsNameSortBySales(shopId,keyword));
             return ServiceResult.success(goodsList);
         }catch (Exception e){
             return ServiceResult.failure("获取商品失败");
@@ -177,7 +177,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectByPlatformCategoryId(Integer categoryId) {
         try {
-            List<Goods> goodsList=goodsMapper.selectByPlatformCategoryId(categoryId);
+            List<Goods> goodsList=goodsMapper.selectByPlatformCategoryIdSortBySales(categoryId);
             return ServiceResult.success(goodsList);
         }catch (Exception e){
             return ServiceResult.failure("获取商品集合失败");
@@ -187,7 +187,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public ServiceResult selectByShopCategoryId(Integer shopId, Integer category) {
         try {
-            List<Goods> goods=goodsMapper.selectByShopCategoryId(shopId,category);
+            List<Goods> goods=goodsMapper.selectByShopCategoryIdSortBySales(shopId,category);
             return ServiceResult.success(goods);
         }catch (Exception e){
             return ServiceResult.failure("获取商品集合失败");
