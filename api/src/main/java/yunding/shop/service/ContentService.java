@@ -33,4 +33,12 @@ public interface ContentService {
      */
     ServiceResult selectAll();
 
+    /**
+     * 根据店铺ID和板块类型获取店铺文章信息
+     * @param shopId 店铺Id
+     * @param type 店铺文章类型
+     * @return 店铺文章列表
+     */
+    ServiceResult getShopContentFromType (Integer shopId, Integer type);
+
 }

@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Constant;
 import yunding.shop.entity.Content;
+import yunding.shop.entity.ShopContent;
 import yunding.shop.mapper.ContentMapper;
+import yunding.shop.mapper.ShopContentMapper;
 import yunding.shop.service.ContentService;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private ContentMapper contentMapper;
+
+    @Autowired
+    private ShopContentMapper shopContentMapper;
 
     @Override
     public ServiceResult getContentFromType(Integer typeId) {
@@ -71,6 +76,16 @@ public class ContentServiceImpl implements ContentService {
     public ServiceResult selectAll() {
         try {
             List<Content> contentList = contentMapper.selectAll();
+            return ServiceResult.success(contentList);
+        } catch (Exception e) {
+            return ServiceResult.failure("获取文章异常");
+        }
+    }
+
+    @Override
+    public ServiceResult getShopContentFromType(Integer shopId, Integer type) {
+        try {
+            List<ShopContent> contentList = shopContentMapper.selectByTypeId(shopId, type);
             return ServiceResult.success(contentList);
         } catch (Exception e) {
             return ServiceResult.failure("获取文章异常");
