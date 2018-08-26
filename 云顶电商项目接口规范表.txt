@@ -1371,6 +1371,45 @@ JSON传入：
 
 //店铺文章搜索
 51.根据店铺ID和类型查找对应文章：/api/shopContent/{shopId}/{typeId} (GET)
+成功返回示例：
+{
+    "code": 200,
+    "data": [
+        {
+            "contentId": 1,
+            "shopId": 1,
+            "url": "107",
+            "title1": null,
+            "title2": null,
+            "title3": null,
+            "pic": "https://i.loli.net/2018/08/19/5b78cb5474b8b.jpg",
+            "type": 0,
+            "state": 0
+        },
+        {
+            "contentId": 2,
+            "shopId": 1,
+            "url": "145",
+            "title1": null,
+            "title2": null,
+            "title3": null,
+            "pic": "https://i.loli.net/2018/08/26/5b820745f05d1.jpg",
+            "type": 0,
+            "state": 0
+        },
+        {
+            "contentId": 3,
+            "shopId": 1,
+            "url": "146",
+            "title1": null,
+            "title2": null,
+            "title3": null,
+            "pic": "https://i.loli.net/2018/08/26/5b8209876e727.jpg",
+            "type": 0,
+            "state": 0
+        }
+    ],
+    "message": "操作成功！"
 
 
 
