@@ -9,7 +9,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * @author 齐语冰
  */
 @Configuration
-public class SpringConfig {
+public class RedisConfig {
 
     @Bean
     public JedisPoolConfig jedisPoolConfig(){

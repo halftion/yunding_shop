@@ -31,7 +31,7 @@ public class Constant {
     /**
      * 项目IP地址
      */
-    public static final String IP_ADDRESS = "http://localhost:8080";
+    public static final String IP_ADDRESS = "http://qiyubing.cn";
 
     /**
      * goodsService标识符

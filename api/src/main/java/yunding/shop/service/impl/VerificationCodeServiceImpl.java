@@ -3,6 +3,8 @@ package yunding.shop.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.IdentifyingCode;
 import yunding.shop.mapper.VerificationCodeMapper;
@@ -25,10 +27,13 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    JedisPool jedisPool;
+
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult sendAndSave(String phoneNumber) {
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             ServiceResult serviceResult = loginService.checkLoginName(phoneNumber);
             if (!serviceResult.isSuccess()){
                 return ServiceResult.failure(serviceResult.getMessage());
@@ -43,7 +48,10 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             smsUtil.sendMessaging(phoneNumber,verificationCode);
 
             //插入到数据库
-            verificationCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
+//            verificationCodeMapper.insert(new IdentifyingCode(phoneNumber,verificationCode,new Date()));
+
+            jedis.setex("code_"+phoneNumber,300,verificationCode);
+
             return ServiceResult.success();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,15 +62,15 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult verify(String loginName, String code) {
-        try {
-            //验证码失效时间
-            int outTime = 300000;
-            Date now = new Date();
+        try (Jedis jedis = jedisPool.getResource()) {
+            //验证码失效时间 (s)
+            int outTime = 300;
+            /*Date now = new Date();
             IdentifyingCode identifyingCode = verificationCodeMapper.selectByLoginName(loginName);
             if (identifyingCode != null) {
                 //超时验证码失效
                 if (now.getTime() - identifyingCode.getCreatedAt().getTime() > outTime){
-                    /*将state置为 -1*/
+                    *//*将state置为 -1*//*
                     verificationCodeMapper.drop(loginName);
                     return ServiceResult.failure("验证码超时");
                     //验证码正确
@@ -75,7 +83,15 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
                 }
             } else {
                 return ServiceResult.failure("该手机号未发送验证码");
+            }*/
+            String dbCode = jedis.get("code_"+loginName);
+
+            if (code.equals(dbCode)){
+                return ServiceResult.success();
+            } else {
+                return ServiceResult.failure("验证码错误");
             }
+
         } catch (Exception e) {
             //服务层失败
             throw new RuntimeException("验证失败");
@@ -85,8 +101,9 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Override
     @Transactional(rollbackFor=Exception.class)
     public ServiceResult dropCode(String loginName) {
-        try {
-            verificationCodeMapper.drop(loginName);
+        try (Jedis jedis = jedisPool.getResource()){
+//            verificationCodeMapper.drop(loginName);
+            jedis.del("code_"+loginName);
             return ServiceResult.success();
         } catch (Exception e) {
             e.printStackTrace();

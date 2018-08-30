@@ -9,9 +9,7 @@ import redis.clients.jedis.JedisPool;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.CartService;
-import yunding.shop.service.GoodsService;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 齐语冰
@@ -20,25 +18,21 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     @Autowired
-    private GoodsService goodsService;
-
-    @Autowired
     private JedisPool jedisPool;
 
-    private Jedis jedis = null;
 
     @Override
-    public ServiceResult getGoods(Integer userId) {
-        try {
-            jedis  = jedisPool.getResource();
+    public ServiceResult getGoodsList(Integer userId) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            Map<String,String> map = jedis.hgetAll("cart_" + userId);
 
-            Long length = jedis.llen("cart_"+userId);
-            List<String> jsonStrList = jedis.lrange("cart_"+userId,0,length);
+            Collection<String> collection = map.values();
+
             List<Goods> goodsList = new ArrayList<>();
 
-            for (String jsonStr : jsonStrList){
-                Goods goods = new Gson().fromJson(jsonStr,Goods.class);
-                goodsList.add(goods);
+            for (String goodsStr : collection){
+                goodsList.add(
+                        new Gson().fromJson(goodsStr, Goods.class));
             }
 
             return ServiceResult.success(goodsList);
@@ -48,40 +42,34 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ServiceResult addGoods(Integer userId, Integer goodsId) {
+    @Transactional(rollbackFor = Exception.class)
+    public ServiceResult addGoods(Integer userId, Goods goods) {
 
-        try {
-            System.out.println(jedisPool);
-            jedis  = jedisPool.getResource();
-            jedis.select(0);
+        try (Jedis jedis = jedisPool.getResource()) {
 
-            ServiceResult serviceResult = goodsService.selectById(goodsId);
-            Goods goods = (Goods) serviceResult.getData();
+            String goodsJsonStr = new Gson().toJson(goods);
 
-            //此商品是否存在
-            if (serviceResult.isSuccess()){
+            jedis.hset("cart_" + userId, goods.getGoodsId().toString(), goodsJsonStr);
 
-                String goodsJsonStr = new Gson().toJson(goods);
-                jedis.lpushx("cart_"+userId,goodsJsonStr);
+            return ServiceResult.success();
 
-                return ServiceResult.success();
-            } else {
-                return ServiceResult.failure("该商品不存在");
-            }
         } catch (Exception e) {
             e.printStackTrace();
-            throw  new RuntimeException("购物车添加商品失败");
+            throw new RuntimeException("购物车添加商品失败");
         }
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public ServiceResult dropGoods(Integer userId, Integer goodsId) {
-        jedis  = jedisPool.getResource();
 
-        ServiceResult serviceResult = goodsService.selectById(goodsId);
-        Goods goods = (Goods) serviceResult.getData();
-        return null;
+        try (Jedis jedis = jedisPool.getResource()) {
+
+            jedis.hdel("cart_" + userId, goodsId.toString());
+
+            return ServiceResult.success();
+        } catch (Exception e) {
+            throw new RuntimeException("购物车移除商品失败");
+        }
     }
 }

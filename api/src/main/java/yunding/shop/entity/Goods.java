@@ -112,6 +112,10 @@ public class Goods implements Comparator {
      */
     private List<Goods> linkGoodsList;
 
+    public Goods() {
+    }
+
+
 
     public Integer getGoodsId() {
         return goodsId;

@@ -16,15 +16,15 @@ public interface CartService {
      * @param userId 用户id
      * @return 该用户当前购物车中商品列表
      */
-    ServiceResult getGoods(Integer userId);
+    ServiceResult getGoodsList(Integer userId);
 
     /**
      * 向购物车中添加商品
      * @param userId 用户id
-     * @param goodsId 商品id
+     * @param goods 商品
      * @return 该用户当前购物车中商品列表
      */
-    ServiceResult addGoods(Integer userId, Integer goodsId);
+    ServiceResult addGoods(Integer userId, Goods goods);
 
     /**
      * 从购物车中移除商品

@@ -48,7 +48,7 @@ public class OrderGoods {
     private BigDecimal unitPrice;
 
     /**
-     * 该商品总价
+     * 该商品总价(单价*数量)
      */
     private BigDecimal totalPrice;
 

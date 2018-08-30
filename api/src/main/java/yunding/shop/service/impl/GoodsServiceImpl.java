@@ -130,12 +130,12 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setUpdatedAt(new Date());
 
             if (goodsMapper.updateStockAndSales(goods) != 1) {
-                return ServiceResult.failure("修改商品信息失败");
+                return ServiceResult.failure("库存销量回滚失败");
             }
 
             return ServiceResult.success();
         }catch (Exception e){
-            throw new RuntimeException("库存销量修改失败");
+            throw new RuntimeException("库存销量回滚失败");
         }
     }
 

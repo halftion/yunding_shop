@@ -29,7 +29,6 @@ public interface GoodsService {
      * @param orderGoods 订单商品
      */
 
-    @Transactional(rollbackFor=Exception.class)
     ServiceResult processOrderDelete(OrderGoods orderGoods);
 
     /**

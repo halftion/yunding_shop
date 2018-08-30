@@ -1,26 +1,19 @@
 package yunding.shop.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import yunding.shop.dto.RequestResult;
 import yunding.shop.dto.ServiceResult;
 import yunding.shop.entity.Goods;
 import yunding.shop.service.CartService;
 import yunding.shop.util.UserUtil;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author 齐语冰
  */
 @RestController
 @RequestMapping("/api/cart")
-
 public class CartController {
 
 /*    @Autowired
@@ -34,9 +27,11 @@ public class CartController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public RequestResult getGoods(HttpServletRequest request){
-        Integer userId = UserUtil.getCurrentUserId(request);
         try {
-            ServiceResult serviceResult = cartService.getGoods(userId);
+
+            Integer userId = UserUtil.getCurrentUserId(request);
+
+            ServiceResult serviceResult = cartService.getGoodsList(userId);
 
             if (serviceResult.isSuccess()) {
                 return RequestResult.success(serviceResult.getData());
@@ -50,17 +45,18 @@ public class CartController {
 
     /**
      * 在购物车中添加商品
-     * @param goodsId 商品id
+     * @param goods goodsId goodsName picture price
      */
-    @RequestMapping(value = "/{goodsId}", method = RequestMethod.PUT)
-    public RequestResult addGoods(@PathVariable Integer goodsId,
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public RequestResult addGoods(@RequestBody Goods goods,
                                   HttpServletRequest request){
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
-            ServiceResult serviceResult = cartService.addGoods(userId,goodsId);
+
+            ServiceResult serviceResult = cartService.addGoods(userId,goods);
 
             if (serviceResult.isSuccess()){
-                return RequestResult.success(serviceResult.getData());
+                return RequestResult.success();
             } else {
                 return RequestResult.failure(serviceResult.getMessage());
             }
@@ -77,9 +73,9 @@ public class CartController {
     @RequestMapping(value = "/{goodsId}", method = RequestMethod.DELETE)
     public RequestResult dropGoods(@PathVariable Integer goodsId,
                                    HttpServletRequest request){
-
         try {
             Integer userId = UserUtil.getCurrentUserId(request);
+
             ServiceResult serviceResult = cartService.dropGoods(userId,goodsId);
 
             if (serviceResult.isSuccess()){

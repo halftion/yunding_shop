@@ -3,16 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="alipay" class="yunding.shop.util.AlipayUtil"/>
+        <bean id="sMSUtil" class="yunding.shop.util.SmsUtil"/>
 
-        <bean id="sMSUtil" class="yunding.shop.util.SmsUtil">
-<!--            <property name="product" value="${SMS.product}"/>
-            <property name="domain" value="${SMS.domain}"/>
-            <property name="accessKeyId" value="${SMS.accessKeyId}"/>
-            <property name="accessKeySecret" value="${SMS.accessKeySecret}"/>
-            <property name="templateCode" value="${SMS.templateCode}"/>
-            <property name="outTime" value="${SMS.outTime}"/>-->
-        </bean>
+        <bean class="yunding.shop.config.RedisConfig"/>
 
-        <bean class="yunding.shop.config.SpringConfig"/>
+        <bean class="yunding.shop.config.AlipayConfig"/>
+
 </beans>

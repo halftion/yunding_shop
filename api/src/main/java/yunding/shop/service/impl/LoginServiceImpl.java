@@ -94,10 +94,12 @@ public class LoginServiceImpl implements LoginService {
 
                 //验证验证码，并使验证码失效
                 serviceResult = verificationCodeService.verify(loginName,code);
-                verificationCodeService.dropCode(loginName);
+
 
                 //验证码正确
                 if (serviceResult.isSuccess()){
+
+                    verificationCodeService.dropCode(loginName);
 
                     //创建用户信息，并返回自动递增主键
                     serviceResult = userService.create(nickName);
@@ -125,7 +127,7 @@ public class LoginServiceImpl implements LoginService {
                         throw new RuntimeException(serviceResult.getMessage());
                     }
                 } else {
-                    throw new RuntimeException(serviceResult.getMessage());
+                    return ServiceResult.failure(serviceResult.getMessage());
                 }
             } else {
                 return ServiceResult.failure(serviceResult.getMessage());
