@@ -1,0 +1,26 @@
+<meta charset="utf-8" />
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<form enctype="multipart/form-data">
+	<input name="smfile" type="file" id="file"/>
+	<input type="button" value="上传" />
+</form>
+
+<script>
+	$(':button').click(function(){
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+        url: 'https://sm.ms/api/upload',
+        type: 'POST',
+        success: function(data){
+			console.log(JSON.parse(data));
+		},
+        error: function(data){
+			console.log(data);
+		},
+        data:formData,
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+</script>
