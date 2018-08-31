@@ -37,7 +37,7 @@ public class GoodsController {
             Integer userId = UserUtil.getCurrentUserId(request);
             ServiceResult serviceResult = goodsService.saveGoodsPicture(userId, goods);
             if(serviceResult.isSuccess()){
-                return RequestResult.success(serviceResult.getData());
+                return RequestResult.success();
             }else {
                 return RequestResult.failure(serviceResult.getMessage());
             }

@@ -420,7 +420,10 @@ JSON传入：
 	"url" : "https://i.loli.net/2018/08/18/5b778f98ab299.png"
 }
 成功返回示例：
-{"code":200,"message":"操作成功！"}
+{
+	"code":200,
+	"message":"操作成功！"
+}
 失败返回示例：
 {
     "code": 500,
@@ -715,30 +718,31 @@ JSON传入：
     	"consignee":"胡国斌"
     }
 }
-成功返回示例：
+成功返回示例：返回base64转码过的支付宝付款html代码
+
 {
-    "code": 200,
-    "data": null,
-    "message": "操作成功！"
+	"code": 500,
+	"data": "PGZvcm0gbmFtZT0icHVuY2hvdXRfZm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Imh0dHBzOi8vb3BlbmFwaS5hbGlwYXlkZXYuY29tL2dhdGV3YXkuZG8/Y2hhcnNldD11dGYtOCZtZXRob2Q9YWxpcGF5LnRyYWRlLnBhZ2UucGF5JnNpZ249ZWhSOVNia3E2VU5vZ1VWZ2hCWDl5dkJCSGhKSlclMkI3emRSdHpoNTcyeUJNWkZEU1ljWjA4VDBNM3RUUzdsRHRJWjVFdHcxOUdvNkIlMkJMVkxZWDRZZ3JOU0hZUjBhajFxVkNKSHF2JTJCcndBZ1pGSnFicndJcm5tWFhCaWJMMFJ5enJZdW9kNUtrbzUlMkYlMkJvclY5dWdXNll3c1IlMkZYNjVLMnc5R3VXaW1ENiUyQkNNQyUyRmszaVg1QnU5TDVITmRMN015Q3J1WDc4UXo5R2UzYzBDRk5KOWlrZFBjMzk4MVE3NXpzeGMlMkZ4aXg1Z201Q3plSHNwY3lkZVdpaGFia3E5dTF3Zjh6ejJEWE9xWVZmTG1EMVNQaE5hJTJCcFFVN2NMeVd0ajRTNEw3Sk96JTJGUDByUjRIJTJGWGVjUlE1Wk5VTkw1YUFQN0tsVkNhSXFzazZ0UldaalJYRmlZNGwzRDN3JTNEJTNEJm5vdGlmeV91cmw9aHR0cCUzQSUyRiUyRnFpeXViaW5nLmNuJTJGeXVuZGluZ1Nob3AlMkZhcGklMkZvcmRlciUyRmFsaVBheSZ2ZXJzaW9uPTEuMCZhcHBfaWQ9MjAxNjA5MTgwMDUzNzA3MSZzaWduX3R5cGU9UlNBMiZ0aW1lc3RhbXA9MjAxOC0wOC0yNysyMyUzQTI0JTNBMTgmYWxpcGF5X3Nkaz1hbGlwYXktc2RrLWphdmEtMy4zLjQ5LkFMTCZmb3JtYXQ9anNvbiI+CjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9ImJpel9jb250ZW50IiB2YWx1ZT0ieyZxdW90O291dF90cmFkZV9ubyZxdW90OzomcXVvdDsyMDE4MDgyNzExMjQxODAyMCZxdW90OywmcXVvdDtwcm9kdWN0X2NvZGUmcXVvdDs6JnF1b3Q7RkFTVF9JTlNUQU5UX1RSQURFX1BBWSZxdW90OywmcXVvdDt0b3RhbF9hbW91bnQmcXVvdDs6NDkuOCwmcXVvdDtzdWJqZWN0JnF1b3Q7OiZxdW90O+S6kemhtueUteWVhuW5s+WPsCZxdW90OywmcXVvdDtxcl9wYXlfbW9kZSZxdW90OzomcXVvdDs0JnF1b3Q7LCZxdW90O3FyY29kZV93aWR0aCZxdW90OzomcXVvdDsxMjgmcXVvdDssJnF1b3Q7dGltZW91dF9leHByZXNzJnF1b3Q7OiZxdW90OzEyMG0mcXVvdDt9Ij4KPGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9Iueri+WNs+aUr+S7mCIgc3R5bGU9ImRpc3BsYXk6bm9uZSIgPgo8L2Zvcm0+CjxzY3JpcHQ+ZG9jdW1lbnQuZm9ybXNbMF0uc3VibWl0KCk7PC9zY3JpcHQ+",
+	"message" : "操作成功"
 }
+
 失败返回示例：
 {
     "code": 500,
     "message": "创建订单失败 "
 }
 
-25.通过订单id付款：/api/aliPay/purchase/{orderId} (POST) √
+
+
+25.支付宝回调接口：/api/aliPay (POST) √
 成功返回示例：
-{
-    "code": 200,
-    "data": "<form name=\"punchout_form\" method=\"post\" action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=huAMAM28di1cUOPs8FSzPtCyfn%2B9b79o1Q0dx3acTeZsinUfgpJoEJ3GjdzJAUJR6hMkCJhZw1IdJCFDTqRIsG2lVyV7%2BXg%2FutRwN8gKccTz6ifRBZGfY8uvryUf4rEeaJf6sBZarVuJ%2BU5U3UqMQdwnm%2Bzehx5ZWFEAeVB9uBr6mNLFi60htLgRxtIxrzDzehP00Q3MWlztvhDswhvBMGBrBS4vetdoL2B4NpzSQiDVeOVRZnER1VOSPSIpFXfO2ULYxqrgW2xR5ntOQvyDBTXQoKkncZACdWQAnUtyylVUngv4PEbSVoHvZiQG31Iljk6BHu7G6WLrYEOTnU6g0g%3D%3D&return_url=http%3A%2F%2Flocalhost%3A8080%2Findee.jsp&notify_url=http%3A%2F%2Fpunfwv.natappfree.cc%2Fapi%2FaliPay%2FnotifyUrl&version=1.0&app_id=2016091800539964&sign_type=RSA2&timestamp=2018-08-07+21%3A33%3A38&alipay_sdk=alipay-sdk-java-3.3.4.ALL&format=json\">\n<input type=\"hidden\" name=\"biz_content\" value=\"{&quot;out_trade_no&quot;:&quot;15&quot;,&quot;total_amount&quot;:&quot;2398&quot;,&quot;subject&quot;:&quot;日版 SKII 精华露 神仙水 补水保湿修护肌肤230ml&quot;,&quot;body&quot;:&quot;&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}\">\n<input type=\"submit\" value=\"立即支付\" style=\"display:none\" >\n</form>\n<script>document.forms[0].submit();</script>",
-    "message": "操作成功！"
-}
+
 失败返回示例：
 {
 	    "code": 500,
     "message": "xxx错误"
 }
+
 
 26.通过用户id获取对应的所有订单信息：/api/order/user (GET) √
 成功返回示例：
@@ -1104,11 +1108,15 @@ JSON传入：
     "message": "xxx错误"
 }
 
-33.添加/更新商品图片：/api/photo/goods/{goodsId} (POST) √
+33.添加/更新商品图片：/api/goodsPic (POST) √
+发送：
+{
+	"goodsId" : 1,
+	"picture" : "http://picture_url"
+}
 成功返回示例：
 {
     "code": 200,
-    "data": "http://localhost:8080/static/upload/avatar/98b6c6614b81465db0f8f02953a18428.jpg",
     "message": "操作成功！"
 }
 失败返回示例:
@@ -1291,6 +1299,9 @@ JSON传入：
     "code": 500,
     "message": "xxx错误"
 }
+
+管理员权限：
+
 45.查看所有文章：/api/admin/content (GET) √
 
 46.查看所有店铺：/api/admin/shop (GET)
@@ -1348,10 +1359,43 @@ JSON传入：
     "message": "操作成功！"
 
 
+补充：
 
+创建交易：
+/api/order/createTrade
+发送：
+[
+ 	"orderId1",
+ 	"orderId2"
+]
+成功示例： 返回base64转码过的支付宝付款html代码
+{
+	"code": 500,
+	"data": "PGZvcm0gbmFtZT0icHVuY2hvdXRfZm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Imh0dHBzOi8vb3BlbmFwaS5hbGlwYXlkZXYuY29tL2dhdGV3YXkuZG8/Y2hhcnNldD11dGYtOCZtZXRob2Q9YWxpcGF5LnRyYWRlLnBhZ2UucGF5JnNpZ249ZWhSOVNia3E2VU5vZ1VWZ2hCWDl5dkJCSGhKSlclMkI3emRSdHpoNTcyeUJNWkZEU1ljWjA4VDBNM3RUUzdsRHRJWjVFdHcxOUdvNkIlMkJMVkxZWDRZZ3JOU0hZUjBhajFxVkNKSHF2JTJCcndBZ1pGSnFicndJcm5tWFhCaWJMMFJ5enJZdW9kNUtrbzUlMkYlMkJvclY5dWdXNll3c1IlMkZYNjVLMnc5R3VXaW1ENiUyQkNNQyUyRmszaVg1QnU5TDVITmRMN015Q3J1WDc4UXo5R2UzYzBDRk5KOWlrZFBjMzk4MVE3NXpzeGMlMkZ4aXg1Z201Q3plSHNwY3lkZVdpaGFia3E5dTF3Zjh6ejJEWE9xWVZmTG1EMVNQaE5hJTJCcFFVN2NMeVd0ajRTNEw3Sk96JTJGUDByUjRIJTJGWGVjUlE1Wk5VTkw1YUFQN0tsVkNhSXFzazZ0UldaalJYRmlZNGwzRDN3JTNEJTNEJm5vdGlmeV91cmw9aHR0cCUzQSUyRiUyRnFpeXViaW5nLmNuJTJGeXVuZGluZ1Nob3AlMkZhcGklMkZvcmRlciUyRmFsaVBheSZ2ZXJzaW9uPTEuMCZhcHBfaWQ9MjAxNjA5MTgwMDUzNzA3MSZzaWduX3R5cGU9UlNBMiZ0aW1lc3RhbXA9MjAxOC0wOC0yNysyMyUzQTI0JTNBMTgmYWxpcGF5X3Nkaz1hbGlwYXktc2RrLWphdmEtMy4zLjQ5LkFMTCZmb3JtYXQ9anNvbiI+CjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9ImJpel9jb250ZW50IiB2YWx1ZT0ieyZxdW90O291dF90cmFkZV9ubyZxdW90OzomcXVvdDsyMDE4MDgyNzExMjQxODAyMCZxdW90OywmcXVvdDtwcm9kdWN0X2NvZGUmcXVvdDs6JnF1b3Q7RkFTVF9JTlNUQU5UX1RSQURFX1BBWSZxdW90OywmcXVvdDt0b3RhbF9hbW91bnQmcXVvdDs6NDkuOCwmcXVvdDtzdWJqZWN0JnF1b3Q7OiZxdW90O+S6kemhtueUteWVhuW5s+WPsCZxdW90OywmcXVvdDtxcl9wYXlfbW9kZSZxdW90OzomcXVvdDs0JnF1b3Q7LCZxdW90O3FyY29kZV93aWR0aCZxdW90OzomcXVvdDsxMjgmcXVvdDssJnF1b3Q7dGltZW91dF9leHByZXNzJnF1b3Q7OiZxdW90OzEyMG0mcXVvdDt9Ij4KPGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9Iueri+WNs+aUr+S7mCIgc3R5bGU9ImRpc3BsYXk6bm9uZSIgPgo8L2Zvcm0+CjxzY3JpcHQ+ZG9jdW1lbnQuZm9ybXNbMF0uc3VibWl0KCk7PC9zY3JpcHQ+",
+	"message" : "操作成功"
+}
 
+失败：
+{
+    "code": 500,
+    "message": "未查询到该待付款订单"
+}
 
+根据交易流水号查看交易是否已付款 /api/order/checkPay/{tradeId}
 
+已付款：
+{
+    "code": 500,
+    "message": "操作成功"
+}
 
-
-
+未付款：
+{
+    "code": 500,
+    "message": "此交易非付款状态"
+}
+如果交易不存在:
+{
+    "code": 500,
+    "message": "检测失败"
+}
