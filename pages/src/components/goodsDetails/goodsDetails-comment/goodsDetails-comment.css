@@ -1,0 +1,139 @@
+.Goods-Details-comment {
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+
+
+.Goods-Details-comment-bodybox {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.Goods-Details-comment-firstbox {
+    background: #fff;
+    
+}
+.Goods-Details-comment-firstsmall {
+    width: 310px;
+}
+
+.Goods-Details-comment-title1 {
+    font-size: 22px;
+    color: #8d8d8d;
+    margin-left: 20%;
+    display: inline-block;
+    margin-top: 40px;
+}
+.Goods-Details-comment-title2 {
+    font-size: 22px;
+    color: #000;
+    margin-left: 20%;
+    display: inline-block;
+    margin-top: 40px;
+}
+.Goods-Details-comment-center {
+    font-size: 44px;
+    color: #e31436;
+    margin: 0 auto;
+    width: 160px;
+    height: 250px;
+    line-height: 250px;
+}
+
+.Goods-Details-comment-center-words {
+    font-size: 14px;
+    color: #000;
+    font-style: normal;
+}
+
+.Goods-Details-comment-bottom-nav {
+    font-size: 14px;
+    color: #000;
+    font-style: normal;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+.allcomment {
+    color: #e31436;
+}
+.Goods-Details-comment-secondbox {
+    margin-top: 20px;
+    background: #fff;
+}
+.Goods-Details-comment-head {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    opacity: 0.95;
+    margin-top: 20px;
+    margin-left: 7%;
+
+}
+.Goods-Details-comment-head-nickname {
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 4.5%;
+    color: #000;
+}
+.Goods-Details-comments {
+    display: block;
+    
+    margin-left: 16%;
+}
+.Goods-Details-comments-data {
+    font-size: 14px;
+    color: #000;
+    margin-left: 16%;
+    font-style: normal;
+    line-height: 50px;
+    height: 50px;
+}
+
+.Goods-Details-comments-time {
+    font-size: 14px;
+    color: #000;
+    margin-left: 3%;
+    font-style: normal;
+    line-height: 50px;
+    height: 50px;
+}
+
+
+
+.not-found {
+    width: 100%;
+    height: 600px;
+
+    position: relative;
+}
+
+.not-found img {
+    position: absolute;
+    top: 100px;
+    left: 20%;
+    width: 30%;
+}
+
+.not-found div {
+    width: 200px;
+    
+    position: absolute;
+    left: 60%;
+    top: 200px;
+
+    text-align: center;
+}
+
+.not-found div h1 {
+    font-size: 30px;
+}
+
+.not-found div p {
+    font-size: 24px;
+}

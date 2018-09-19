@@ -1,0 +1,36 @@
+@import '~antd/dist/antd.css';
+@font-face {
+  font-family: 'iconfont';
+  src: url('./fonts/iconfont.eot');
+  src: url('./fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('./fonts/iconfont.woff') format('woff'),
+  url('./fonts/iconfont.ttf') format('truetype'),
+  url('./fonts/iconfont.svg#iconfont') format('svg');
+}
+
+/* 新加入css
+*　                                                  __----~~~~~~~~~~~------___
+#                                   .  .   ~~//====......          __--~ ~~
+#                   -.            \_|//     |||\\  ~~~~~~::::... /~
+#                ___-==_       _-~o~  \/    |||  \\            _/~~-
+#        __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
+#    _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /               Codes are far away from bugs with the animal protecting!
+#  .~       .~       |   \\ -_    /  /-   /   ||      \   /                               神龙保佑，react无bug
+# /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
+# |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
+#          '         ~-|      /|    |-~\~~       __--~~
+#                      |-~~-_/ |    |   ~\_   _-~            /\
+#                           /  \     \__   \/~                \__
+#                       _--~ _/ | .-~~____--~-/                  ~~==.
+#                      ((->/~   '.|||' -_|    ~~-/ ,              . _||
+#                                 -_     ~\      ~~---l__i__i__i--~~_/
+#                                 _-~-__   ~)  \--______________--~~
+#                               //.-~~~-~_--~- |-------~~~~~~~~
+#                                      //.-~~~--\
+*/
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table;
+  }
+  
+  .clearfix:after { clear:both; }

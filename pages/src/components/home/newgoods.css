@@ -1,0 +1,81 @@
+
+
+/* 新品首发： */
+
+.new-goods {
+    text-align: center;
+
+    padding: 0;
+
+    position: relative;
+}
+
+.new-goods li {
+    float: left;
+
+    width: 24%;
+
+    margin-right: 1%;
+
+    list-style-type: none;
+}
+
+.new-goods a:nth-of-type(4) .goods {
+    height: 350px;
+}
+
+.new-goods a:nth-of-type(4) img{
+    width: 120px;
+    height: 120px;
+}
+
+.new-goods a:nth-of-type(4) h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.new-goods a:nth-of-type(4) p {
+    margin-bottom: 0;
+}
+
+.more {
+    height: 75px;
+    width: 24%;
+
+    background-color: #fff;
+
+    cursor: pointer;
+
+    font-size: 20px;
+    line-height: 75px;
+    color: #000;
+
+    transition: all .5s;
+
+    position: absolute;
+    bottom: 15px;
+    right: 1%;
+}
+
+.more:hover {
+    background-color: #eee;
+
+    box-shadow: -2px 2px 4px 2px #e4e4e4;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    z-index: 90;
+}
+
+.more i {
+    display: inline-block;
+
+    margin-bottom:-10px ;
+
+    font-family: iconfont;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 60px;
+    color: #e31436;
+}
+

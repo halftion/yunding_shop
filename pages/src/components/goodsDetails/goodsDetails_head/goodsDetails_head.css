@@ -1,0 +1,116 @@
+.Goods-Details-bigbox {
+    margin: 0 auto;
+    padding-top: 83px;
+    width: 70%;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+.Goods-Details-left {
+    width: 37.58%;
+    float: left;
+}
+.Goods-Details-image {
+    width: 100%;
+    height: 520px;
+    background-color: #fff;
+
+    position: relative;
+}
+
+.Goods-Details-img {
+    width: 100%;
+    
+    margin: auto; 
+    position: absolute; 
+    top: 0; left: 0; bottom: 0; right: 0; 
+}
+
+.Goods-Details-right {
+    width: 60%;
+    height: 520px;
+    float: right;
+    margin-left: 15px;
+    background-color: #fff;
+    vertical-align: top;
+}
+.Goods-Details-right-center {
+    margin: 40px 50px;
+}
+.Goods-Details-right-title {
+    font-size: 16px;
+}
+
+.Goods-Details-right-price {
+    font-size: 14px;
+    font-style: normal;
+    color: #8d8d8d;
+    display: inline-block;
+    margin-top: 55px;
+    letter-spacing: 7px;
+}
+.Goods-Details-right-num {
+    font-size: 22px;
+    color: #ff0000;
+    margin-left: 40px;
+    letter-spacing: 0;
+}
+
+.Goods-Details-right-choice {
+    font-size: 14px;
+    font-style: normal;
+    color: #8d8d8d;
+    display: inline-block;
+    margin-top: 55px;
+}
+
+.Goods-Details-right-click1 {
+    margin-left: 18px;
+    /* border-color: #ff0000; */
+    margin-bottom: 10px;
+}
+.Goods-Details-right-click2 {
+    margin-left: 18px;
+    /* border-color: #fff; */
+}
+
+.Goods-Details-right-click {
+    margin-left: 27px;
+    /* border-color: #fff; */
+}
+
+
+.Goods-Details-right-click:hover {
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.Goods-Details-right-sale {
+    font-size: 14px;
+    color: #8d8d8d;
+    display: inline-block;
+    margin-top: 55px;
+    letter-spacing: 27px;
+}
+
+.Goods-Details-right-sale-num {
+    color: #ff0000;
+    font-style: normal;
+    font-size: 22px;
+    margin-left: 26px;
+}
+
+.Goods-Details-right-add {
+    width: 225px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    display: block;
+    color: #fff;
+    background-color: #e31436;
+    margin: 33px auto;
+}
+.Goods-Details-right-smallbox{
+    width: 255px;
+    margin-left: 90px;
+    margin-top: -26px;
+}

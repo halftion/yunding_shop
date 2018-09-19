@@ -1,0 +1,94 @@
+@import '~antd/dist/antd.css';
+@font-face {
+  font-family: 'iconfont';
+  src: url('../../fonts/iconfont.eot');
+  src: url('../../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../../fonts/iconfont.woff') format('woff'),
+  url('../../fonts/iconfont.ttf') format('truetype'),
+  url('../../fonts/iconfont.svg#iconfont') format('svg');
+}
+
+.common-side-left{
+  height: 100%;
+
+  position: fixed;
+  left: 0;
+  top:60px;
+
+  background-color: #fff;
+
+  z-index: 99;
+}
+
+.common-left-switchbox {
+  text-align: center;
+
+  height: 100%;
+  width: 60px;
+
+  cursor: pointer;
+}
+
+.common-left-switch {
+  display: block;
+  
+  margin-top: 300px;
+  margin-bottom: 300px;
+  
+  font-family: iconfont;
+  font-size: 20px;
+  font-style: normal;
+  color: #000;
+
+  transition: all .3s;
+
+  user-select: none; 
+
+  cursor: pointer;
+}
+
+.common-left-switch:hover {
+  color: #e31436;
+}
+
+.common-left-switch-active {
+  transform:rotate(180deg);
+}
+
+.side-menu-box {
+  width: 0;
+
+  overflow: hidden;
+  
+  position: fixed;
+  left: 60px;
+  top: 60px;
+  bottom: 0;
+
+  background-color: #fff;
+
+  text-align: center;
+
+  transition: all .3s;
+}
+
+.side-menu-box-active {
+  width: 15%;
+}
+
+.side-menu {
+  margin-top: 20px;
+}
+
+.side-menu-box .ant-menu-item {
+  height: 60px;
+
+  font-size: 20px;
+  line-height: 60px;
+
+  transition: all .5s;
+}
+
+.side-menu-box .ant-menu-item-selected {
+  border-right: 3px solid #e31436 !important;
+}

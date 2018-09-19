@@ -1,0 +1,304 @@
+@import '~antd/dist/antd.css';
+@font-face {
+  font-family: 'iconfont';
+  src: url('../../fonts/iconfont.eot');
+  src: url('../../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../../fonts/iconfont.woff') format('woff'),
+  url('../../fonts/iconfont.ttf') format('truetype'),
+  url('../../fonts/iconfont.svg#iconfont') format('svg');
+}
+
+.side-shopping-cart {
+  width: 0;
+  height: 100%;
+
+  border-left: 2px solid #eee;
+
+  overflow: hidden;
+
+  background-color: #fff;
+  
+  position: fixed;
+  right: 40px;
+  top: 60px;
+
+  z-index: 99;
+
+  transition: all .3s;
+}
+
+.side-shopping-cart-active {
+  width: 320px;
+}
+
+/* 购物车名称： */
+.side-shopping-cart-title {
+  width: 100%;
+  height: 120px;
+
+  top: 0;
+}
+
+.side-shopping-cart-title h1 {
+  width: 100px;
+  
+  margin-top: 20px;
+  margin-left: 13%;
+
+  font-size: 26px;
+}
+
+.side-shopping-cart-title p {
+  margin-left: 13%;
+
+  font-size: 20px;
+}
+
+/* 购物车： */
+
+.shopping-cart{
+  height: 60%;
+  width: 100%;
+  
+  position: absolute;
+  top: 120px;
+
+  overflow: auto;
+}
+
+/* 无商品时输出模块: */
+.no-product {
+  position: absolute;
+  top: 50%;
+  margin-top: -80px;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.no-product p {
+  display: block;
+  
+  font-size: 12px;
+}
+
+.no-product a {
+  font-style: normal;
+  color: #e31436;
+}
+
+/* 商品模块： */
+.product {
+  width: 100%;
+  
+
+  overflow: hidden;
+
+  position: relative;
+
+  transition: all .5s;
+}
+
+.product-unable {
+  height: 0px;
+}
+
+.product-active {
+  height: 100px !important;
+}
+
+.product:hover {
+  background-color: #ffe6e6;
+}
+
+.product img {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.product a {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+
+  height: 40px;
+  width: 180px;
+
+  overflow: hidden;
+
+  font-size: 12px;
+  color: #000;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.product a:hover {
+  color: #e31436;
+}
+
+.product span {
+  position: absolute;
+  left: 32%;
+  bottom: 20px;
+  
+  font-size: 12px;
+  color: #e31436;
+}
+
+.product span i {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.delete-product {
+  position: absolute;
+  left: 270px;
+  bottom: 20px;
+
+  font-family: iconfont;
+  font-style: normal;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all .3s;
+}
+
+.delete-product:hover {
+  color: #e31436;
+}
+
+/* 结算/删除模块 */
+.side-shopping-cart-handle {
+  height: 21%;
+  width: 100%;
+
+  background-color: #fff;
+
+  position: absolute;
+  bottom: 0;
+}
+
+/*.side-shopping-cart-handle p {
+  position: absolute;
+  left: 26px;
+  top: 20%;
+}
+
+.side-shopping-cart-handle p i {
+  font-style: normal;
+  color: #e31436;
+}*/
+
+.side-shopping-cart-handle a {
+  width: 80%;
+  height: 35px;
+
+  background-color: #e31436;
+  border-radius: 5px;
+  
+  position: absolute;
+  right: 20px;
+  top: 15%;
+ 
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  line-height: 35px;
+
+  transition: all .5s;
+}
+
+.side-shopping-cart-handle a:hover {
+  background-color: #bb0e2b;
+}
+
+/* 侧边菜单 */
+.side-shopping-cart-iconbox {
+  width: 60px;
+  height: 100%;
+
+  position: fixed;
+  right: 0px;
+  top: 60px;
+
+  z-index: 99;
+
+  background-color: #fff;
+
+  text-align: center;
+}
+
+.side-shopping-cart-iconbox img {
+  display: block;
+  width: 36px;
+  height: 36px;
+
+  margin-top: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+
+  border-radius: 18px;
+  /* border: 2px dotted #ddd; */
+  border: 2px solid #ddd;
+
+  cursor: pointer;
+  
+  user-select: none; 
+
+  transition:all .3s;
+}
+
+.side-shopping-cart-iconbox img:hover {
+  border-color: #e31436;
+}
+
+.side-shopping-cart-iconbox i {
+  display: block;
+  position: relative;
+
+  margin-top: 30px;
+
+  font-family: iconfont;
+  font-style: normal;
+  font-size: 30px;
+  color: #000;
+
+  cursor: pointer;
+
+  transition: all .3s;
+
+  user-select: none; 
+}
+
+.side-shopping-cart-iconbox i:hover {
+  color: #e31436;
+}
+
+.side-shopping-cart-iconbox i span {
+  width: 26px;
+  height: 26px;
+
+  border-radius: 13px;
+
+  background-color: #e31436;
+  
+  font-size: 12px;
+  line-height: 26px;
+  color: #fff;
+  text-align: center;
+  
+  position: absolute;
+  left: 2px;
+  top: -4px;
+
+  user-select: none; 
+
+  cursor: pointer;
+}

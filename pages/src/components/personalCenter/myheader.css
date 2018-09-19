@@ -1,0 +1,116 @@
+
+.myheader-background .ant-avatar {
+    margin-top: 24px;
+    margin-bottom: 28px;
+    margin-left: 50px;
+    width: 160px;
+    height: 160px;
+  }
+
+.myheader-background  p {
+    display: inline;
+    color: #000;
+    font-size: 15px;
+    margin: 0;
+    
+}
+
+
+.myheader-background {
+    width: 100%;
+    margin: auto;
+    padding-top: 90px;
+}
+
+.myheader-first {
+    background-color: #fff;
+}
+
+.myheader-first-title {
+    margin-top: 28px;
+    font-size: 22px;
+    display: inline-block;
+    margin-left: 30px;
+
+}
+
+.myheader-first-bigbox {
+    display: inline-block;
+    width: 70%;
+
+    padding-top: 55px;
+}
+.myheader-first-userInformation {
+    width: 140px;
+    display: inline-block;
+    margin-left: 20px;
+}
+.myheader-first-userId {
+    width: 132px;
+    font-size: 22px;
+}
+
+.myheader-first-setPassword {
+    display: block;
+    width: 100px;
+    font-size: 16px;
+
+    color: #e31436;
+
+    cursor: pointer;    
+}
+
+.myheader-first-rightBox {
+    display: inline-block;
+    width: 30%;
+    float: right;
+    margin-top: 12px;
+}
+
+
+.ant-upload.ant-upload-select-picture-card {
+    display: inline-block;
+    width: 168px;
+    height: 168px;
+
+    margin-left: 5%;
+    margin-bottom: 40px;
+
+    border-radius: 84px;
+}
+
+/* 修改个人信息 */
+
+.setPersonalInfo .ant-modal-title {
+    text-align: center;
+}
+
+.setPersonalInfo .ant-modal-body {
+    text-align: center;
+}
+
+.setPersonalInfo .ant-modal-header {
+    border-bottom: none;
+}
+
+.setPersonalInfo p {
+    display: inline-block;
+}
+
+.setPersonalInfo input {
+    width: 80%;
+}
+
+.setPersonalInfo-btn {
+    width: 90%;
+
+    margin-top: 20px;
+}
+
+.setPersonalInfo .date-input {
+    width: 80%;
+}
+
+.setPersonalInfo .date-input input {
+    width: 100%;;
+}

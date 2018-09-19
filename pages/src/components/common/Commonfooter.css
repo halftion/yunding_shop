@@ -1,0 +1,149 @@
+
+  @font-face{
+      font-family: baidu;
+      src:url('../../fonts/baidu.ttf');
+  }
+
+  .footer {
+      display: block;
+      width: 100%;
+
+      background-color: #fff;
+  }
+
+  .footer-item {
+      width: 62.5%;
+      margin:  0 auto;
+  }
+
+  .footer-item ul {
+      padding-left: 0;
+  }
+
+
+
+  .footer-item>ul>li {
+    display: inline-block;
+    width: 25%;
+    padding-top: 70px;
+    padding-bottom: 50px;
+
+    text-align: center;
+    list-style: none;
+
+    user-select: none;
+  }
+
+  .footer-item>ul>li span {    
+    font-family: iconfont;
+    font-size: 36px;
+    color: #e31436;
+    line-height: 36px;
+  }
+
+  .footer-item>ul>li p {
+    display: inline-block;
+
+    padding-left: 20px;
+    
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 36px;
+  }
+
+  .footer-message {
+      padding-bottom: 80px;
+  }
+
+  .footer-message .message {
+    display: inline-block;
+    width: 40%;
+
+    padding-left: 7%;
+  }
+
+  .footer-message .message img{
+    width: 100%;
+    margin-bottom: 16%;
+
+    vertical-align: top;
+  }
+
+  .footer-message .message p {
+    display: block;  
+    
+    font-size: 14px;
+  }
+
+  .footer-message .message p span:last-of-type {
+      padding-left: 60px;
+  }
+
+  .footer-message .qr {
+    display: inline-block;  
+    width: 18%;
+    margin-left: 14%;
+    text-align: center;
+  }
+
+  .footer-message .qr:last-child {
+    display: inline-block;  
+    width: 18%;
+    margin-left: 7%;
+    text-align: center;
+  }
+
+
+  .footer-message .qr img {
+      display: block;
+    
+      width: 120px;
+      height: 120px;
+
+      margin-bottom: 40px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .footer-menu {
+    width: 100% !important;
+    
+    background-color: #e31436;
+  }
+
+  .footer-menu ul {
+      display: inline-block;
+      margin: 0;
+
+      padding-left: 23%;
+  }
+
+  .footer-menu ul:last-of-type {
+      padding-left: 15%;
+  }
+
+  .footer-menu ul li {
+    display: inline-block;
+    height: 16px;
+
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    
+    border-right:1px solid #fff;
+    
+    list-style: none;
+    line-height: 16px;
+    color: #fff;
+  }
+  
+
+  .footer-menu ul li:last-of-type {
+      border-right: none;
+  }
+
+  .footer-menu ul li a {
+      color: #fff;
+  }

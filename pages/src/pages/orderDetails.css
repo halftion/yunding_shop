@@ -1,0 +1,264 @@
+.order-details {
+    margin: 0 auto;
+    padding-top: 90px;
+    padding-bottom: 50px;
+    width: 70%;
+    height: 100%;
+}
+.order-details-box1 {
+    background-color: #fff;
+    padding-left: 33px;
+}
+
+.order-details-title {
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.order-details-box2 {
+    background-color: #e5e5e5;
+    margin-top: 22px;
+}
+.order-details-title2 {
+    margin-left: 33px;
+    padding-top: 24px;
+}
+.order-details-title2-underline {
+    width: 67px;
+    height: 1px;
+    background-color: #fa0909;
+    display: block;
+    margin-left: 33px;
+    margin-top: -7px;
+}
+.order-details-readdress {
+    margin-left: 33px;
+    margin-top: 34px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+}
+.order-details-address {
+    display: inline-block;
+}
+
+.order-details-sendway {
+    margin-left: 33px;
+    margin-top: 5px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.order-details-way {
+    display: inline-block;
+}
+
+.order-details-box2-one {
+    background-color: #fff;
+}
+
+.order-details-box2-two {
+    background-color: #fff;
+    margin-top: 0.5px;
+}
+.order-details-sell {
+    padding-top: 21px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 33px;
+}
+
+.order-details-nickname {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 11.5%;
+}
+
+.order-details-name {
+    display: inline-block;
+    color: #000;
+}
+
+.order-details-name:hover {
+    color: #e31436;
+}
+
+
+
+.order-details-box2-three {
+    background-color: #fff;
+    margin-top: 1px;
+}
+
+
+.order-details-orderitems {
+    padding-top: 21px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 33px;
+}
+
+.order-details-order-num {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 11.5%;
+}
+
+.order-details-num {
+    display: inline-block;
+}
+
+.order-details-trade-num {
+    font-size: 14px;
+    margin-left: 23%;
+}
+
+.order-details-trade {
+    display: inline-block;
+}
+
+.order-details-crate-time {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 11.5%;
+}
+
+.order-details-time {
+    display: inline-block;
+}
+
+
+
+.order-details-secondbox {
+    background: #fff;
+    width: 84.58%;
+    margin: auto;
+
+}
+
+
+.order-details-secondbox-items {
+    display: inline-block;
+
+    padding-bottom: 10px;
+
+    border: 1px solid #e5e5e5; 
+    width: 100%;
+}
+.order-details-img {
+    display: inline-block;
+    
+    margin-left: 6%;
+    vertical-align: top;
+    width: 50px;
+    height: 50px;
+}
+.order-details-secondbox-items1 {
+    display: inline-block;
+    width: 30%;
+    margin-left: 30px;
+    margin-top: 18px;
+}
+
+.order-details-secondbox-items1 h1 {
+    margin-bottom: 1em;
+    margin-left: 85px;
+    
+    font-size: 14px;
+}
+
+.order-details-information {
+    display: inline-block;
+    width: 60%;
+    margin-left: 20px;
+
+    font-size: 12px;
+    color: #000;
+}
+
+.order-details-information:hover {
+    color: #e31436;
+}
+
+.order-details-secondbox-items2 {
+    display: inline-block;
+    width: 40px;
+    margin-left: 11.5%;
+    vertical-align: top;
+    text-align: center;
+    margin-top: 18px;
+}
+
+
+.order-details-secondbox-items3 {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 11.5%;
+    text-align: center;
+    margin-top: 18px;
+}
+
+
+.order-details-secondbox-price {
+    font-weight: bold;
+    display: block;
+    width: 100px;
+}
+
+.order-details-confirm {
+    vertical-align: top;
+}
+
+.order-details-secondbox-items4 {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin-top: 18px;
+    margin-left: 11.5%;
+}
+
+.order-details-sum {
+    height: 65px;
+    line-height: 65px;
+    margin-left: 76.5%;
+}
+
+.order-details-allprices {
+    color: #fa0909;
+    font-size: 18px;
+}
+
+.Order-details-box3 {
+    margin-top: 22px;
+    background-color: #fff;
+}
+
+.order-details-sendway1 {
+    margin-left: 33px;
+    margin-top: 25px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+}
+.Order-details-box4 {
+    margin-top: 22px;
+    background-color: #fff;
+    margin-bottom: 50px;
+}
+
+.order-details-follow-underline {
+    width: 67px;
+    height: 1px;
+    background-color: #fa0909;
+    display: block;
+    margin-left: 33px;
+    margin-top: -7px;
+}
+
+.Order-details-follow {
+    margin-bottom: 20px;
+    display: inline-block;
+}

@@ -1,0 +1,49 @@
+.ind-header {
+    margin: 20px auto;
+
+    padding-left:26px;
+
+    background-color: #fff;
+} 
+
+.ind-header h1 {
+    padding-top: 34px;
+    padding-bottom: 26px;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.ind-header p {
+    display: inline-block;
+
+    font-size: 12px;
+
+    padding-bottom: 10px;
+}
+
+.ind-header p:first-of-type {
+    width: 9.8%;
+}
+
+.ind-header p:nth-of-type(2) {
+    width: 48.9%;
+}
+
+.ind-header p:nth-of-type(3) {
+    width: 13%;
+
+    text-align: center;
+}
+
+.ind-header p:nth-of-type(4) {
+    width: 13%;
+
+    text-align: center;
+}
+
+.ind-header p:nth-of-type(5) {
+    width: 13%;
+
+    text-align: center;
+}

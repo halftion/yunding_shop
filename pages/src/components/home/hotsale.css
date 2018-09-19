@@ -1,0 +1,21 @@
+
+/* 热卖商品 */
+.hot-sale-list {
+    text-align: center;
+
+    padding: 0;
+}
+
+.hot-sale-list li {
+    float: left;
+    
+    width: 24%;
+
+    margin-right: 1%;
+
+    list-style-type: none;
+}
+
+.hot-sale-list .goods {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,102 @@
+.Goods-Details-modelshow {
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+
+
+.Goods-Details-bodybox {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.Goods-Details-firstbox {
+    width: 310px;
+}
+
+.Goods-Details-firstbox-title1 {
+    font-size: 22px;
+    color: #000;
+    margin-left: 20%;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.Goods-Details-firstbox-title2 {
+    font-size: 22px;
+    color: #8d8d8d;
+    margin-left: 20%;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.Goods-Details-firstbox-image {
+    margin: 50px auto;
+    display: block;
+    width: 900px;
+    height: 328px;
+}
+.Goods-Details-secondbox {
+    margin: 50px auto;
+    display: block;
+    width: 75%;
+}
+
+.image1 {
+    height: 1382px;
+}
+.image2 {
+    height: 895px;
+}
+.image3 {
+    height: 1325px;
+}
+.image4 {
+    height: 1692px;
+}
+.image5 {
+    height: 1741px;
+}
+.image6 {
+    height: 1469px;
+}
+
+
+
+.not-found {
+    width: 100%;
+    height: 600px;
+
+    position: relative;
+}
+
+.not-found .detailnotfound {
+    position: absolute;
+    width: 200px;
+    top: 170px;
+    left: 20%;
+}
+
+.not-found div {
+    width: 200px;
+    
+    position: absolute;
+    left: 60%;
+    top: 200px;
+
+    text-align: center;
+}
+
+.not-found div h1 {
+    font-size: 30px;
+}
+
+.not-found div p {
+    font-size: 24px;
+}

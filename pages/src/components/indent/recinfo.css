@@ -1,0 +1,100 @@
+.recinfo {
+    width: 100%;
+
+    margin-top: 26px;
+
+    background-color: #fff;
+}
+
+.recinfo h1 {
+    margin-left: 26px;
+    padding-top: 40px;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.recinfo p {
+    display: inline-block;
+}
+
+.rec-name {
+    width: 45%;
+
+    padding-left: 26px;
+}
+
+.rec-name p{
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+
+    padding-right: 10%;
+}
+
+.rec-name input {
+    width:70%;
+    height: 50px;
+    line-height: 50px;
+}
+
+.rec-add {
+    width: 44%;
+
+    margin-left: 7%;
+}
+
+.rec-add .ant-form-item-control-wrapper {
+    width: 100%;
+}
+
+.rec-add p{
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+
+    padding-right: 10%;
+
+    vertical-align: top;
+}
+
+.rec-add textarea {
+    width:70%;
+
+    padding-top: 16px;
+
+    line-height: 19.5px;
+}
+
+.rec-remark {
+    width: 100%;
+
+    padding-left: 26px;
+}
+
+.rec-remark p {
+    padding-right: 3%;
+    
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+
+    vertical-align: top;
+}
+
+.rec-remark .ant-form-item-control-wrapper {
+    width: 100%;
+}
+
+.rec-remark textarea {
+    width:85.5%;
+
+    padding-top: 16px;
+
+    line-height: 19.5px;
+}
+
+.recinfo form {
+    padding-bottom: 20px;
+}
+
