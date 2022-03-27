@@ -31,7 +31,7 @@ jiazewen wangxiaomin
 前端：
 [halftion](https://gitee.com/halftion) guocongcong
 后台：
-[http://coding.yundingshuyuan.com/qiyubing](http://coding.yundingshuyuan.com/qiyubing)(18634312616) angelasilly 🇨🇳🌟🌟🌟🌟🌟 renyu 
+[yubinnng]https://github.com/yubinnng)(18634312616) angelasilly 🇨🇳🌟🌟🌟🌟🌟 renyu 
 
 ## 项目周期：
 2018/8/1 - 2018/8/30
