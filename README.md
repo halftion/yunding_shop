@@ -47,7 +47,7 @@ jiazewen wangxiaomin
 [halftion](https://gitee.com/halftion) guocongcong
 
 ### 后台：
-[yubinnng](https://github.com/yubinnng) angelasilly 🇨🇳🌟🌟🌟🌟🌟 renyu 
+[yubinnng](https://github.com/yubinnng) angelasilly [GitHub7796](https://github.com/GitHub7796) renyu 
 
 ## 项目周期：
 2018/8/1 - 2018/8/30
