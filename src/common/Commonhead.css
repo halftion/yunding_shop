@@ -1,0 +1,44 @@
+@import '~antd/dist/antd.css';
+
+.topSearch .ant-input{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom:1px solid #333;
+    border-radius: 0;
+    outline: none;
+    box-shadow: 0px 0px 0px;
+  }
+  
+  .topSearch i:hover{
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .topSearch .ant-input:hover{
+    border-bottom:1px solid #000 !important;
+  }
+  
+  .topSearch .ant-input:focus{
+    border-bottom:1px solid #000;
+  }
+  
+  .topSearch .ant-input-prefix{
+    box-shadow: 0px 0px 0px;
+  }
+  
+  .topbtn{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin-left: -10px !important;
+    outline: none;
+  }
+  
+  .topbtn::after:hover{
+    box-shadow: 0px 0px 0px;
+  }
+  
+  .topbtn:hover,.topbtn:focus{
+    color: #000;
+    background-color: rgba(255, 255, 255, 0);
+  }
